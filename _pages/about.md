@@ -22,7 +22,7 @@ social: true # includes social icons at the bottom of the page
 
 Hi, I'm Seongsu. Thank you for stopping by! 👋 The spelling of my name in Korean is "성수" and it is pronounced as [sʌŋ-su:].
 
-I am currently a second-year integrated Ph.D. student in the AI department at POSTECH. I am also a member of [ML lab](https://ml.postech.ac.kr/). <!-- , where my supervisor is [Sungsoo Ahn](https://sites.google.com/view/sungsooahn0215/home). -->
+I am currently a second-year M.S. student in the AI department at POSTECH. I am also a member of [ML lab](https://ml.postech.ac.kr/). <!-- , where my supervisor is [Sungsoo Ahn](https://sites.google.com/view/sungsooahn0215/home). -->
 
 My research interests include **integrating AI into scientific research and using AI to uncover scientific facts**. Also, I am interested in physical and chemical concepts like solid state physics, simulation dynamics and molecular science, and also mathematical concepts like group theory, geometry and geometrical deep learning.
 
