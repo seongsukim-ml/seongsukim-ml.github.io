@@ -31,7 +31,7 @@ Recently, I am focusing on **(1) generative modeling for materials** and **(2) *
 
 I believe that AI will effectively reduce the complexity of calculations in physics and chemistry, especially in areas like multi-objective optimization problems, challenges in establishing ansatzes, modeling interactions and governing equations, and handling intractable computations. I am studying and researching these possibilities.
 
-I am always open to discussion, so please feel free to reach out anytime! 
+I am always open to discussion, so please feel free to reach out anytime!
 
 
 <!-- Recently, I am focusing on intergrating [Geometrical Deep Learning](https://geometricdeeplearning.com/) into the molecular science. -->
