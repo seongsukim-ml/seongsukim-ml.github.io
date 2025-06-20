@@ -23,7 +23,7 @@ social: true # includes social icons at the bottom of the page
 
 Hi, I'm Seongsu. Thank you for stopping by! 👋 The spelling of my name in Korean is "성수" and it is pronounced as [sʌŋ-su:].
 
-I am currently a incoming Ph.D. student in the AI department at KAIST. I am also a member of [Structured and Probabilistic Machine Learning (SPML) Lab](https://sites.google.com/view/sungsooahn0215/home). I finished my M.S. in the POSTECH.
+I am currently an incoming Ph.D. student in the AI department at KAIST. I am also a member of [Structured and Probabilistic Machine Learning (SPML) Lab](https://sites.google.com/view/sungsooahn0215/home). I finished my M.S. in the POSTECH.
 
 My research interests include **integrating AI into scientific research and using AI to uncover scientific facts**. Also, I am interested in physical and chemical concepts like solid state physics, simulation dynamics and molecular science, and also mathematical concepts like group theory, geometry and geometrical deep learning.
 
