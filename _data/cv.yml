@@ -11,54 +11,76 @@
 - title: Education
   type: time_table
   contents:
-    - title: Master course
+    - title: Ph.D. 
+      institution: KAIST, Seoul, Korea
+      year: 2025.9 - Now
+      description:
+        - Aritificial Intelignece department
+
+    - title: Master Course
       institution: POSTECH, Pohang, Korea
-      year: 2023 - Now
+      year: 2023.2 - 2025.8
       description:
         - Aritificial Intelignece department
 
     - title: Bachelor of Science
       institution: GIST, Gwangju, Korea
-      year: 2016 - 2023
+      year: 2016.3 - 2023.2
       description:
         - title: Major in Physics.
           contents:
-            - Statistical and solid state physics
-            - Long-range interation in Ising model
+            - Statistical and Solid state physics
+            - Long-range Interation in Ising model
             - Monte Carlo Simulation
-        - Minor in Electric Engineering and Computer Science (EECS) and Mathematics
+        - Minor in Electric Engineering and Computer Science (EECS), Mathematics, and AI
 
 - title: Experience
   type: time_table  
   contents:
-    - title : Machine Learning Lab
+    - title : [Structured and Probabilistic Machine Learning (SPML) Lab](https://sites.google.com/view/sungsooahn0215/home)
+      institution: KAIST, Seoul, Korea
+      year: 2025.2 - Now
+      description:
+        - Conducting reserches invovled in Geometrical Deep Learning and AI for science
+
+    - title : [Machine Learning Lab](https://ml.postech.ac.kr/)
       institution: POSTECH, Pohang, Korea
-      year: 2023 - Now
+      year: 2023.2 - 2025.2
       description:
         - Conducting reserches invovled in Geometrical Deep Learning and AI for science
 
     - title: Lab of Computational Many-body Physics
       institution: GIST, Gwangju, Korea
-      year: 2021-2022
+      year: 2021.9 - 2023.2
       description:
         - Expolring the critical phenomena of two dimensional anisotropy antiferromagnetic long range Ising model by Monte Carlo simulation.
 
     - title: Statistical Artificial Intelligence Lab
       institution: KAIST, Daejon, Korea
-      year: 2022
+      year: 2023.6 - 2023.7
       description:
         - Studied the various techniques of explainable A.I. including LIMES, LRP, CRP, and GRAD-CAM
 
     - title: Mandatory Military Service
       # institution: Yangu, Korea
-      year: 2020 - 2021
+      year: 2020.1 - 2021.8
 
     - title: Lab of Quantum Field & Gravity theory group
       institution: GIST, Gwangju, Korea
-      year: 2019 - 2020
+      year: 2019.12 - 2020.2
       description:
         - Participated in a project involved in Deep learning and the AdS/CFT correspondence.
-  
+
+- title: Talks
+  type: time_table
+  contents:
+    - year: 2025.6
+      title: Accelerating the ab-initio Calculation with the Machine Learning Talks
+      description: KAIST-MILA Prefrontal AI Workshop
+    - year: 2024.7
+      title: Gaussian Plane-wave Neural Operator for Electron Density Estimation
+      description: KAIST-POSTECH joint AI Workshop
+
 - title: Honors and Awards
   type: time_table
   contents:
