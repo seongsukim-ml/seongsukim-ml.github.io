@@ -37,13 +37,13 @@
 - title: Experience
   type: time_table  
   contents:
-    - title : [Structured and Probabilistic Machine Learning (SPML) Lab](https://sites.google.com/view/sungsooahn0215/home)
+    - title : Structured and Probabilistic Machine Learning (SPML) Lab
       institution: KAIST, Seoul, Korea
       year: 2025.2 - Now
       description:
         - Conducting reserches invovled in Geometrical Deep Learning and AI for science
 
-    - title : [Machine Learning Lab](https://ml.postech.ac.kr/)
+    - title : Machine Learning Lab
       institution: POSTECH, Pohang, Korea
       year: 2023.2 - 2025.2
       description:
