@@ -5,7 +5,7 @@ permalink: /
 subtitle: 
 profile:
   align: right
-  image: prof_pic2.jpg
+  image: pro_pic2.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
     <p>seongsu.kim@kaist.ac.kr</p>
