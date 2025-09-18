@@ -20,7 +20,13 @@
             <abbr class="badge">{{entry.abbr}}</abbr>
           {%- endif -%}
           {% if entry.award %}
-            <span class="award badge">{{entry.award}}</span>
+            {%- assign award_class = '' -%}
+            {%- if entry.award contains 'Spotlight' -%}
+              {%- assign award_class = 'spotlight' -%}
+            {%- elsif entry.award contains 'Poster' -%}
+              {%- assign award_class = 'poster' -%}
+            {%- endif -%}
+            <span class="award badge {{award_class}}">{{entry.award}}</span>
           {% endif %}
         {%- endif -%}
         </div>
