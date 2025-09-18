@@ -681,6 +681,7 @@ footer.sticky-bottom {
       /* Preview in abbr column */
       .abbr.preview {
         margin-top: 15px;
+        margin-bottom: 15px;
         display: block;
         width: 100%;
         text-align: center;
@@ -688,6 +689,7 @@ footer.sticky-bottom {
 
       .abbr.preview img {
         width: 100%;
+        height: auto;
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       }
