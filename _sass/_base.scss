@@ -678,6 +678,21 @@ footer.sticky-bottom {
         max-width: 200px;
       }
 
+      /* Preview in abbr column */
+      .abbr .preview {
+        margin-top: 8px;
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+
+      .abbr .preview img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
       /* Preview overlay badges */
       abbr.badge,
       .award.badge {
