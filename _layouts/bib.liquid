@@ -3,37 +3,7 @@
 <!-- _layouts/bib.html -->
       <div class="row">
         <div class="col-sm-2 {% if entry.preview %}preview{% else %}abbr{% endif %}">
-        {%- if entry.preview -%}
-          <div class="pub-preview-wrapper">
-            {% if entry.preview contains '://' -%}
-            <img class="preview z-depth-1 rounded" src="{{ entry.preview }}">
-            {%- else -%}
-            <img class="preview z-depth-1 rounded" src="{{ entry.preview | prepend: '/assets/img/publication_preview/' | relative_url }}">
-            {%- endif -%}
-            <div class="pub-badges">
-              {%- if entry.abbr -%}
-                {%- if site.data.venues[entry.abbr] -%}
-                  {%- assign venue_style = nil -%}
-                  {%- if site.data.venues[entry.abbr].color != blank -%}
-                    {%- assign venue_style = site.data.venues[entry.abbr].color | prepend: 'style="background-color:' | append: '"' -%}
-                  {%- endif -%}
-                  <abbr class="badge" {% if venue_style %}{{venue_style}}{% endif %}><a href="{{site.data.venues[entry.abbr].url}}">{{entry.abbr}}</a></abbr>
-                {%- else -%}
-                  <abbr class="badge">{{entry.abbr}}</abbr>
-                {%- endif -%}
-              {%- endif -%}
-              {% if entry.award %}
-                {%- assign award_class = '' -%}
-                {%- if entry.award contains 'Spotlight' -%}
-                  {%- assign award_class = 'spotlight' -%}
-                {%- elsif entry.award contains 'Poster' -%}
-                  {%- assign award_class = 'poster' -%}
-                {%- endif -%}
-                <span class="award badge {{award_class}}">{{entry.award}}</span>
-              {% endif %}
-            </div>
-          </div>
-        {%- elsif entry.abbr -%}
+        {%- if entry.abbr -%}
           {%- if site.data.venues[entry.abbr] -%}
             {%- assign venue_style = nil -%}
             {%- if site.data.venues[entry.abbr].color != blank -%}
@@ -43,15 +13,26 @@
           {%- else -%}
             <abbr class="badge">{{entry.abbr}}</abbr>
           {%- endif -%}
-          {% if entry.award %}
-            {%- assign award_class = '' -%}
-            {%- if entry.award contains 'Spotlight' -%}
-              {%- assign award_class = 'spotlight' -%}
-            {%- elsif entry.award contains 'Poster' -%}
-              {%- assign award_class = 'poster' -%}
+        {% if entry.award %}
+          {%- assign award_class = '' -%}
+          {%- if entry.award contains 'Spotlight' -%}
+            {%- assign award_class = 'spotlight' -%}
+          {%- elsif entry.award contains 'Poster' -%}
+            {%- assign award_class = 'poster' -%}
+          {%- else}
+            {%- assign award_class = 'other' -%}
+          {%- endif -%}
+          <span class="award badge {{award_class}}">{{entry.award}}</span>
+        {% endif %}
+        {%- if entry.preview -%}
+          <div class="pub-preview-wrapper">
+            {% if entry.preview contains '://' -%}
+            <img class="preview z-depth-1 rounded" src="{{ entry.preview }}">
+            {%- else -%}
+            <img class="preview z-depth-1 rounded" src="{{ entry.preview | prepend: '/assets/img/publication_preview/' | relative_url }}">
             {%- endif -%}
-            <span class="award badge {{award_class}}">{{entry.award}}</span>
-          {% endif %}
+            </div>
+          </div>
         {%- endif -%}
         </div>
 
