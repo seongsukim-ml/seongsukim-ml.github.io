@@ -699,7 +699,7 @@ footer.sticky-bottom {
           background-color: var(--global-theme-color);
           // padding-left: 0.5rem;
           // padding-right: 0.5rem;
-          min-width: 7rem;
+          min-width: 80px;
           text-align: center;
 
           a {
@@ -717,8 +717,8 @@ footer.sticky-bottom {
           // padding-right: 0.5rem;
           color: #ffffff !important;
           background-color: var(--global-theme-color);
-          border: 1px solid var(--global-theme-color);
-          min-width: 7rem;
+          // border: 1px solid var(--global-theme-color);
+          min-width: 80px;
           text-align: center;
         }
 
