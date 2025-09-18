@@ -13,6 +13,7 @@
           {%- else -%}
             <abbr class="badge">{{entry.abbr}}</abbr>
           {%- endif -%}
+        {%- endif -%}
         {% if entry.award %}
           {%- assign award_class = '' -%}
           {%- if entry.award contains 'Spotlight' -%}
