@@ -679,7 +679,7 @@ footer.sticky-bottom {
       }
 
       /* Preview in abbr column */
-      .abbr.preview {
+      .abbr .preview {
         margin-top: 15px;
         margin-bottom: 15px;
         display: block;
@@ -687,7 +687,7 @@ footer.sticky-bottom {
         text-align: center;
       }
 
-      .abbr.preview img {
+      .abbr .preview img {
         width: 100%;
         height: auto;
         border-radius: 4px;

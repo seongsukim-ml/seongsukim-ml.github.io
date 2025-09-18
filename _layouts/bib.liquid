@@ -15,18 +15,6 @@
             {%- endif -%}
           {%- endif -%}
 
-          {%- if entry.abbr2 -%}
-            {%- if site.data.venues[entry.abbr2] -%}
-              {%- assign venue_style = nil -%}
-              {%- if site.data.venues[entry.abbr2].color != blank -%}
-                {%- assign venue_style = site.data.venues[entry.abbr2].color | prepend: 'style="background-color:' | append: '"' -%}
-              {%- endif -%}
-              <abbr class="badge" {% if venue_style %}{{venue_style}}{% endif %}><a href="{{site.data.venues[entry.abbr2].url}}">{{entry.abbr2}}</a></abbr>
-            {%- else -%}
-              <abbr class="badge">{{entry.abbr2}}</abbr>
-            {%- endif -%}
-          {%- endif -%}
-
           {% if entry.award %}
             {%- assign award_class = '' -%}
             {%- if entry.award contains 'Spotlight' -%}
@@ -37,6 +25,18 @@
               {%- assign award_class = 'other' -%}
             {%- endif -%}
             <span class="award badge {{award_class}}">{{entry.award}}</span>
+          {%- endif -%}
+
+          {%- if entry.abbr2 -%}
+            {%- if site.data.venues[entry.abbr2] -%}
+              {%- assign venue_style = nil -%}
+              {%- if site.data.venues[entry.abbr2].color != blank -%}
+                {%- assign venue_style = site.data.venues[entry.abbr2].color | prepend: 'style="background-color:' | append: '"' -%}
+              {%- endif -%}
+              <abbr class="badge" {% if venue_style %}{{venue_style}}{% endif %}><a href="{{site.data.venues[entry.abbr2].url}}">{{entry.abbr2}}</a></abbr>
+            {%- else -%}
+              <abbr class="badge">{{entry.abbr2}}</abbr>
+            {%- endif -%}
           {%- endif -%}
 
           {%- if entry.preview -%}
