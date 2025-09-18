@@ -677,6 +677,25 @@ footer.sticky-bottom {
         max-width: 200px;
       }
 
+      /* Preview overlay badges */
+      .pub-preview-wrapper {
+        position: relative;
+        display: inline-block;
+      }
+      .pub-preview-wrapper .pub-badges {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .pub-preview-wrapper .pub-badges abbr.badge,
+      .pub-preview-wrapper .pub-badges .award.badge {
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        backdrop-filter: saturate(1.2);
+      }
+
       .abbr {
         height: 2rem;
         margin-bottom: 0.5rem;
