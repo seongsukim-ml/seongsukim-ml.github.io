@@ -672,11 +672,10 @@ footer.sticky-bottom {
       margin-bottom: 1rem;
 
       .preview {
+        display: inline-block;
         width: 100%;
         min-width: 80px;
         max-width: 200px;
-        margin: 0 auto;
-        display: block;
       }
 
       /* Preview overlay badges */

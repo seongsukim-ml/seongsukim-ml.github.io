@@ -27,7 +27,7 @@
             {%- endif -%}
             <span class="award badge {{award_class}}">{{entry.award}}</span>
           {%- endif -%}
-          </div>
+        </div>
         {%- endif -%}
 
         {%- if entry.preview -%}
@@ -39,8 +39,8 @@
               <img class="preview z-depth-1 rounded" src="{{ entry.preview | prepend: '/assets/img/publication_preview/' | relative_url }}">
             {%- endif -%}
           </div>
-        {%- endif -%}
         </div>
+        {%- endif -%}        
 
         <!-- Entry bib key -->
         <div id="{{entry.key}}" class="col-sm-8">
