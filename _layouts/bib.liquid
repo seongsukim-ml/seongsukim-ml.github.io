@@ -19,10 +19,10 @@
             {%- assign award_class = 'spotlight' -%}
           {%- elsif entry.award contains 'Poster' -%}
             {%- assign award_class = 'poster' -%}
-          {%- else}
+          {%- else -%}
             {%- assign award_class = 'other' -%}
           {%- endif -%}
-          <span class="award badge {{award_class}}">{{entry.award}}</span>
+            <span class="award badge {{award_class}}">{{entry.award}}</span>
         {% endif %}
         {%- if entry.preview -%}
           <div class="pub-preview-wrapper">

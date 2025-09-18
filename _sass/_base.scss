@@ -735,7 +735,13 @@ footer.sticky-bottom {
           text-align: center;
         }
 
-        /* Emphasis for Spotlight/Poster badges */
+        /* Emphasis for Spotlight/Poster/Other badges */
+        .award.other {
+          background-color: #f59e0b;  /* amber-400 */
+          border-color: #f59e0b;
+          color: #ffffff !important;
+          font-weight: 600;
+        }
         .award.spotlight {
           background-color: #f59e0b;  /* amber-500 */
           border-color: #f59e0b;
