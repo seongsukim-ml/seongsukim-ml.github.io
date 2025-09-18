@@ -3,6 +3,7 @@
 <!-- _layouts/bib.html -->
       <div class="row">
         <div class="col-sm-2 {% if entry.preview %}preview{% else %}abbr{% endif %}">
+
         {%- if entry.abbr -%}
           {%- if site.data.venues[entry.abbr] -%}
             {%- assign venue_style = nil -%}
@@ -14,6 +15,7 @@
             <abbr class="badge">{{entry.abbr}}</abbr>
           {%- endif -%}
         {%- endif -%}
+
         {% if entry.award %}
           {%- assign award_class = '' -%}
           {%- if entry.award contains 'Spotlight' -%}
@@ -25,6 +27,7 @@
           {%- endif -%}
             <span class="award badge {{award_class}}">{{entry.award}}</span>
         {% endif %}
+
         {%- if entry.preview -%}
           <div class="pub-preview-wrapper">
             {% if entry.preview contains '://' -%}
