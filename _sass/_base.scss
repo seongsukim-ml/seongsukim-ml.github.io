@@ -680,23 +680,8 @@ footer.sticky-bottom {
       }
 
       /* Preview overlay badges */
-      .pub-preview-wrapper {
-        position: relative;
-        display: inline-block;
-        width: 100%;
-      }
-      .pub-preview-wrapper .pub-badges {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        padding: 8px;
-      }
-      .pub-preview-wrapper .pub-badges abbr.badge,
-      .pub-preview-wrapper .pub-badges .award.badge {
+      abbr.badge,
+      .award.badge {
         width: 100%;
         text-align: center;
         box-shadow: 0 1px 2px rgba(0,0,0,0.1);
