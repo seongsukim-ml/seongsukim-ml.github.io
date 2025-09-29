@@ -7,8 +7,8 @@ profile:
   align: right
   image: pro_pic2.jpg
   image_circular: false # crops the image to make it circular
-  more_info: >
-    <p>seongsu.kim@kaist.ac.kr</p>
+  # more_info: >
+  #   <p>seongsu.kim@kaist.ac.kr</p>
 
 news: true # includes a list of news items
 latest_posts: False # includes a list of the newest posts
@@ -20,7 +20,7 @@ social: true # includes social icons at the bottom of the page
 **Pricinple Investigator**: [Sungsoo Ahn](https://sites.google.com/view/sungsooahn0215/home)\\
 **Language**: Korean, English \\
 **Email**: seongsu.kim@kaist.ac.kr \\
-[[**Google Scholar Link**](https://scholar.google.com/citations?user=ihW8TmoAAAAJ&hl=ko)]
+<!-- [[**Google Scholar Link**](https://scholar.google.com/citations?user=ihW8TmoAAAAJ&hl=ko)] -->
 
 Hi, I'm Seongsu. Thank you for stopping by! 👋 The spelling of my name in Korean is "성수" and it is pronounced as [sʌŋ-su:].
 
@@ -28,7 +28,7 @@ I am currently an incoming Ph.D. student in the AI department at KAIST. I am als
 
 My research interests include **integrating AI into scientific research and using AI to uncover scientific facts**. Also, I am interested in physical and chemical concepts like solid state physics, simulation dynamics and molecular science, and also mathematical concepts like group theory, geometry and geometrical deep learning.
 
-Recently, I am focusing on **(1) generative modeling for materials** and **(2) *ab initio* method based machine learning for quantum physics and chemistry** related with density functional theroy (DFT) or variational Monte Carlo (VMC).
+Recently, I am focusing on **(1) generative modeling for materials** and **(2) *ab-initio* method based machine learning for quantum physics and chemistry** related with density functional theroy (DFT) or variational Monte Carlo (VMC).
 
 I believe that AI will effectively reduce the complexity of calculations in physics and chemistry, especially in areas like multi-objective optimization problems, challenges in establishing ansatzes, modeling interactions and governing equations, and handling intractable computations. I am studying and researching these possibilities.
 
