@@ -1,230 +1,395 @@
-# Academic Portfolio Blog
+# 🎓 Academic Portfolio Website
 
-A clean, modern academic portfolio website built with HTML, CSS, and JavaScript. All content is managed through JSON files for easy updates.
+완성도 높은 학술 포트폴리오 웹사이트입니다. JSON 기반 데이터 관리, 6가지 테마, BibTeX 지원, Markdown 뉴스 등 다양한 기능을 제공합니다.
 
-## 📁 Project Structure
+## ✨ 주요 기능
+
+- 🎨 **6가지 Color Themes**: Dark/Light 모드 지원
+- 📚 **BibTeX Citations**: .bib 파일로 쉬운 인용 관리
+- 📝 **Markdown Support**: News에서 굵게, 기울임, 링크 사용 가능
+- 🔗 **Clickable Authors**: 저자 이름 클릭 시 웹사이트로 이동
+- 📄 **PDF Links**: 슬라이드, 포스터 등 로컬 PDF 링크
+- 🗂️ **Posts System**: Markdown으로 블로그 포스트 작성
+- 📱 **Responsive Design**: 모든 디바이스에서 완벽하게 작동
+- ⚡ **Fast & Lightweight**: 순수 HTML/CSS/JS (프레임워크 불필요)
+
+## 📁 프로젝트 구조
 
 ```
 new_blog/
-├── index.html              # Main HTML file
+├── index.html                    # 메인 페이지
 ├── css/
-│   └── style.css          # Styling and responsive design
+│   └── style.css                # 스타일시트 (CSS Variables 사용)
 ├── js/
-│   └── main.js            # Dynamic content loading and interactions
-├── data/
-│   ├── profile.json       # Personal information and bio
-│   ├── publications.json  # Publications list
-│   ├── news.json         # News and announcements
-│   └── projects.json     # Research projects
-└── README.md             # This file
+│   └── main.js                  # 동적 렌더링 및 테마 로직
+├── data/                         # 📊 모든 콘텐츠 (JSON)
+│   ├── profile.json             # 개인 정보, 소셜 링크
+│   ├── publications.json        # 논문 목록
+│   ├── news.json                # 뉴스 및 공지사항
+│   ├── posts.json               # 블로그 포스트 목록
+│   ├── projects.json            # 프로젝트 목록
+│   ├── authors.json             # 저자 정보 (URL, Scholar ID)
+│   ├── themes.json              # 테마 색상 정의
+│   └── bibtex/                  # 📚 BibTeX 파일들
+│       ├── kim2025high.bib
+│       └── ...
+├── assets/                       # 정적 파일
+│   ├── profile.jpg              # 프로필 사진
+│   ├── Seongsu_Kim_CV.pdf       # CV
+│   └── pdf/                     # 📄 슬라이드, 포스터 등
+│       ├── slides1.pdf
+│       └── ...
+├── posts/                        # 블로그 포스트 (Markdown)
+│   ├── post-template.html       # 포스트 템플릿
+│   └── *.md                     # Markdown 포스트
+├── convert_posts.py              # MD → JSON 변환 스크립트
+│
+├── 📖 문서 (Documentation)
+├── README.md                     # 👈 이 파일
+├── claude_update.md              # 변경 내역 및 세션 복구용
+├── BIBTEX_GUIDE.md              # BibTeX 관리 가이드
+├── NEWS_MARKDOWN_GUIDE.md       # News Markdown 사용법
+├── PDF_MANAGEMENT_GUIDE.md      # PDF 파일 관리
+├── POSTS_GUIDE.md               # 블로그 포스트 작성법
+├── COLOR_THEMES.md              # 테마 커스터마이징
+└── DEPLOYMENT_GUIDE.md          # 배포 가이드 (GitHub Pages 등)
 ```
 
-## 🚀 Features
+## 🚀 빠른 시작
 
-- **Responsive Design**: Works on desktop, tablet, and mobile devices
-- **JSON-based Content Management**: Easy to update without touching HTML
-- **Dynamic Filtering**: Filter publications by year
-- **Smooth Animations**: Modern UI with hover effects and transitions
-- **SEO Friendly**: Proper meta tags and semantic HTML
+### 1. 로컬에서 보기
 
-## 📝 Updating Content
+```bash
+# Python 웹 서버 실행
+cd new_blog
+python -m http.server 8000
 
-### Profile Information (`data/profile.json`)
+# 브라우저에서 열기
+open http://localhost:8000
+```
 
-Update your personal information, bio, research interests, and social links:
+### 2. 콘텐츠 수정
 
-```json
+#### 개인 정보 업데이트
+```bash
+# data/profile.json 수정
 {
   "name": "Your Name",
-  "email": "your.email@university.edu",
-  "bio": ["Paragraph 1", "Paragraph 2"],
-  "research_interests": ["Interest 1", "Interest 2"]
+  "email": "your@email.com",
+  ...
 }
 ```
 
-### Publications (`data/publications.json`)
+#### 논문 추가
+```bash
+# 1. data/publications.json에 추가
+# 2. data/bibtex/에 .bib 파일 생성 (선택)
+# 3. 슬라이드 있으면 assets/pdf/에 추가
+```
 
-Add or edit publications:
+#### 뉴스 추가
+```bash
+# data/news.json에 추가 (Markdown 지원!)
+{
+  "content": "Paper accepted to **NeurIPS 2025**!"
+}
+```
+
+### 3. 배포
+
+```bash
+# Git 커밋
+git add .
+git commit -m "Update content"
+git push
+
+# GitHub Pages, Netlify, Vercel 등에서 자동 배포됨
+```
+
+## 📚 상세 가이드
+
+각 기능별로 상세한 가이드가 준비되어 있습니다:
+
+| 가이드 | 내용 | 파일 |
+|--------|------|------|
+| 🔧 **세션 복구** | Claude 세션 중단 시 복구 방법 | [`claude_update.md`](claude_update.md) |
+| 📚 **BibTeX 관리** | .bib 파일로 인용 관리하는 법 | [`BIBTEX_GUIDE.md`](BIBTEX_GUIDE.md) |
+| 📝 **Markdown 뉴스** | 굵게, 기울임, 링크 사용법 | [`NEWS_MARKDOWN_GUIDE.md`](NEWS_MARKDOWN_GUIDE.md) |
+| 📄 **PDF 관리** | 슬라이드, 포스터 링크하기 | [`PDF_MANAGEMENT_GUIDE.md`](PDF_MANAGEMENT_GUIDE.md) |
+| ✍️ **블로그 포스트** | Markdown으로 포스트 작성 | [`POSTS_GUIDE.md`](POSTS_GUIDE.md) |
+| 🎨 **테마 커스터마이징** | 색상 테마 수정 및 추가 | [`COLOR_THEMES.md`](COLOR_THEMES.md) |
+| 🚀 **배포** | GitHub Pages/Netlify 배포 | [`DEPLOYMENT_GUIDE.md`](DEPLOYMENT_GUIDE.md) |
+
+## 🎯 일반적인 작업 흐름
+
+### 논문 발표 시
+
+```bash
+# 1. publications.json 업데이트
+# 2. BibTeX 파일 추가 (data/bibtex/paper_id.bib)
+# 3. 슬라이드 추가 (assets/pdf/slides.pdf)
+# 4. News 추가 (data/news.json)
+# 5. Git push → 자동 배포
+```
+
+### 뉴스 추가 시
+
+```bash
+# data/news.json 수정 (최상단에 추가)
+{
+  "id": "unique_id",
+  "date": "2026-02-03",
+  "title": "Title",
+  "content": "**Bold** text with [links](url)",
+  "inline": true
+}
+
+# Git push → 자동 배포
+```
+
+### 테마 변경 시
+
+```bash
+# 사용자가 사이트에서 직접 변경 가능 (🎨 버튼)
+# 또는 data/themes.json 수정하여 새 테마 추가
+```
+
+## 🔑 핵심 파일 설명
+
+### `data/publications.json`
 
 ```json
 {
-  "publications": [
-    {
-      "title": "Paper Title",
-      "authors": ["Author 1", "Author 2"],
-      "venue": "Conference Name",
-      "year": 2024,
-      "type": "conference",
-      "award": "Best Paper",
-      "selected": true,
-      "links": {
-        "pdf": "https://arxiv.org/...",
-        "code": "https://github.com/..."
-      }
-    }
-  ]
+  "id": "paper2025",
+  "title": "Paper Title",
+  "authors": ["Author 1", "Author 2"],
+  "author_ids": ["author1-id", "author2-id"],
+  "venue": "Conference Name",
+  "year": 2025,
+  "type": "conference",
+  "award": "Spotlight",
+  "selected": true,
+  "keywords": ["AI", "ML"],
+  "links": {
+    "pdf": "https://arxiv.org/...",
+    "code": "https://github.com/...",
+    "slides": "assets/pdf/slides.pdf"
+  },
+  "bibtex_file": "data/bibtex/paper2025.bib"
 }
 ```
 
-### News Items (`data/news.json`)
-
-Add announcements and news:
+### `data/authors.json`
 
 ```json
 {
-  "news": [
-    {
-      "date": "2024-01-15",
-      "title": "News Title",
-      "content": "News content with [markdown links](https://example.com)",
-      "icon": "🎉"
-    }
-  ]
+  "author-id": {
+    "name": "Author Name",
+    "url": "https://author-website.com",
+    "scholar": "scholar_id"
+  }
 }
 ```
 
-### Projects (`data/projects.json`)
-
-Manage your research projects:
+### `data/themes.json`
 
 ```json
 {
-  "projects": [
-    {
-      "title": "Project Name",
-      "description": "Project description",
-      "category": "research",
-      "importance": 1,
-      "links": {
-        "paper": "https://...",
-        "code": "https://..."
-      }
-    }
-  ]
+  "id": "theme-id",
+  "name": "Theme Name",
+  "icon": "🔵",
+  "light": {
+    "primary-color": "#1a365d",
+    "secondary-color": "#2563eb",
+    ...
+  },
+  "dark": { ... }
 }
 ```
 
-## 🎨 Customization
+## 🛠️ 기술 스택
 
-### Colors
+- **Frontend**: HTML5, CSS3 (CSS Variables), Vanilla JavaScript
+- **Data**: JSON files
+- **Markdown**: Front matter + content for posts
+- **Build**: 없음 (순수 정적 사이트)
+- **Deploy**: GitHub Pages, Netlify, Vercel 등
 
-Edit CSS variables in `css/style.css`:
+## 🎨 디자인 원칙
 
-```css
-:root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --accent-color: #e74c3c;
-}
+1. **Minimal & Clean**: 불필요한 장식 제거
+2. **Compact**: 작은 간격, 얇은 테두리
+3. **Readable**: 적절한 폰트 크기와 line-height
+4. **Consistent**: 통일된 간격 시스템
+5. **Responsive**: 모바일 우선 디자인
+
+## 🔄 업데이트 방법
+
+### 로컬 수정 후 배포
+
+```bash
+# 1. JSON 파일 수정 (publications, news 등)
+# 2. Git 커밋
+git add .
+git commit -m "Add new paper"
+git push
+
+# 3. 자동 배포 (2-3분 소요)
 ```
 
-### Sections
+### BibTeX 추가
 
-- Add or remove sections in `index.html`
-- Update navigation links in the `<nav>` element
-- Modify section content in the corresponding JSON files
+```bash
+# 1. .bib 파일 생성
+echo '@inproceedings{...}' > data/bibtex/paper_id.bib
 
-## 🌐 Deployment
+# 2. publications.json에 참조 추가
+"bibtex_file": "data/bibtex/paper_id.bib"
 
-### GitHub Pages
+# 3. Commit & Push
+```
 
-1. Create a new repository on GitHub
-2. Upload all files to the repository
-3. Go to Settings > Pages
-4. Select main branch as source
-5. Your site will be available at `https://username.github.io/repository-name`
+### 슬라이드/PDF 추가
 
-### Local Testing
+```bash
+# 1. PDF 복사
+cp slides.pdf assets/pdf/
 
-Simply open `index.html` in a web browser. For proper JSON loading, you may need to:
+# 2. publications.json에 링크 추가
+"slides": "assets/pdf/slides.pdf"
 
-1. Use a local web server:
-   ```bash
-   python -m http.server 8000
-   ```
-2. Open `http://localhost:8000` in your browser
+# 3. Commit & Push
+```
 
-### Static Hosting
+## 🧪 테스트
 
-Upload files to any static hosting service:
-- Netlify
-- Vercel
-- AWS S3
-- Google Cloud Storage
+### 로컬 테스트
 
-## 📱 Browser Support
+```bash
+# 웹 서버 실행
+python -m http.server 8000
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+# 확인 사항:
+# - 모든 섹션이 로딩되는가?
+# - 링크가 작동하는가?
+# - 테마 전환이 되는가?
+# - BibTeX 버튼이 표시되는가?
+```
 
-## 🔧 Maintenance
+### JSON 검증
 
-### Adding New Features
+```bash
+# Python으로 JSON 검증
+python -m json.tool data/publications.json > /dev/null
 
-1. **New Section**: Add HTML structure in `index.html`, styling in `style.css`, and rendering logic in `main.js`
-2. **New Data Type**: Create JSON file in `data/` folder and update loading logic in `main.js`
+# 또는 온라인: https://jsonlint.com
+```
 
-### Performance Tips
+## 🐛 문제 해결
 
-- Optimize images before uploading
-- Minify CSS and JavaScript for production
-- Use a CDN for better global performance
+### 자주 발생하는 문제
 
-## 📄 Data Schema Reference
+1. **콘텐츠가 로딩 안 됨**
+   - 웹 서버 사용 중인가? (file:// 프로토콜은 안 됨)
+   - JSON 형식이 올바른가?
 
-### profile.json
-- `name`: Your full name
-- `email`: Contact email
-- `affiliation`: University/Institution
-- `bio`: Array of paragraph strings
-- `research_interests`: Array of research interest strings
-- `social`: Object with `github` and `scholar` usernames
+2. **BibTeX 버튼이 안 보임**
+   - `bibtex_file` 필드가 있는가?
+   - .bib 파일이 실제로 존재하는가?
 
-### publications.json
-- `title`: Paper title
-- `authors`: Array of author names
-- `venue`: Conference/Journal name
-- `year`: Publication year
-- `type`: "conference" | "preprint" | "journal"
-- `award`: Optional award badge
-- `selected`: Boolean for featured papers
-- `links`: Object with link types (pdf, code, slides)
+3. **테마가 변경 안 됨**
+   - 브라우저 캐시 삭제 (Ctrl+F5)
+   - localStorage 확인
 
-### news.json
-- `date`: ISO date string (YYYY-MM-DD)
-- `title`: News title
-- `content`: News content (supports markdown links)
-- `icon`: Optional emoji icon
-- `inline`: Boolean for display style
+4. **PDF 링크가 안 됨**
+   - 경로가 `assets/pdf/...`인가?
+   - 파일이 실제로 존재하는가?
+   - 파일명 대소문자가 정확한가?
 
-### projects.json
-- `title`: Project name
-- `description`: Project description
-- `category`: "research" | "study" | etc.
-- `importance`: Number for sorting (1 = highest)
-- `links`: Object with link types (paper, code, demo)
+## 📦 배포 플랫폼
 
-## 🆘 Troubleshooting
+### GitHub Pages (추천)
+- ✅ 무료
+- ✅ 간단한 설정
+- ✅ 자동 배포
+- 📖 가이드: [`DEPLOYMENT_GUIDE.md`](DEPLOYMENT_GUIDE.md)
 
-**Issue**: Content not loading
-- **Solution**: Make sure you're running a local server, not opening file directly
+### Netlify
+- ✅ 무료
+- ✅ CDN 제공
+- ✅ 폼 지원
 
-**Issue**: JSON parsing errors
-- **Solution**: Validate JSON files at [jsonlint.com](https://jsonlint.com/)
+### Vercel
+- ✅ 무료
+- ✅ 초고속
+- ✅ 개발자 친화적
 
-**Issue**: Styling not applied
-- **Solution**: Clear browser cache or hard refresh (Ctrl+F5)
+## 🔐 보안
 
-## 📧 Contact
+- ✅ 정적 사이트 (서버 측 취약점 없음)
+- ✅ HTTPS 기본 제공 (GitHub Pages, Netlify)
+- ⚠️ `.env` 파일 없음 (모든 데이터가 공개)
 
-For questions or suggestions, contact: seongsu.kim@kaist.ac.kr
+## 🎓 학술 사이트에 최적화
 
-## 📄 License
+- 📚 Publications 중심 레이아웃
+- 🔍 Google Scholar 연동
+- 📊 BibTeX 내보내기
+- 🎨 전문적인 디자인
+- 📱 모든 디바이스 지원
 
-This project is open source and available for academic use.
+## 🤖 Claude 세션 복구
+
+Claude Code로 작업 중 세션이 끊기면:
+
+```markdown
+"이 코드를 다시 이해하고 수정 사항을 마무리해줘.
+claude_update.md 파일을 읽고 이어서 작업해줘."
+```
+
+→ [`claude_update.md`](claude_update.md) 파일에 모든 변경 내역이 기록되어 있습니다.
+
+## 📊 통계
+
+- **파일 수**: 31개
+- **코드 라인**: ~6,500 줄
+- **문서**: 8개 가이드
+- **JSON 스키마**: 7개
+- **지원 테마**: 6개
+- **빌드 도구**: 불필요 (순수 정적)
+
+## 📝 변경 로그
+
+전체 변경 내역은 [`claude_update.md`](claude_update.md)를 참조하세요.
+
+**최신 업데이트** (2026-02-03):
+- ✅ BibTeX .bib 파일 지원
+- ✅ News Markdown 지원
+- ✅ PDF 링크 시스템
+- ✅ 모든 publication 배경색
+- ✅ 저자 클릭 가능 링크
+- ✅ 17가지 주요 기능 완성
+
+## 🙏 감사의 글
+
+Built with:
+- ❤️ Love for academic research
+- 🤖 Claude Sonnet 4.5
+- ☕ Coffee
 
 ---
 
-Made with ❤️ for researchers
+## 📞 연락처
+
+**Seongsu Kim**
+📧 ksusu7@gmail.com
+🌐 GitHub: [@seongsukim-ml](https://github.com/seongsukim-ml)
+
+## 📄 라이센스
+
+Academic use. Feel free to fork and customize!
+
+---
+
+**마지막 업데이트**: 2026년 2월 3일
+**버전**: 2.0 (Complete Redesign)

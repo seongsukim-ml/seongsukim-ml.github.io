@@ -38,7 +38,7 @@
       "links": {
         "pdf": "https://www.arxiv.org/abs/2505.18817",
         "code": "https://github.com/seongsukim-ml/QHFlow",
-        "slides": "251031_QHFlow_NVIDIA_BioNemo_Final.pdf"
+        "slides": "assets/pdf/251031_QHFlow_NVIDIA_BioNemo_Final.pdf"
       },
       "bibtex_file": "data/bibtex/kim2025high.bib"
     },
@@ -88,7 +88,7 @@
       "links": {
         "pdf": "https://arxiv.org/abs/2402.04278",
         "code": "https://github.com/seongsukim-ml/GPWNO",
-        "slides": "GPWNO_ICML_VIDEO_FINAL_240718.pdf"
+        "slides": "assets/pdf/240718_GPWNO_ICML_VIDEO_FINAL.pdf"
       },
       "bibtex_file": "data/bibtex/kim2024Gaussian.bib"
     }

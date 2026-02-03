@@ -14,12 +14,23 @@
     {
       "id": "qhflow",
       "title": "QHFlow: ML-accelerated DFT",
-      "description": "High-order Equivariant Flow Matching for Density Functional Theory Hamiltonian Prediction. This work aims to accelerate density functional theory calculations using machine learning.",
+      "description": "Equivariant Flow Matching for Density Functional Theory Hamiltonian Prediction. This work aims to accelerate density functional theory calculations using machine learning.",
       "category": "research",
       "importance": 1,
       "links": {
-        "paper": "https://www.arxiv.org/abs/2505.18817",
-        "code": "https://github.com/seongsukim-ml/QHFlow"
+        "paper1": "https://www.arxiv.org/abs/2505.18817",
+        "paper2": "https://www.arxiv.org/abs/2505.17914"
+      }
+    },
+    {
+      "id": "mofflow",
+      "title": "MOF Structure Prediction & Generation",
+      "description": "Flow Matching for Structure Prediction of Metal-Organic Frameworks. Accepted to ICLR 2025.",
+      "category": "research",
+      "importance": 2,
+      "links": {
+        "paper1": "https://arxiv.org/abs/2410.17270",
+        "paper2": "https://arxiv.org/abs/2505.17914"
       }
     },
     {
@@ -31,16 +42,6 @@
       "links": {
         "paper": "https://arxiv.org/abs/2402.04278",
         "code": "https://github.com/seongsukim-ml/GPWNO"
-      }
-    },
-    {
-      "id": "mofflow",
-      "title": "MOFFlow: Structure Prediction",
-      "description": "Flow Matching for Structure Prediction of Metal-Organic Frameworks. Accepted to ICLR 2025.",
-      "category": "research",
-      "importance": 2,
-      "links": {
-        "paper": "https://arxiv.org/abs/2410.17270"
       }
     }
   ]
