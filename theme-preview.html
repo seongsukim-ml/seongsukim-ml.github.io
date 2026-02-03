@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Preview - Academic Blog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 3rem;
+        }
+
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .theme-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .theme-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .theme-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .theme-description {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .theme-preview {
+            padding: 2rem;
+        }
+
+        .preview-section {
+            margin-bottom: 2rem;
+        }
+
+        .preview-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .color-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .color-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .color-swatch {
+            width: 100%;
+            height: 80px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        .color-code {
+            font-size: 0.7rem;
+            color: #9ca3af;
+            font-family: monospace;
+        }
+
+        .demo-elements {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .demo-button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-card {
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .install-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        .copy-button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .copy-button:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Academic Blog Theme Gallery</h1>
+        <p class="subtitle">Choose your perfect color theme. Click on a theme to see installation instructions.</p>
+
+        <div class="themes-grid">
+            <!-- Theme 1: Nature Green -->
+            <div class="theme-card" onclick="showInstallation('nature-green')">
+                <div class="theme-header" style="background: linear-gradient(135deg, #059669 0%, #065f46 100%);">
+                    <div class="theme-name">🟢 Nature Green</div>
+                    <div class="theme-description">Professional & Fresh - Perfect for environmental science and biology research</div>
+                </div>
+                <div class="theme-preview">
+                    <div class="preview-section">
+                        <div class="preview-title">Light Mode</div>
+                        <div class="color-row">
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #065f46;"></div>
+                                <div class="color-label">Primary</div>
+                                <div class="color-code">#065f46</div>
+                            </div>
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #059669;"></div>
+                                <div class="color-label">Secondary</div>
+                                <div class="color-code">#059669</div>
+                            </div>
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #ea580c;"></div>
+                                <div class="color-label">Accent</div>
+                                <div class="color-code">#ea580c</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <div class="preview-title">Demo Elements</div>
+                        <div class="demo-elements">
+                            <button class="demo-button" style="background: #059669; color: white;">Primary Button</button>
+                            <div class="demo-card" style="background: #ecfdf5; border-left: 4px solid #059669;">
+                                <div style="color: #065f46; font-weight: 600; margin-bottom: 0.5rem;">Publication Card</div>
+                                <div style="color: #047857; font-size: 0.9rem;">Nature-inspired professional design</div>
+                            </div>
+                            <div>
+                                <span class="demo-badge" style="background: #d1fae5; color: #065f46;">Spotlight</span>
+                                <span class="demo-badge" style="background: #fef3c7; color: #92400e;">Best Paper</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme 2: Ocean Blue -->
+            <div class="theme-card" onclick="showInstallation('ocean-blue')">
+                <div class="theme-header" style="background: linear-gradient(135deg, #0284c7 0%, #0c4a6e 100%);">
+                    <div class="theme-name">🔵 Ocean Blue</div>
+                    <div class="theme-description">Modern & Clean - Ideal for tech, AI, and computational research</div>
+                </div>
+                <div class="theme-preview">
+                    <div class="preview-section">
+                        <div class="preview-title">Light Mode</div>
+                        <div class="color-row">
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #0c4a6e;"></div>
+                                <div class="color-label">Primary</div>
+                                <div class="color-code">#0c4a6e</div>
+                            </div>
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #0284c7;"></div>
+                                <div class="color-label">Secondary</div>
+                                <div class="color-code">#0284c7</div>
+                            </div>
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #dc2626;"></div>
+                                <div class="color-label">Accent</div>
+                                <div class="color-code">#dc2626</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <div class="preview-title">Demo Elements</div>
+                        <div class="demo-elements">
+                            <button class="demo-button" style="background: #0284c7; color: white;">Primary Button</button>
+                            <div class="demo-card" style="background: #f0f9ff; border-left: 4px solid #0284c7;">
+                                <div style="color: #0c4a6e; font-weight: 600; margin-bottom: 0.5rem;">Publication Card</div>
+                                <div style="color: #075985; font-size: 0.9rem;">Clean ocean-inspired design</div>
+                            </div>
+                            <div>
+                                <span class="demo-badge" style="background: #dbeafe; color: #1e40af;">Spotlight</span>
+                                <span class="demo-badge" style="background: #fecaca; color: #991b1b;">Oral</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme 3: Royal Purple -->
+            <div class="theme-card" onclick="showInstallation('royal-purple')">
+                <div class="theme-header" style="background: linear-gradient(135deg, #7c3aed 0%, #581c87 100%);">
+                    <div class="theme-name">🟣 Royal Purple</div>
+                    <div class="theme-description">Academic & Elegant - Perfect for theoretical and mathematical research</div>
+                </div>
+                <div class="theme-preview">
+                    <div class="preview-section">
+                        <div class="preview-title">Light Mode</div>
+                        <div class="color-row">
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #581c87;"></div>
+                                <div class="color-label">Primary</div>
+                                <div class="color-code">#581c87</div>
+                            </div>
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #7c3aed;"></div>
+                                <div class="color-label">Secondary</div>
+                                <div class="color-code">#7c3aed</div>
+                            </div>
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #f59e0b;"></div>
+                                <div class="color-label">Accent</div>
+                                <div class="color-code">#f59e0b</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <div class="preview-title">Demo Elements</div>
+                        <div class="demo-elements">
+                            <button class="demo-button" style="background: #7c3aed; color: white;">Primary Button</button>
+                            <div class="demo-card" style="background: #faf5ff; border-left: 4px solid #7c3aed;">
+                                <div style="color: #581c87; font-weight: 600; margin-bottom: 0.5rem;">Publication Card</div>
+                                <div style="color: #6b21a8; font-size: 0.9rem;">Elegant academic design</div>
+                            </div>
+                            <div>
+                                <span class="demo-badge" style="background: #ede9fe; color: #5b21b6;">Spotlight</span>
+                                <span class="demo-badge" style="background: #fef3c7; color: #92400e;">Best Paper</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme 4: Warm Sunset -->
+            <div class="theme-card" onclick="showInstallation('warm-sunset')">
+                <div class="theme-header" style="background: linear-gradient(135deg, #ea580c 0%, #9a3412 100%);">
+                    <div class="theme-name">🟠 Warm Sunset</div>
+                    <div class="theme-description">Creative & Energetic - Great for interdisciplinary and creative work</div>
+                </div>
+                <div class="theme-preview">
+                    <div class="preview-section">
+                        <div class="preview-title">Light Mode</div>
+                        <div class="color-row">
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #9a3412;"></div>
+                                <div class="color-label">Primary</div>
+                                <div class="color-code">#9a3412</div>
+                            </div>
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #ea580c;"></div>
+                                <div class="color-label">Secondary</div>
+                                <div class="color-code">#ea580c</div>
+                            </div>
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #7c2d12;"></div>
+                                <div class="color-label">Accent</div>
+                                <div class="color-code">#7c2d12</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <div class="preview-title">Demo Elements</div>
+                        <div class="demo-elements">
+                            <button class="demo-button" style="background: #ea580c; color: white;">Primary Button</button>
+                            <div class="demo-card" style="background: #fff7ed; border-left: 4px solid #ea580c;">
+                                <div style="color: #9a3412; font-weight: 600; margin-bottom: 0.5rem;">Publication Card</div>
+                                <div style="color: #c2410c; font-size: 0.9rem;">Warm and energetic design</div>
+                            </div>
+                            <div>
+                                <span class="demo-badge" style="background: #ffedd5; color: #9a3412;">Spotlight</span>
+                                <span class="demo-badge" style="background: #fef3c7; color: #78350f;">Best Paper</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme 5: Minimal Monochrome -->
+            <div class="theme-card" onclick="showInstallation('minimal-mono')">
+                <div class="theme-header" style="background: linear-gradient(135deg, #4b5563 0%, #1f2937 100%);">
+                    <div class="theme-name">⚫ Minimal Monochrome</div>
+                    <div class="theme-description">Ultra Professional - Perfect for formal academic presentations</div>
+                </div>
+                <div class="theme-preview">
+                    <div class="preview-section">
+                        <div class="preview-title">Light Mode</div>
+                        <div class="color-row">
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #1f2937;"></div>
+                                <div class="color-label">Primary</div>
+                                <div class="color-code">#1f2937</div>
+                            </div>
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #4b5563;"></div>
+                                <div class="color-label">Secondary</div>
+                                <div class="color-code">#4b5563</div>
+                            </div>
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #059669;"></div>
+                                <div class="color-label">Accent</div>
+                                <div class="color-code">#059669</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <div class="preview-title">Demo Elements</div>
+                        <div class="demo-elements">
+                            <button class="demo-button" style="background: #4b5563; color: white;">Primary Button</button>
+                            <div class="demo-card" style="background: #f9fafb; border-left: 4px solid #4b5563;">
+                                <div style="color: #1f2937; font-weight: 600; margin-bottom: 0.5rem;">Publication Card</div>
+                                <div style="color: #374151; font-size: 0.9rem;">Clean minimal design</div>
+                            </div>
+                            <div>
+                                <span class="demo-badge" style="background: #e5e7eb; color: #1f2937;">Spotlight</span>
+                                <span class="demo-badge" style="background: #d1fae5; color: #065f46;">Poster</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme 6: Soft Pink -->
+            <div class="theme-card" onclick="showInstallation('soft-pink')">
+                <div class="theme-header" style="background: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);">
+                    <div class="theme-name">🌸 Soft Pink</div>
+                    <div class="theme-description">Modern & Friendly - Great for social sciences and humanities</div>
+                </div>
+                <div class="theme-preview">
+                    <div class="preview-section">
+                        <div class="preview-title">Light Mode</div>
+                        <div class="color-row">
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #9f1239;"></div>
+                                <div class="color-label">Primary</div>
+                                <div class="color-code">#9f1239</div>
+                            </div>
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #e11d48;"></div>
+                                <div class="color-label">Secondary</div>
+                                <div class="color-code">#e11d48</div>
+                            </div>
+                            <div class="color-box">
+                                <div class="color-swatch" style="background: #7c3aed;"></div>
+                                <div class="color-label">Accent</div>
+                                <div class="color-code">#7c3aed</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-section">
+                        <div class="preview-title">Demo Elements</div>
+                        <div class="demo-elements">
+                            <button class="demo-button" style="background: #e11d48; color: white;">Primary Button</button>
+                            <div class="demo-card" style="background: #fff1f2; border-left: 4px solid #e11d48;">
+                                <div style="color: #9f1239; font-weight: 600; margin-bottom: 0.5rem;">Publication Card</div>
+                                <div style="color: #be123c; font-size: 0.9rem;">Friendly modern design</div>
+                            </div>
+                            <div>
+                                <span class="demo-badge" style="background: #fce7f3; color: #9f1239;">Spotlight</span>
+                                <span class="demo-badge" style="background: #f3e8ff; color: #6b21a8;">Oral</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Installation Section -->
+        <div class="install-section" id="installation">
+            <h2 style="margin-bottom: 1.5rem; color: #1f2937;">📝 How to Install a Theme</h2>
+            <ol style="line-height: 2; color: #4b5563; margin-left: 1.5rem;">
+                <li>Click on your favorite theme above</li>
+                <li>Copy the CSS code below</li>
+                <li>Open <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 3px;">css/style.css</code></li>
+                <li>Replace the <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 3px;">:root</code> section (lines 8-56)</li>
+                <li>Save and refresh your browser</li>
+            </ol>
+
+            <div id="theme-code"></div>
+        </div>
+    </div>
+
+    <script>
+        const themes = {
+            'nature-green': {
+                name: 'Nature Green',
+                code: `:root {
+    /* Light Theme Colors */
+    --primary-color: #065f46;
+    --secondary-color: #059669;
+    --accent-color: #ea580c;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --bg-color: #ffffff;
+    --bg-gray: #f9fafb;
+    --bg-card: #ffffff;
+    --border-color: #e5e7eb;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+    /* Award Colors - Light Mode */
+    --award-spotlight: #dc2626;
+    --award-spotlight-bg: #fee2e2;
+    --award-oral: #7c3aed;
+    --award-oral-bg: #ede9fe;
+    --award-best: #ea580c;
+    --award-best-bg: #ffedd5;
+    --award-poster: #059669;
+    --award-poster-bg: #d1fae5;
+    --award-default: #10b981;
+    --award-default-bg: #d1fae5;
+
+    /* Selected Publication */
+    --selected-border: #f59e0b;
+    --selected-bg: #fffbeb;
+}`
+            },
+            'ocean-blue': {
+                name: 'Ocean Blue',
+                code: `:root {
+    /* Light Theme Colors */
+    --primary-color: #0c4a6e;
+    --secondary-color: #0284c7;
+    --accent-color: #dc2626;
+    --success-color: #059669;
+    --warning-color: #f59e0b;
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --bg-color: #ffffff;
+    --bg-gray: #f9fafb;
+    --bg-card: #ffffff;
+    --border-color: #e5e7eb;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+    /* Award Colors - Light Mode */
+    --award-spotlight: #dc2626;
+    --award-spotlight-bg: #fee2e2;
+    --award-oral: #7c3aed;
+    --award-oral-bg: #ede9fe;
+    --award-best: #ea580c;
+    --award-best-bg: #ffedd5;
+    --award-poster: #0284c7;
+    --award-poster-bg: #dbeafe;
+    --award-default: #0284c7;
+    --award-default-bg: #dbeafe;
+
+    /* Selected Publication */
+    --selected-border: #f59e0b;
+    --selected-bg: #fffbeb;
+}`
+            },
+            'royal-purple': {
+                name: 'Royal Purple',
+                code: `:root {
+    /* Light Theme Colors */
+    --primary-color: #581c87;
+    --secondary-color: #7c3aed;
+    --accent-color: #f59e0b;
+    --success-color: #059669;
+    --warning-color: #f59e0b;
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --bg-color: #ffffff;
+    --bg-gray: #f9fafb;
+    --bg-card: #ffffff;
+    --border-color: #e5e7eb;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+    /* Award Colors - Light Mode */
+    --award-spotlight: #dc2626;
+    --award-spotlight-bg: #fee2e2;
+    --award-oral: #7c3aed;
+    --award-oral-bg: #ede9fe;
+    --award-best: #ea580c;
+    --award-best-bg: #ffedd5;
+    --award-poster: #059669;
+    --award-poster-bg: #d1fae5;
+    --award-default: #7c3aed;
+    --award-default-bg: #ede9fe;
+
+    /* Selected Publication */
+    --selected-border: #f59e0b;
+    --selected-bg: #fffbeb;
+}`
+            },
+            'warm-sunset': {
+                name: 'Warm Sunset',
+                code: `:root {
+    /* Light Theme Colors */
+    --primary-color: #9a3412;
+    --secondary-color: #ea580c;
+    --accent-color: #7c2d12;
+    --success-color: #059669;
+    --warning-color: #f59e0b;
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --bg-color: #ffffff;
+    --bg-gray: #f9fafb;
+    --bg-card: #ffffff;
+    --border-color: #e5e7eb;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+    /* Award Colors - Light Mode */
+    --award-spotlight: #dc2626;
+    --award-spotlight-bg: #fee2e2;
+    --award-oral: #7c3aed;
+    --award-oral-bg: #ede9fe;
+    --award-best: #ea580c;
+    --award-best-bg: #ffedd5;
+    --award-poster: #059669;
+    --award-poster-bg: #d1fae5;
+    --award-default: #ea580c;
+    --award-default-bg: #ffedd5;
+
+    /* Selected Publication */
+    --selected-border: #f59e0b;
+    --selected-bg: #fffbeb;
+}`
+            },
+            'minimal-mono': {
+                name: 'Minimal Monochrome',
+                code: `:root {
+    /* Light Theme Colors */
+    --primary-color: #1f2937;
+    --secondary-color: #4b5563;
+    --accent-color: #059669;
+    --success-color: #059669;
+    --warning-color: #f59e0b;
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --bg-color: #ffffff;
+    --bg-gray: #f9fafb;
+    --bg-card: #ffffff;
+    --border-color: #e5e7eb;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+    /* Award Colors - Light Mode */
+    --award-spotlight: #1f2937;
+    --award-spotlight-bg: #e5e7eb;
+    --award-oral: #4b5563;
+    --award-oral-bg: #e5e7eb;
+    --award-best: #374151;
+    --award-best-bg: #f3f4f6;
+    --award-poster: #059669;
+    --award-poster-bg: #d1fae5;
+    --award-default: #4b5563;
+    --award-default-bg: #e5e7eb;
+
+    /* Selected Publication */
+    --selected-border: #f59e0b;
+    --selected-bg: #fffbeb;
+}`
+            },
+            'soft-pink': {
+                name: 'Soft Pink',
+                code: `:root {
+    /* Light Theme Colors */
+    --primary-color: #9f1239;
+    --secondary-color: #e11d48;
+    --accent-color: #7c3aed;
+    --success-color: #059669;
+    --warning-color: #f59e0b;
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --bg-color: #ffffff;
+    --bg-gray: #f9fafb;
+    --bg-card: #ffffff;
+    --border-color: #e5e7eb;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+    /* Award Colors - Light Mode */
+    --award-spotlight: #dc2626;
+    --award-spotlight-bg: #fee2e2;
+    --award-oral: #7c3aed;
+    --award-oral-bg: #ede9fe;
+    --award-best: #ea580c;
+    --award-best-bg: #ffedd5;
+    --award-poster: #059669;
+    --award-poster-bg: #d1fae5;
+    --award-default: #e11d48;
+    --award-default-bg: #fce7f3;
+
+    /* Selected Publication */
+    --selected-border: #f59e0b;
+    --selected-bg: #fffbeb;
+}`
+            }
+        };
+
+        function showInstallation(themeId) {
+            const theme = themes[themeId];
+            const codeContainer = document.getElementById('theme-code');
+
+            codeContainer.innerHTML = `
+                <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #1f2937;">${theme.name} Theme</h3>
+                <div class="code-block">${theme.code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+                <button class="copy-button" onclick="copyCode('${themeId}')">📋 Copy to Clipboard</button>
+            `;
+
+            document.getElementById('installation').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyCode(themeId) {
+            const theme = themes[themeId];
+            navigator.clipboard.writeText(theme.code).then(() => {
+                alert('✅ Theme code copied! Paste it into your css/style.css file.');
+            });
+        }
+
+        // Show default theme on load
+        window.addEventListener('load', () => {
+            showInstallation('ocean-blue');
+        });
+    </script>
+</body>
+</html>

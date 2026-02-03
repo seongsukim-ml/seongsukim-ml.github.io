@@ -1,0 +1,13 @@
+{
+  "posts": [
+    {
+      "id": "post-1",
+      "title": "Understanding Density Functional Theory in Machine Learning",
+      "date": "2025-12-15",
+      "category": "Research",
+      "excerpt": "An introduction to how machine learning can accelerate density functional theory calculations for materials science applications.",
+      "tags": ["DFT", "Machine Learning", "Materials Science", "Quantum Chemistry"],
+      "link": "posts/post-1.html"
+    }
+  ]
+}

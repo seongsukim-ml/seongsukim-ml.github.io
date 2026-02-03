@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Density Functional Theory in Machine Learning - Seongsu Kim</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .post-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .post-header-full {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .post-meta-full {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        .post-content-full {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        .post-content-full h2 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .post-content-full p {
+            margin-bottom: 1.5rem;
+        }
+        .post-content-full code {
+            background: var(--bg-gray);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-link:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1><a href="../index.html" style="color: inherit; text-decoration: none;">Seongsu Kim</a></h1>
+            </div>
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="../index.html#about" class="nav-link">About</a>
+                    <a href="../index.html#publications" class="nav-link">Publications</a>
+                    <a href="../index.html#posts" class="nav-link">Posts</a>
+                </div>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="post-container">
+        <a href="../index.html#posts" class="back-link">← Back to Posts</a>
+
+        <article>
+            <div class="post-header-full">
+                <div class="post-meta-full">
+                    <span>December 15, 2025</span>
+                    <span>•</span>
+                    <span>Research</span>
+                    <span>•</span>
+                    <span>10 min read</span>
+                </div>
+                <h1 class="hero-title" style="font-size: 2.5rem; margin-bottom: 1rem;">
+                    Understanding Density Functional Theory in Machine Learning
+                </h1>
+                <div class="post-tags" style="margin-top: 1rem;">
+                    <span class="post-tag">DFT</span>
+                    <span class="post-tag">Machine Learning</span>
+                    <span class="post-tag">Materials Science</span>
+                    <span class="post-tag">Quantum Chemistry</span>
+                </div>
+            </div>
+
+            <div class="post-content-full">
+                <p>
+                    Density Functional Theory (DFT) has revolutionized computational materials science and quantum chemistry.
+                    However, traditional DFT calculations are computationally expensive, limiting their application to
+                    larger systems and longer timescales. This is where machine learning comes in.
+                </p>
+
+                <h2>What is Density Functional Theory?</h2>
+                <p>
+                    Density Functional Theory is a quantum mechanical method used to investigate the electronic structure
+                    of many-body systems. Instead of dealing with the complex many-body wave function, DFT reformulates
+                    the problem in terms of electron density, making it more computationally tractable.
+                </p>
+
+                <p>
+                    The key insight of DFT is the Hohenberg-Kohn theorem, which states that the ground state properties
+                    of a many-electron system are uniquely determined by the electron density. This means we can calculate
+                    important properties like total energy, forces, and electronic structure from just the electron density.
+                </p>
+
+                <h2>Why Machine Learning?</h2>
+                <p>
+                    While DFT is more efficient than traditional wave function methods, it still involves solving the
+                    Kohn-Sham equations self-consistently, which can be computationally demanding. For large-scale
+                    simulations or high-throughput screening, this becomes a bottleneck.
+                </p>
+
+                <p>
+                    Machine learning models can be trained to predict DFT results with significantly reduced computational
+                    cost. By learning the relationship between atomic structures and their properties from DFT calculations,
+                    ML models can generalize to new structures and make predictions orders of magnitude faster.
+                </p>
+
+                <h2>Our Approach: GPWNO</h2>
+                <p>
+                    In our work on <strong>Gaussian Plane-Wave Neural Operators</strong> (GPWNO), we developed a neural
+                    network architecture specifically designed for electron density prediction. The key innovations include:
+                </p>
+
+                <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+                    <li style="margin-bottom: 0.5rem;">
+                        <strong>Plane-wave basis representation</strong>: We leverage the natural representation of electron
+                        density in reciprocal space, which aligns with how DFT calculations are typically performed.
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <strong>Gaussian-type orbitals</strong>: We incorporate chemical intuition by using Gaussian basis
+                        functions that naturally describe atomic orbitals.
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <strong>Neural operator framework</strong>: By formulating the problem as learning an operator
+                        mapping between function spaces, we achieve better generalization across different system sizes
+                        and compositions.
+                    </li>
+                </ul>
+
+                <h2>Applications and Impact</h2>
+                <p>
+                    ML-accelerated DFT has numerous applications in materials science:
+                </p>
+
+                <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+                    <li>Drug discovery and molecular design</li>
+                    <li>Battery materials optimization</li>
+                    <li>Catalyst design for chemical reactions</li>
+                    <li>Novel materials discovery</li>
+                </ul>
+
+                <p>
+                    By combining the accuracy of DFT with the speed of machine learning, we can explore much larger
+                    regions of chemical space and discover materials with desired properties more efficiently.
+                </p>
+
+                <h2>Future Directions</h2>
+                <p>
+                    The field of ML-accelerated quantum chemistry is rapidly evolving. Some exciting directions include:
+                </p>
+
+                <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+                    <li>Incorporating physical constraints and symmetries more rigorously</li>
+                    <li>Active learning strategies for efficient data collection</li>
+                    <li>Multi-fidelity approaches combining different levels of theory</li>
+                    <li>Uncertainty quantification for reliable predictions</li>
+                </ul>
+
+                <p>
+                    As computational resources grow and ML methods improve, we expect to see increasingly sophisticated
+                    approaches that can handle complex chemical phenomena while maintaining the predictive accuracy of
+                    first-principles calculations.
+                </p>
+
+                <h2>Conclusion</h2>
+                <p>
+                    Machine learning is transforming how we perform quantum chemical calculations. By learning from DFT
+                    data, ML models can achieve significant speedups while maintaining accuracy. This opens up new
+                    possibilities for materials discovery and molecular design at scales previously impossible.
+                </p>
+
+                <p style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color); color: var(--text-light);">
+                    <em>This post is part of a series on AI for scientific discovery. If you're interested in learning
+                    more about our work, check out our <a href="../index.html#publications">publications</a>.</em>
+                </p>
+            </div>
+        </article>
+    </div>
+
+    <script>
+        // Theme toggle
+        function loadThemePreference() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeToggleIcon(savedTheme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeToggleIcon(newTheme);
+        }
+
+        function updateThemeToggleIcon(theme) {
+            const toggleButton = document.getElementById('theme-toggle');
+            if (toggleButton) {
+                toggleButton.textContent = theme === 'light' ? '🌙' : '☀️';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadThemePreference();
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', toggleTheme);
+            }
+        });
+    </script>
+</body>
+</html>

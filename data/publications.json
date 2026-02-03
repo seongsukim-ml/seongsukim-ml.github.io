@@ -1,0 +1,96 @@
+{
+  "publications": [
+    {
+      "id": "kim2025MLH",
+      "title": "Machine Learning Hamiltonians are Accurate Energy-Force Predictors",
+      "authors": ["Seongsu Kim", "Chanhui Lee", "Yoonho Kim", "Seongjun Yun", "Honghui Kim", "Nayoung Kim", "Changyong Park", "Sehui Han", "Sungbin Lim", "Sungsoo Ahn"],
+      "author_ids": ["seongsu-kim", "chanhui-lee", "yoonho-kim", null, "honghui-kim", "nayoung-kim", null, null, null, "sungsoo-ahn"],
+      "venue": "Preprint",
+      "year": 2026,
+      "type": "preprint",
+      "selected": true,
+      "keywords": ["Hamiltonian", "Machine Learning", "DFT", "Force Prediction"],
+      "links": {}
+    },
+    {
+      "id": "kim2025ATOMMOF",
+      "title": "ATOMMOF: All-Atom Flow Matching for MOF-Adsorbate Structure Prediction",
+      "authors": ["Nayoung Kim", "Honghui Kim", "Sihyun Yu", "Minkyu Kim", "Seongsu Kim", "Sungsoo Ahn"],
+      "author_ids": ["nayoung-kim", "honghui-kim", null, null, "seongsu-kim", "sungsoo-ahn"],
+      "venue": "Preprint",
+      "year": 2026,
+      "type": "preprint",
+      "selected": false,
+      "keywords": ["MOF", "Flow Matching", "Structure Prediction", "Adsorption"],
+      "links": {}
+    },
+    {
+      "id": "kim2025high",
+      "title": "High-order Equivariant Flow Matching for Density Functional Theory Hamiltonian Prediction",
+      "authors": ["Seongsu Kim", "Nayoung Kim", "Dongwoo Kim", "Sungsoo Ahn"],
+      "author_ids": ["seongsu-kim", "nayoung-kim", "dongwoo-kim", "sungsoo-ahn"],
+      "venue": "Neural Information Processing Systems (NeurIPS)",
+      "year": 2025,
+      "type": "conference",
+      "award": "Spotlight",
+      "selected": true,
+      "keywords": ["Equivariance", "Flow Matching", "DFT", "Hamiltonian", "Quantum Chemistry"],
+      "links": {
+        "pdf": "https://www.arxiv.org/abs/2505.18817",
+        "code": "https://github.com/seongsukim-ml/QHFlow",
+        "slides": "251031_QHFlow_NVIDIA_BioNemo_Final.pdf"
+      },
+      "bibtex_file": "data/bibtex/kim2025high.bib"
+    },
+    {
+      "id": "kim2025Flexible",
+      "title": "Flexible MOF Generation with Torsion-Aware Flow Matching",
+      "authors": ["Nayoung Kim", "Seongsu Kim", "Sungsoo Ahn"],
+      "author_ids": ["nayoung-kim", "seongsu-kim", "sungsoo-ahn"],
+      "venue": "Neural Information Processing Systems (NeurIPS)",
+      "year": 2025,
+      "type": "conference",
+      "award": "Poster",
+      "selected": false,
+      "keywords": ["MOF", "Flow Matching", "Generative Model", "Materials"],
+      "links": {
+        "pdf": "https://www.arxiv.org/abs/2505.17914"
+      },
+      "bibtex_file": "data/bibtex/kim2025Flexible.bib"
+    },
+    {
+      "id": "kim2024mofflow",
+      "title": "MOFFlow: Flow Matching for Structure Prediction of Metal-Organic Frameworks",
+      "authors": ["Nayoung Kim", "Seongsu Kim", "Minsu Kim", "Jinkyoo Park", "Sungsoo Ahn"],
+      "author_ids": ["nayoung-kim", "seongsu-kim", "minsu-kim", "jinkyoo-park", "sungsoo-ahn"],
+      "venue": "International Conference on Learning Representations (ICLR)",
+      "year": 2025,
+      "type": "conference",
+      "award": "Poster",
+      "selected": false,
+      "keywords": ["MOF", "Flow Matching", "ICLR", "Structure Prediction"],
+      "links": {
+        "pdf": "https://arxiv.org/abs/2410.17270"
+      },
+      "bibtex_file": "data/bibtex/kim2024mofflow.bib"
+    },
+    {
+      "id": "kim2024Gaussian",
+      "title": "Gaussian Plane-Wave Neural Operator for Electron Density Estimation",
+      "authors": ["Seongsu Kim", "Sungsoo Ahn"],
+      "author_ids": ["seongsu-kim", "sungsoo-ahn"],
+      "venue": "International Conference on Machine Learning (ICML)",
+      "year": 2024,
+      "type": "conference",
+      "award": "Poster",
+      "selected": true,
+      "keywords": ["Neural Operator", "DFT", "Electron Density", "ICML", "Quantum Chemistry"],
+      "links": {
+        "pdf": "https://arxiv.org/abs/2402.04278",
+        "code": "https://github.com/seongsukim-ml/GPWNO",
+        "slides": "GPWNO_ICML_VIDEO_FINAL_240718.pdf"
+      },
+      "bibtex_file": "data/bibtex/kim2024Gaussian.bib"
+    }
+  ]
+}

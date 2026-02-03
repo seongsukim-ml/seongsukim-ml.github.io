@@ -1,0 +1,48 @@
+{
+  "authors": {
+    "seongsu-kim": {
+      "name": "Seongsu Kim",
+      "url": "https://seongsukim-ml.github.io",
+      "scholar": "ihW8TmoAAAAJ"
+    },
+    "sungsoo-ahn": {
+      "name": "Sungsoo Ahn",
+      "url": "https://sungsoo-ahn.github.io/",
+      "scholar": "xxxxx"
+    },
+    "nayoung-kim": {
+      "name": "Nayoung Kim",
+      "url": "https://nayoung10.github.io/",
+      "scholar": "xxxxx"
+    },
+    "dongwoo-kim": {
+      "name": "Dongwoo Kim",
+      "url": "https://dongwookim-ml.github.io/",
+      "scholar": "xxxxx"
+    },
+    "chanhui-lee": {
+      "name": "Chanhui Lee",
+      "url": "#"
+    },
+    "yoonho-kim": {
+      "name": "Yoonho Kim",
+      "url": "#"
+    },
+    "honghui-kim": {
+      "name": "Honghui Kim",
+      "url": "#"
+    },
+    "minsu-kim": {
+      "name": "Minsu Kim",
+      "url": "#"
+    },
+    "jinkyoo-park": {
+      "name": "Jinkyoo Park",
+      "url": "#"
+    },
+    "sungbin-lim": {
+      "name": "Sungbin Lim",
+      "url": "https://sungbin-lim.github.io/"
+    }
+  }
+}

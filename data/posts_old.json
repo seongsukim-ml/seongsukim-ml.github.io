@@ -1,0 +1,58 @@
+{
+  "posts": [
+    {
+      "id": "post-1",
+      "title": "Understanding Density Functional Theory in Machine Learning",
+      "date": "2025-12-15",
+      "category": "Research",
+      "excerpt": "An introduction to how machine learning can accelerate density functional theory calculations for materials science applications.",
+      "tags": ["DFT", "Machine Learning", "Materials Science", "Quantum Chemistry"],
+      "link": "posts/post-1.html"
+    },
+    {
+      "id": "post-2",
+      "title": "Flow Matching for Molecular Structure Prediction",
+      "date": "2025-11-20",
+      "category": "Tutorial",
+      "excerpt": "A comprehensive guide to understanding flow matching techniques and their applications in predicting molecular structures, especially for MOFs.",
+      "tags": ["Flow Matching", "Generative Models", "MOF", "Structure Prediction"],
+      "link": "#"
+    },
+    {
+      "id": "post-3",
+      "title": "My Journey at ICML 2024",
+      "date": "2024-07-25",
+      "category": "Conference",
+      "excerpt": "Reflections on presenting our work on Gaussian Plane-Wave Neural Operators at ICML 2024 in Vienna. Key takeaways and memorable discussions.",
+      "tags": ["ICML", "Conference", "Neural Operators", "Experience"],
+      "link": "#"
+    },
+    {
+      "id": "post-4",
+      "title": "Equivariant Neural Networks for Physics",
+      "date": "2025-10-10",
+      "category": "Research",
+      "excerpt": "Exploring how equivariant neural networks preserve physical symmetries and why this is crucial for scientific machine learning applications.",
+      "tags": ["Equivariance", "Symmetry", "Physics-ML", "Geometric Deep Learning"],
+      "link": "#"
+    },
+    {
+      "id": "post-5",
+      "title": "Getting Started with Quantum Chemistry Simulations",
+      "date": "2025-09-05",
+      "category": "Tutorial",
+      "excerpt": "A beginner-friendly guide to quantum chemistry simulations, covering basic concepts, popular software packages, and practical examples.",
+      "tags": ["Quantum Chemistry", "Simulation", "Tutorial", "Beginner"],
+      "link": "#"
+    },
+    {
+      "id": "post-6",
+      "title": "NeurIPS 2025: Two Papers Accepted!",
+      "date": "2025-09-18",
+      "category": "Announcement",
+      "excerpt": "Excited to share that two of our papers have been accepted to NeurIPS 2025! One spotlight on QHFlow and one poster on flexible MOF generation.",
+      "tags": ["NeurIPS", "Announcement", "Achievement"],
+      "link": "#"
+    }
+  ]
+}

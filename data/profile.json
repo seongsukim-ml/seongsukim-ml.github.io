@@ -1,0 +1,43 @@
+{
+  "name": "Seongsu Kim",
+  "name_korean": "성수",
+  "pronunciation": "[sʌŋ-su:]",
+  "title": "Ph.D. Student",
+  "email": "seongsu.kim@kaist.ac.kr",
+  "affiliation": "KAIST AI Department",
+  "lab": {
+    "name": "Structured and Probabilistic Machine Learning (SPML) Lab",
+    "url": "https://sites.google.com/view/sungsooahn0215/home"
+  },
+  "advisor": {
+    "name": "Sungsoo Ahn",
+    "url": "https://sites.google.com/view/sungsooahn0215/home"
+  },
+  "previous_education": "M.S. in Artificial Intelligence at POSTECH",
+  "profile_image": "assets/profile.jpg",
+  "bio": [
+    "Hi, I'm Seongsu. Thank you for stopping by! 👋 The spelling of my name in Korean is \"성수\" and it is pronounced as [sʌŋ-su:].",
+    "I am currently an incoming Ph.D. student in the AI department at KAIST. I am also a member of Structured and Probabilistic Machine Learning (SPML) Lab. I completed my M.S. in Artificial Intelligence at POSTECH.",
+    "My research interests include integrating AI into scientific research and using AI to uncover scientific facts. Also, I am interested in physical and chemical concepts like solid state physics, simulation dynamics and molecular science, and also mathematical concepts like group theory, geometry and geometrical deep learning.",
+    "Recently, I am focusing on (1) generative modeling for materials and (2) ab-initio method based machine learning for quantum physics and chemistry related with density functional theory (DFT) or variational Monte Carlo (VMC).",
+    "I believe that AI will effectively reduce the complexity of calculations in physics and chemistry, especially in areas like multi-objective optimization problems, challenges in establishing ansatzes, modeling interactions and governing equations, and handling intractable computations. I am studying and researching these possibilities.",
+    "I am open to discussion, please feel free to reach out anytime!"
+  ],
+  "research_interests": [
+    "AI for Scientific Research",
+    "Generative Modeling for Materials",
+    "Ab-initio Machine Learning",
+    "Quantum Physics and Chemistry",
+    "Density Functional Theory (DFT)",
+    "Variational Monte Carlo (VMC)",
+    "Geometrical Deep Learning",
+    "Solid State Physics",
+    "Molecular Science"
+  ],
+  "languages": ["Korean", "English"],
+  "social": {
+    "github": "seongsukim-ml",
+    "scholar": "ihW8TmoAAAAJ",
+    "linkedin": "seongsu-kim"
+  }
+}

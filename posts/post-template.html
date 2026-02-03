@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Post - Seongsu Kim">
+    <meta name="author" content="Seongsu Kim">
+    <title>Post Title - Seongsu Kim</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Additional styles for post page */
+        .post-page {
+            padding: var(--spacing-xl) 0;
+        }
+
+        .post-header-section {
+            background: linear-gradient(135deg, var(--hero-gradient-start) 0%, var(--hero-gradient-end) 100%);
+            color: white;
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+        }
+
+        .post-back-link {
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.9);
+            padding: 6px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--spacing-md);
+            transition: all 0.3s ease;
+        }
+
+        .post-back-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateX(-4px);
+        }
+
+        .post-page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.2;
+        }
+
+        .post-meta-info {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .post-content-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .post-content-section h1 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .post-content-section h2 {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .post-content-section h3 {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            margin-top: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .post-content-section p {
+            margin-bottom: var(--spacing-md);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .post-content-section ul,
+        .post-content-section ol {
+            margin-bottom: var(--spacing-md);
+            padding-left: var(--spacing-lg);
+        }
+
+        .post-content-section li {
+            margin-bottom: var(--spacing-xs);
+            line-height: 1.7;
+        }
+
+        .post-content-section code {
+            background-color: var(--bg-gray);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+            color: var(--accent-color);
+        }
+
+        .post-content-section pre {
+            background-color: var(--bg-gray);
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: var(--spacing-md);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .post-content-section pre code {
+            background: none;
+            padding: 0;
+            color: var(--text-color);
+        }
+
+        .post-content-section blockquote {
+            border-left: 4px solid var(--secondary-color);
+            padding-left: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-md);
+            border-top: 2px solid var(--border-color);
+        }
+
+        .post-tag-label {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .post-tag {
+            background-color: var(--bg-gray);
+            color: var(--text-color);
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: var(--spacing-md);
+            color: var(--secondary-color);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent-color);
+            transform: translateX(-4px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1 id="site-title">Seongsu Kim</h1>
+            </div>
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="../index.html" class="nav-link">Home</a>
+                    <a href="../index.html#posts" class="nav-link">← Back to Posts</a>
+                </div>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    🌙
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Post Header -->
+    <section class="post-header-section">
+        <div class="container">
+            <a href="../index.html#posts" class="post-back-link">← Back to Posts</a>
+            <h1 class="post-page-title">Your Post Title Here</h1>
+            <div class="post-meta-info">
+                <span>📅 February 3, 2026</span>
+                <span>·</span>
+                <span>⏱️ 5 min read</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Post Content -->
+    <article class="post-content-section">
+        <a href="../index.html#posts" class="back-link">← Back to all posts</a>
+
+        <h1>Introduction</h1>
+        <p>
+            Start your post content here. This template maintains the same style as your main page,
+            with a gradient header that matches your selected theme.
+        </p>
+
+        <h2>Main Section</h2>
+        <p>
+            Write your content with proper headings and paragraphs. The styling will be consistent
+            with your main site.
+        </p>
+
+        <h3>Subsection</h3>
+        <p>
+            You can use all standard HTML elements:
+        </p>
+
+        <ul>
+            <li>Bullet points for lists</li>
+            <li>Inline <code>code</code> formatting</li>
+            <li>Links to <a href="#">other pages</a></li>
+        </ul>
+
+        <h3>Code Example</h3>
+        <pre><code>function example() {
+    console.log("Code blocks look great!");
+    return true;
+}</code></pre>
+
+        <blockquote>
+            Use blockquotes for important callouts or quotations.
+        </blockquote>
+
+        <h2>Conclusion</h2>
+        <p>
+            Wrap up your post here. The footer and navigation will remain consistent with your main site.
+        </p>
+
+        <!-- Tags -->
+        <div class="post-tags">
+            <span class="post-tag-label">Tags:</span>
+            <span class="post-tag">Machine Learning</span>
+            <span class="post-tag">Research</span>
+            <span class="post-tag">AI</span>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Seongsu Kim. All rights reserved.</p>
+            <p class="footer-note">Powered by HTML, CSS, and JavaScript.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Theme management for post page
+        function loadThemePreference() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeToggleIcon(savedTheme);
+            loadColorTheme();
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeToggleIcon(newTheme);
+
+            const currentColorTheme = localStorage.getItem('colorTheme') || 'default';
+            applyColorTheme(currentColorTheme, newTheme);
+        }
+
+        function updateThemeToggleIcon(theme) {
+            const toggleButton = document.getElementById('theme-toggle');
+            if (toggleButton) {
+                toggleButton.textContent = theme === 'light' ? '🌙' : '☀️';
+            }
+        }
+
+        function loadColorTheme() {
+            const savedColorTheme = localStorage.getItem('colorTheme') || 'default';
+            const currentMode = document.documentElement.getAttribute('data-theme') || 'light';
+
+            // Load themes data and apply
+            fetch('../data/themes.json')
+                .then(res => res.json())
+                .then(data => {
+                    const theme = data.themes.find(t => t.id === savedColorTheme);
+                    if (theme) {
+                        applyColorTheme(savedColorTheme, currentMode, theme);
+                    }
+                });
+        }
+
+        function applyColorTheme(themeId, mode, themeData = null) {
+            if (!themeData) return;
+
+            const colors = mode === 'light' ? themeData.light : themeData.dark;
+            const root = document.documentElement;
+
+            Object.entries(colors).forEach(([key, value]) => {
+                root.style.setProperty(`--${key}`, value);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadThemePreference();
+
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', toggleTheme);
+            }
+        });
+    </script>
+</body>
+</html>

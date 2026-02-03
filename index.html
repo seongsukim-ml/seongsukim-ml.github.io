@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Seongsu Kim - Ph.D. Student in AI at KAIST, researching AI for scientific discovery">
+    <meta name="keywords" content="AI, Machine Learning, Materials Science, Quantum Physics, DFT">
+    <meta name="author" content="Seongsu Kim">
+    <title>Seongsu Kim - Academic Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1 id="site-title">Seongsu Kim</h1>
+            </div>
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#news" class="nav-link">News</a>
+                    <a href="#publications" class="nav-link">Publications</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#posts" class="nav-link">Posts</a>
+                    <a href="assets/Seongsu_Kim_CV.pdf" class="nav-link" target="_blank">CV</a>
+                </div>
+                <button id="theme-picker" class="theme-picker" aria-label="Choose color theme">
+                    🎨
+                </button>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    🌙
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="section">
+        <div class="container hero-container">
+            <div class="hero-profile">
+                <img id="profile-image" src="" alt="Profile" class="profile-image" style="display: none;">
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title" id="profile-name">Loading...</h1>
+                <p class="hero-subtitle" id="profile-title">Loading...</p>
+                <p class="hero-affiliation" id="profile-affiliation">Loading...</p>
+                <div class="hero-contact-wrapper">
+                    <div class="hero-contact">
+                        <a href="#" id="profile-scholar" class="contact-link" target="_blank">Scholar</a>
+                        <span class="separator">·</span>
+                        <a href="#" id="profile-github" class="contact-link" target="_blank">GitHub</a>
+                        <span class="separator" id="linkedin-separator" style="display: none;">·</span>
+                        <a href="#" id="profile-linkedin" class="contact-link" target="_blank" style="display: none;">LinkedIn</a>
+                    </div>
+                    <div class="hero-email">
+                        <a href="#" id="profile-email" class="contact-link email-link">Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About</h2>
+            <div class="about-content" id="about-content">
+                <!-- Bio will be loaded dynamically -->
+            </div>
+
+            <div class="research-interests">
+                <h3>Research Interests</h3>
+                <div id="research-interests-list" class="interests-grid">
+                    <!-- Research interests will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="section section-gray">
+        <div class="container">
+            <h2 class="section-title">News</h2>
+            <div class="news-container" id="news-container">
+                <!-- News items will be loaded dynamically -->
+            </div>
+            <div class="news-toggle-container" id="news-toggle-container" style="display: none;">
+                <button id="news-toggle" class="news-toggle-btn">
+                    Show More News
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section id="publications" class="section">
+        <div class="container">
+            <h2 class="section-title">Publications</h2>
+            <div class="publications-filter">
+                <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                    <span style="font-weight: 600; color: var(--text-color);">Year:</span>
+                    <button class="filter-btn active" data-year="all">All</button>
+                    <button class="filter-btn" data-year="2026">2026</button>
+                    <button class="filter-btn" data-year="2025">2025</button>
+                    <button class="filter-btn" data-year="2024">2024</button>
+                </div>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <span style="font-weight: 600; color: var(--text-color);">Show:</span>
+                    <button id="selected-toggle" class="filter-btn" data-selected="false">
+                        ⭐ Selected Only
+                    </button>
+                </div>
+            </div>
+            <div id="publications-container" class="publications-list">
+                <!-- Publications will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section section-gray">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div id="projects-container" class="projects-grid">
+                <!-- Projects will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Posts Section -->
+    <section id="posts" class="section">
+        <div class="container">
+            <h2 class="section-title">Posts</h2>
+            <div id="posts-container" class="posts-grid">
+                <!-- Posts will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Seongsu Kim. All rights reserved.</p>
+            <p class="footer-note">Powered by HTML, CSS, and JavaScript. Data managed in JSON format.</p>
+        </div>
+    </footer>
+
+    <!-- Theme Picker Modal -->
+    <div id="theme-modal" class="theme-modal hidden">
+        <div class="theme-modal-content">
+            <div class="theme-modal-header">
+                <h3>Choose Color Theme</h3>
+                <button id="theme-modal-close" class="theme-modal-close">&times;</button>
+            </div>
+            <div id="theme-options" class="theme-options">
+                <!-- Theme options will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>

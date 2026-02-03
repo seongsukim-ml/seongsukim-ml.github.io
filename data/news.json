@@ -1,0 +1,53 @@
+{
+  "news": [
+    {
+      "id": "icml2026_preprint",
+      "date": "2026-01-15",
+      "title": "New Preprint Released",
+      "content": "📄 Our new preprint on Machine Learning Hamiltonians is now available.",
+      "inline": true
+    },
+    {
+      "id": "nvidia_talk",
+      "date": "2025-10-31",
+      "title": "NVIDIA BioNeMo Talk",
+      "content": "📕 Honored to present our work on [\"QHFlow: ML-accelerated DFT\"](https://arxiv.org/abs/2505.18817) at NVIDIA BioNeMo Reading Group! [Slides](https://seongsukim-ml.github.io/assets/pdf/251031_QHFlow_NVIDIA_BioNemo_Final.pdf)",
+      "inline": true
+    },
+    {
+      "id": "nips2025_accept",
+      "date": "2025-09-18",
+      "title": "NeurIPS 2025 Acceptance",
+      "content": "📋 Two papers were accepted to NeurIPS 2025: one Spotlight (first author) and one Poster (second author).",
+      "inline": true
+    },
+    {
+      "id": "kaist_join",
+      "date": "2025-03-01",
+      "title": "Joined KAIST",
+      "content": "🎒 Started Ph.D. program at KAIST AI Department.",
+      "inline": true
+    },
+    {
+      "id": "iclr2025_accept",
+      "date": "2025-01-23",
+      "title": "ICLR 2025 Acceptance",
+      "content": "💎 [\"MOFFlow: Flow Matching for Structure Prediction of Metal-Organic Frameworks\"](https://arxiv.org/abs/2410.17270), has been accepted to *2025 ICLR*.",
+      "inline": true
+    },
+    {
+      "id": "iclr2025_review",
+      "date": "2024-12-01",
+      "title": "ICLR 2025 Reviewer",
+      "content": "📝 Nominated as a notable reviewer for ICLR 2025.",
+      "inline": true
+    },
+    {
+      "id": "icml2024_accept",
+      "date": "2024-05-16",
+      "title": "ICML 2024 Acceptance",
+      "content": "🚀 [\"Gaussian Plane-Wave Neural Operator For Electron Density Estimation\"](https://arxiv.org/abs/2402.04278), has been accepted to *2024 ICML*.",
+      "inline": true
+    }
+  ]
+}
