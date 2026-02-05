@@ -15,10 +15,15 @@ function parseMarkdown(text) {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
 
-    // Parse markdown syntax
-    // Links: [text](url)
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    // Step 1: Extract and protect links from further processing
+    const links = [];
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
+        const placeholder = `{{LINKPLACEHOLDER${links.length}}}`;
+        links.push(`<a href="${url}" target="_blank" rel="noopener noreferrer">${text}</a>`);
+        return placeholder;
+    });
 
+    // Step 2: Parse other markdown (now safe from link URLs)
     // Bold: **text** or __text__
     html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
     html = html.replace(/__([^_]+)__/g, '<strong>$1</strong>');
@@ -29,6 +34,11 @@ function parseMarkdown(text) {
 
     // Inline code: `code`
     html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+    // Step 3: Restore protected links
+    links.forEach((link, index) => {
+        html = html.replace(`{{LINKPLACEHOLDER${index}}}`, link);
+    });
 
     return html;
 }
@@ -427,25 +437,28 @@ function renderProfile() {
 
     // Google Scholar
     const scholarLink = document.getElementById('profile-scholar');
-    if (profileData.social && profileData.social.scholar) {
+    if (scholarLink && profileData.social && profileData.social.scholar) {
         scholarLink.href = `https://scholar.google.com/citations?user=${profileData.social.scholar}`;
         scholarLink.textContent = 'Scholar';
+        console.log('Scholar link set:', scholarLink.href);
     }
 
     // GitHub
     const githubLink = document.getElementById('profile-github');
-    if (profileData.social && profileData.social.github) {
+    if (githubLink && profileData.social && profileData.social.github) {
         githubLink.href = `https://github.com/${profileData.social.github}`;
         githubLink.textContent = 'GitHub';
+        console.log('GitHub link set:', githubLink.href);
     }
 
     // LinkedIn
     const linkedinLink = document.getElementById('profile-linkedin');
     const linkedinSeparator = document.getElementById('linkedin-separator');
-    if (profileData.social && profileData.social.linkedin) {
+    if (linkedinLink && profileData.social && profileData.social.linkedin) {
         linkedinLink.href = `https://www.linkedin.com/in/${profileData.social.linkedin}`;
         linkedinLink.textContent = 'LinkedIn';
         linkedinLink.style.display = 'inline-block';
+        console.log('LinkedIn link set:', linkedinLink.href);
         if (linkedinSeparator) {
             linkedinSeparator.style.display = 'inline';
         }
@@ -1136,9 +1149,16 @@ function formatDate(dateString) {
 }
 
 function parseMarkdownLinks(text) {
-    // Parse markdown formatting
-    // Order matters: process bold before italic to avoid conflicts
+    // Use the same logic as parseMarkdown to prevent URL corruption
+    // Step 1: Extract and protect links from further processing
+    const links = [];
+    text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, linkText, url) => {
+        const placeholder = `{{LINKPLACEHOLDER${links.length}}}`;
+        links.push(`<a href="${url}" target="_blank">${linkText}</a>`);
+        return placeholder;
+    });
 
+    // Step 2: Parse other markdown (now safe from link URLs)
     // Bold: **text** or __text__
     text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
     text = text.replace(/__([^_]+)__/g, '<strong>$1</strong>');
@@ -1147,8 +1167,10 @@ function parseMarkdownLinks(text) {
     text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
     text = text.replace(/_([^_]+)_/g, '<em>$1</em>');
 
-    // Links: [text](url)
-    text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+    // Step 3: Restore protected links
+    links.forEach((link, index) => {
+        text = text.replace(`{{LINKPLACEHOLDER${index}}}`, link);
+    });
 
     return text;
 }
