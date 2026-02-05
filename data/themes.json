@@ -2,6 +2,34 @@
   "themes": [
     {
       "id": "default",
+      "name": "Cosmic Space",
+      "description": "Deep space with starlight accents",
+      "icon": "🌌",
+      "light": {
+        "primary-color": "#1e1b4b",
+        "secondary-color": "#4f46e5",
+        "accent-color": "#c026d3",
+        "success-color": "#06b6d4",
+        "warning-color": "#f59e0b",
+        "hero-gradient-start": "#6366f1",
+        "hero-gradient-end": "#8b5cf6",
+        "selected-border": "#4f46e5",
+        "selected-bg": "#f5f3ff"
+      },
+      "dark": {
+        "primary-color": "#c7d2fe",
+        "secondary-color": "#818cf8",
+        "accent-color": "#e879f9",
+        "success-color": "#22d3ee",
+        "warning-color": "#fbbf24",
+        "hero-gradient-start": "#0f0a1f",
+        "hero-gradient-end": "#1e1b4b",
+        "selected-border": "#818cf8",
+        "selected-bg": "#1e1b4b"
+      }
+    },
+    {
+      "id": "academic",
       "name": "Academic Blue",
       "description": "Professional blue theme for academic websites",
       "icon": "🔵",

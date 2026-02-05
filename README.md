@@ -4,6 +4,8 @@
 
 ## ✨ 주요 기능
 
+- ✨ **Cosmic Theme Effects**: 반짝이는 별과 떨어지는 유성 효과 (NEW!)
+- ⭐ **Stars Toggle**: 별과 유성 표시/숨김 토글 버튼 (NEW!)
 - 🎨 **6가지 Color Themes**: Dark/Light 모드 지원
 - 📚 **BibTeX Citations**: .bib 파일로 쉬운 인용 관리
 - 📝 **Markdown Support**: News에서 굵게, 기울임, 링크 사용 가능
@@ -47,6 +49,7 @@ new_blog/
 ├── 📖 문서 (Documentation)
 ├── README.md                     # 👈 이 파일
 ├── claude_update.md              # 변경 내역 및 세션 복구용
+├── CLAUDE_UPDATE.md              # 🆕 Cosmic Theme 상세 업데이트 로그
 ├── BIBTEX_GUIDE.md              # BibTeX 관리 가이드
 ├── NEWS_MARKDOWN_GUIDE.md       # News Markdown 사용법
 ├── PDF_MANAGEMENT_GUIDE.md      # PDF 파일 관리
@@ -59,13 +62,29 @@ new_blog/
 
 ### 1. 로컬에서 보기
 
+이 블로그는 정적 HTML 사이트이지만 JSON 파일을 로드하기 때문에 **웹 서버가 필요합니다**. 파일 프로토콜(`file://`)로는 CORS 정책 때문에 작동하지 않습니다.
+
 ```bash
-# Python 웹 서버 실행
+# 프로젝트 폴더로 이동
 cd new_blog
+
+# Python 웹 서버 실행 (Python 3)
 python -m http.server 8000
 
+# 또는 Python 2를 사용하는 경우
+python -m SimpleHTTPServer 8000
+
 # 브라우저에서 열기
-open http://localhost:8000
+# Windows/Linux: http://localhost:8000
+# macOS: open http://localhost:8000
+```
+
+브라우저에서 `http://localhost:8000`을 열면 사이트를 볼 수 있습니다.
+
+**다른 포트 사용하기**:
+```bash
+# 8080 포트 사용
+python -m http.server 8080
 ```
 
 ### 2. 콘텐츠 수정
@@ -112,6 +131,7 @@ git push
 
 | 가이드 | 내용 | 파일 |
 |--------|------|------|
+| ✨ **Cosmic Theme** | 별, 유성 효과 상세 구현 가이드 | [`CLAUDE_UPDATE.md`](CLAUDE_UPDATE.md) |
 | 🔧 **세션 복구** | Claude 세션 중단 시 복구 방법 | [`claude_update.md`](claude_update.md) |
 | 📚 **BibTeX 관리** | .bib 파일로 인용 관리하는 법 | [`BIBTEX_GUIDE.md`](BIBTEX_GUIDE.md) |
 | 📝 **Markdown 뉴스** | 굵게, 기울임, 링크 사용법 | [`NEWS_MARKDOWN_GUIDE.md`](NEWS_MARKDOWN_GUIDE.md) |
@@ -362,7 +382,18 @@ claude_update.md 파일을 읽고 이어서 작업해줘."
 
 전체 변경 내역은 [`claude_update.md`](claude_update.md)를 참조하세요.
 
-**최신 업데이트** (2026-02-03):
+**최신 업데이트** (2026-02-05) - Cosmic Theme v1.0:
+- ✨ **배경 별 효과**: 80개 작은 별 + 30개 큰 별 (box-shadow 기법)
+- ☄️ **유성 효과**: 12개의 떨어지는 유성 (45도 대각선)
+- ⭐ **별 토글 기능**: 별과 유성 표시/숨김 버튼 추가
+- 🎭 **Fadeout/Fadein**: 1초 부드러운 애니메이션
+- 🐛 **버그 수정**: 토글 버튼 간헐적 오작동, 별 fadeout 미작동 수정
+- 📏 **UI 개선**: About 섹션 여백 축소, News 네비게이션 링크 제거
+- ⚡ **성능 최적화**: 별 개수 감소, setupEventListeners 조기 호출
+
+👉 **Cosmic Theme 상세 문서**: [`CLAUDE_UPDATE.md`](CLAUDE_UPDATE.md)
+
+**이전 업데이트** (2026-02-03):
 - ✅ BibTeX .bib 파일 지원
 - ✅ News Markdown 지원
 - ✅ PDF 링크 시스템
@@ -391,5 +422,5 @@ Academic use. Feel free to fork and customize!
 
 ---
 
-**마지막 업데이트**: 2026년 2월 3일
-**버전**: 2.0 (Complete Redesign)
+**마지막 업데이트**: 2026년 2월 5일
+**버전**: 2.1 (Cosmic Theme)

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초간단 별 테스트</title>
+    <style>
+        body {
+            margin: 0;
+            background: #0a0a1a;
+            min-height: 100vh;
+        }
+
+        /* 거대한 흰색 별 10개 - 절대 못 볼 수가 없음 */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: white;
+            top: 100px;
+            left: 100px;
+            border-radius: 50%;
+            box-shadow:
+                200px 0px 0 10px white,
+                400px 100px 0 15px white,
+                600px 50px 0 12px white,
+                800px 150px 0 10px white,
+                0px 200px 0 20px white,
+                300px 300px 0 15px yellow,
+                600px 250px 0 18px cyan,
+                900px 200px 0 10px magenta,
+                200px 400px 0 15px lime;
+        }
+
+        .text {
+            position: relative;
+            z-index: 10;
+            color: white;
+            font-family: sans-serif;
+            padding: 2rem;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="text">
+        ⭐ 거대한 별들이 보이나요?<br>
+        (흰색, 노란색, 파란색, 분홍색, 초록색)
+    </div>
+</body>
+</html>

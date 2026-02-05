@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>최소 테스트</title>
+    <style>
+        body { font-family: monospace; padding: 2rem; max-width: 800px; margin: 0 auto; }
+        .pass { color: green; font-weight: bold; }
+        .fail { color: red; font-weight: bold; }
+        pre { background: #f5f5f5; padding: 1rem; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔍 블로그 로딩 테스트</h1>
+    <div id="results">테스트 시작...</div>
+
+    <script>
+        const results = document.getElementById('results');
+        let html = '';
+
+        // Test 1: Protocol
+        html += '<h2>1. 프로토콜 확인</h2>';
+        const protocol = window.location.protocol;
+        html += `<p>현재 프로토콜: <code>${protocol}</code></p>`;
+
+        if (protocol === 'file:') {
+            html += '<p class="fail">❌ FAIL: file:// 프로토콜을 사용 중입니다!</p>';
+            html += '<p><strong>이것이 문제입니다!</strong> 반드시 웹 서버를 사용해야 합니다:</p>';
+            html += '<pre>python3 -m http.server 8000</pre>';
+        } else {
+            html += '<p class="pass">✅ PASS: 웹 서버를 통해 접속했습니다.</p>';
+        }
+
+        // Test 2: Fetch JSON
+        html += '<h2>2. JSON 로딩 테스트</h2>';
+        html += '<p id="fetch-test">테스트 중...</p>';
+
+        results.innerHTML = html;
+
+        async function testFetch() {
+            try {
+                const response = await fetch('data/profile.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                const data = await response.json();
+
+                document.getElementById('fetch-test').innerHTML =
+                    '<span class="pass">✅ PASS: profile.json 로드 성공!</span>' +
+                    '<pre>' + JSON.stringify(data, null, 2).substring(0, 500) + '...</pre>';
+
+                // Test main page
+                results.innerHTML += '<h2>3. 결론</h2>';
+                results.innerHTML += '<p class="pass">모든 테스트 통과! 메인 페이지가 작동해야 합니다.</p>';
+                results.innerHTML += '<p><a href="index.html" style="font-size: 1.5rem; background: green; color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 8px; display: inline-block; margin: 1rem 0;">🏠 메인 페이지 열기</a></p>';
+                results.innerHTML += '<p><strong>캐시 문제일 수 있습니다. 메인 페이지에서 강제 새로고침 하세요:</strong></p>';
+                results.innerHTML += '<ul><li>Mac: <code>Cmd + Shift + R</code></li><li>Windows: <code>Ctrl + Shift + R</code></li></ul>';
+
+            } catch (error) {
+                document.getElementById('fetch-test').innerHTML =
+                    '<span class="fail">❌ FAIL: ' + error.message + '</span>';
+
+                results.innerHTML += '<h2>3. 결론</h2>';
+                results.innerHTML += '<p class="fail">JSON 로딩 실패! 이것이 "Error Loading Data" 에러의 원인입니다.</p>';
+
+                if (protocol === 'file:') {
+                    results.innerHTML += '<h3>해결 방법:</h3>';
+                    results.innerHTML += '<ol>';
+                    results.innerHTML += '<li>터미널을 엽니다</li>';
+                    results.innerHTML += '<li><code>cd /경로/to/new_blog</code> 실행</li>';
+                    results.innerHTML += '<li><code>python3 -m http.server 8000</code> 실행</li>';
+                    results.innerHTML += '<li>브라우저에서 <code>http://localhost:8000/test.html</code> 접속</li>';
+                    results.innerHTML += '</ol>';
+                } else {
+                    results.innerHTML += '<p>웹 서버는 실행 중이지만 JSON 파일을 찾을 수 없습니다.</p>';
+                    results.innerHTML += '<p>서버를 <strong>new_blog</strong> 폴더에서 실행했는지 확인하세요!</p>';
+                }
+            }
+        }
+
+        testFetch();
+    </script>
+</body>
+</html>

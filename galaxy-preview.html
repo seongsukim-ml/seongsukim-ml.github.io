@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy Effect Preview - 은하 효과 미리보기</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .header {
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 100%);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .preview-card {
+            background: #1a1a1a;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #333;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .preview-card:hover {
+            transform: translateY(-5px);
+            border-color: #6366f1;
+        }
+
+        .preview-header {
+            padding: 1.5rem;
+            background: #252525;
+            border-bottom: 2px solid #333;
+        }
+
+        .preview-header h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #6366f1;
+        }
+
+        .preview-header p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            line-height: 1.5;
+        }
+
+        .preview-canvas {
+            width: 100%;
+            height: 400px;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-footer {
+            padding: 1rem 1.5rem;
+            background: #252525;
+            border-top: 2px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .complexity {
+            font-size: 0.85rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            background: #4c1d95;
+        }
+
+        .recommendation {
+            font-size: 0.85rem;
+            color: #22d3ee;
+        }
+
+        /* Option 1: Canvas 2D Spiral Galaxy */
+        #canvas1 {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Option 2: CSS Particle Galaxy */
+        .css-galaxy {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .galaxy-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #fff, #88beff, transparent);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 60px 20px rgba(136, 190, 255, 0.5);
+        }
+
+        .star-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+        }
+
+        /* Option 3: Three.js (loaded dynamically) */
+        #three-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Option 4: SVG Spiral Galaxy */
+        #svg-galaxy {
+            width: 100%;
+            height: 100%;
+        }
+
+        .note {
+            background: #2a2a2a;
+            padding: 1.5rem;
+            margin: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid #6366f1;
+        }
+
+        .note h3 {
+            margin-bottom: 0.5rem;
+            color: #6366f1;
+        }
+
+        @media (max-width: 768px) {
+            .preview-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌌 Galaxy Effect Preview</h1>
+        <p>다양한 방식으로 구현 가능한 은하 효과들</p>
+    </div>
+
+    <div class="preview-grid">
+        <!-- Option 1: Canvas 2D Spiral Galaxy -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <h2>Option 1: Canvas 2D Spiral Galaxy</h2>
+                <p>
+                    Canvas 2D API로 정규분포와 나선 좌표를 사용해 구현한 은하.
+                    수학적 계산으로 실제 은하 형태 재현. 회전 애니메이션 포함.
+                </p>
+            </div>
+            <div class="preview-canvas">
+                <canvas id="canvas1"></canvas>
+            </div>
+            <div class="preview-footer">
+                <span class="complexity">복잡도: 중간</span>
+                <span class="recommendation">✨ 추천: 성능 좋음</span>
+            </div>
+        </div>
+
+        <!-- Option 2: CSS Particle Galaxy -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <h2>Option 2: CSS Particle Galaxy</h2>
+                <p>
+                    순수 CSS로 구현한 파티클 기반 은하.
+                    JavaScript로 별 위치 계산 후 CSS로 렌더링.
+                    가벼운 성능으로 부드러운 애니메이션.
+                </p>
+            </div>
+            <div class="preview-canvas">
+                <div id="css-galaxy" class="css-galaxy">
+                    <div class="galaxy-core"></div>
+                </div>
+            </div>
+            <div class="preview-footer">
+                <span class="complexity">복잡도: 낮음</span>
+                <span class="recommendation">✨ 추천: 가장 가벼움</span>
+            </div>
+        </div>
+
+        <!-- Option 3: Three.js 3D Galaxy -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <h2>Option 3: Three.js 3D Galaxy</h2>
+                <p>
+                    Three.js로 구현한 진짜 3D 은하. 블로그의 R3F와 동일한 방식.
+                    마우스 드래그로 회전 가능. 가장 현실적인 3D 효과.
+                </p>
+            </div>
+            <div class="preview-canvas">
+                <div id="three-container"></div>
+            </div>
+            <div class="preview-footer">
+                <span class="complexity">복잡도: 높음 (외부 라이브러리)</span>
+                <span class="recommendation">🎨 가장 멋짐</span>
+            </div>
+        </div>
+
+        <!-- Option 4: SVG Spiral -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <h2>Option 4: SVG Spiral Galaxy</h2>
+                <p>
+                    SVG로 그린 벡터 기반 나선 은하.
+                    확대해도 깨지지 않는 선명한 품질. CSS 애니메이션으로 회전.
+                </p>
+            </div>
+            <div class="preview-canvas">
+                <svg id="svg-galaxy"></svg>
+            </div>
+            <div class="preview-footer">
+                <span class="complexity">복잡도: 낮음</span>
+                <span class="recommendation">📐 벡터 품질</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="note">
+        <h3>💡 구현 방식 비교</h3>
+        <ul style="margin-left: 1.5rem; line-height: 1.8;">
+            <li><strong>Option 1 (Canvas 2D)</strong>: 블로그의 수학 공식 그대로 사용 가능. 성능 우수.</li>
+            <li><strong>Option 2 (CSS Particle)</strong>: 가장 가볍고 간단. 현재 프로젝트에 쉽게 통합.</li>
+            <li><strong>Option 3 (Three.js)</strong>: 진짜 3D. 가장 멋지지만 라이브러리 필요.</li>
+            <li><strong>Option 4 (SVG)</strong>: 확대/축소에 강함. 벡터 기반 선명함.</li>
+        </ul>
+    </div>
+
+    <script>
+        // ===== 유틸리티 함수들 =====
+        function gaussianRandom(mean = 0, deviation = 1) {
+            const u = 1 - Math.random();
+            const v = Math.random();
+            const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+            return mean + deviation * z;
+        }
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        // ===== Option 1: Canvas 2D Spiral Galaxy =====
+        const canvas1 = document.getElementById('canvas1');
+        const ctx1 = canvas1.getContext('2d');
+
+        function initCanvas1() {
+            canvas1.width = canvas1.offsetWidth * window.devicePixelRatio;
+            canvas1.height = canvas1.offsetHeight * window.devicePixelRatio;
+            ctx1.scale(window.devicePixelRatio, window.devicePixelRatio);
+        }
+
+        initCanvas1();
+        window.addEventListener('resize', initCanvas1);
+
+        const SPIRAL = 3.5;
+        const ARM_X_MEAN = 80;
+        const ARM_X_DIST = 120;
+        const ARM_Z_MEAN = 50;
+        const ARM_Z_DIST = 60;
+        const GALAXY_THICKNESS = 20;
+        const NUM_STARS = 800; // 1500 → 800 (성능 개선)
+        const ARMS = 2;
+
+        function spiral(x, y, z, offset) {
+            const r = Math.sqrt(x ** 2 + z ** 2);
+            let theta = offset;
+            theta += x > 0 ? Math.atan(z / x) : Math.atan(z / x) + Math.PI;
+            theta += (r / ARM_X_DIST) * SPIRAL;
+            return {
+                x: r * Math.cos(theta),
+                y: y,
+                z: r * Math.sin(theta)
+            };
+        }
+
+        // 별 데이터 생성
+        const stars = [];
+        const colors = ['#88beff', 'white', '#f9d397', '#fd6b6b', '#ffffac'];
+
+        for (let arm = 0; arm < ARMS; arm++) {
+            for (let i = 0; i < NUM_STARS / ARMS; i++) {
+                const pos = spiral(
+                    gaussianRandom(ARM_X_MEAN, ARM_X_DIST),
+                    gaussianRandom(0, GALAXY_THICKNESS),
+                    gaussianRandom(ARM_Z_MEAN, ARM_Z_DIST),
+                    (arm * 2 * Math.PI) / ARMS
+                );
+                stars.push({
+                    ...pos,
+                    size: Math.random() * 2 + 0.5,
+                    color: colors[getRandomInt(0, colors.length)],
+                    opacity: Math.random() * 0.5 + 0.5
+                });
+            }
+        }
+
+        let rotation = 0;
+        function animateCanvas1() {
+            const w = canvas1.offsetWidth;
+            const h = canvas1.offsetHeight;
+
+            ctx1.fillStyle = '#000';
+            ctx1.fillRect(0, 0, w, h);
+
+            // 중심점과 회전
+            ctx1.save();
+            ctx1.translate(w / 2, h / 2);
+            rotation += 0.001;
+            ctx1.rotate(rotation);
+
+            // 별 그리기 (z-sorting 제거로 성능 개선)
+            stars.forEach(star => {
+                const scale = 1.5;
+                const x = star.x * scale;
+                const y = star.y * scale;
+                const size = Math.max(0.5, star.size * (1 + star.z / 100));
+
+                ctx1.beginPath();
+                ctx1.arc(x, y, size, 0, Math.PI * 2);
+                ctx1.fillStyle = star.color;
+                ctx1.globalAlpha = star.opacity;
+
+                // shadowBlur 제거 - 성능 크게 향상
+                ctx1.fill();
+            });
+
+            ctx1.restore();
+            ctx1.globalAlpha = 1;
+
+            requestAnimationFrame(animateCanvas1);
+        }
+
+        animateCanvas1();
+
+        // ===== Option 2: CSS Particle Galaxy =====
+        const cssGalaxy = document.getElementById('css-galaxy');
+
+        function createCSSGalaxy() {
+            const numStars = 150; // 300 → 150 (성능 개선)
+
+            for (let arm = 0; arm < ARMS; arm++) {
+                for (let i = 0; i < numStars / ARMS; i++) {
+                    const pos = spiral(
+                        gaussianRandom(ARM_X_MEAN, ARM_X_DIST),
+                        gaussianRandom(0, GALAXY_THICKNESS),
+                        gaussianRandom(ARM_Z_MEAN, ARM_Z_DIST),
+                        (arm * 2 * Math.PI) / ARMS
+                    );
+
+                    const star = document.createElement('div');
+                    star.className = 'star-particle';
+
+                    const size = Math.random() * 3 + 1;
+                    const color = colors[getRandomInt(0, colors.length)];
+                    const centerX = cssGalaxy.offsetWidth / 2;
+                    const centerY = cssGalaxy.offsetHeight / 2;
+
+                    star.style.width = size + 'px';
+                    star.style.height = size + 'px';
+                    star.style.left = (centerX + pos.x * 1.5) + 'px';
+                    star.style.top = (centerY + pos.y * 1.5) + 'px';
+                    star.style.background = color;
+                    star.style.boxShadow = `0 0 ${size * 3}px ${color}`;
+                    star.style.opacity = Math.random() * 0.5 + 0.5;
+                    star.style.animation = `rotate 30s linear infinite`;
+                    star.style.transformOrigin = `${centerX - pos.x * 1.5}px ${centerY - pos.y * 1.5}px`;
+
+                    cssGalaxy.appendChild(star);
+                }
+            }
+        }
+
+        // CSS 애니메이션 추가
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes rotate {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        createCSSGalaxy();
+
+        // ===== Option 3: Three.js Galaxy =====
+        const threeContainer = document.getElementById('three-container');
+        threeContainer.innerHTML = `
+            <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #888; flex-direction: column; gap: 1rem;">
+                <div style="font-size: 3rem;">🌌</div>
+                <div>Three.js 로딩 중...</div>
+                <div style="font-size: 0.85rem; opacity: 0.7;">마우스 드래그로 회전 가능</div>
+            </div>
+        `;
+
+        // ===== Option 4: SVG Spiral Galaxy =====
+        const svgGalaxy = document.getElementById('svg-galaxy');
+        const svgNS = "http://www.w3.org/2000/svg";
+
+        function createSVGGalaxy() {
+            svgGalaxy.setAttribute('viewBox', '0 0 500 400');
+
+            // 배경
+            const bg = document.createElementNS(svgNS, 'rect');
+            bg.setAttribute('width', '500');
+            bg.setAttribute('height', '400');
+            bg.setAttribute('fill', '#000');
+            svgGalaxy.appendChild(bg);
+
+            // 중심 빛
+            const defs = document.createElementNS(svgNS, 'defs');
+            const radialGrad = document.createElementNS(svgNS, 'radialGradient');
+            radialGrad.setAttribute('id', 'core-glow');
+            radialGrad.innerHTML = `
+                <stop offset="0%" style="stop-color:#fff;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#88beff;stop-opacity:0.5" />
+                <stop offset="100%" style="stop-color:#000;stop-opacity:0" />
+            `;
+            defs.appendChild(radialGrad);
+            svgGalaxy.appendChild(defs);
+
+            const core = document.createElementNS(svgNS, 'circle');
+            core.setAttribute('cx', '250');
+            core.setAttribute('cy', '200');
+            core.setAttribute('r', '30');
+            core.setAttribute('fill', 'url(#core-glow)');
+            svgGalaxy.appendChild(core);
+
+            // 별들
+            const g = document.createElementNS(svgNS, 'g');
+            g.setAttribute('transform', 'translate(250, 200)');
+
+            // 애니메이션 추가
+            const animateTransform = document.createElementNS(svgNS, 'animateTransform');
+            animateTransform.setAttribute('attributeName', 'transform');
+            animateTransform.setAttribute('attributeType', 'XML');
+            animateTransform.setAttribute('type', 'rotate');
+            animateTransform.setAttribute('from', '0 250 200');
+            animateTransform.setAttribute('to', '360 250 200');
+            animateTransform.setAttribute('dur', '60s');
+            animateTransform.setAttribute('repeatCount', 'indefinite');
+            g.appendChild(animateTransform);
+
+            for (let arm = 0; arm < ARMS; arm++) {
+                for (let i = 0; i < 100 / ARMS; i++) { // 200 → 100 (성능 개선)
+                    const pos = spiral(
+                        gaussianRandom(ARM_X_MEAN, ARM_X_DIST),
+                        gaussianRandom(0, GALAXY_THICKNESS),
+                        gaussianRandom(ARM_Z_MEAN, ARM_Z_DIST),
+                        (arm * 2 * Math.PI) / ARMS
+                    );
+
+                    const star = document.createElementNS(svgNS, 'circle');
+                    star.setAttribute('cx', pos.x * 1.5);
+                    star.setAttribute('cy', pos.y * 1.5);
+                    star.setAttribute('r', Math.random() * 1.5 + 0.5);
+                    star.setAttribute('fill', colors[getRandomInt(0, colors.length)]);
+                    star.setAttribute('opacity', Math.random() * 0.5 + 0.5);
+                    g.appendChild(star);
+                }
+            }
+
+            svgGalaxy.appendChild(g);
+        }
+
+        createSVGGalaxy();
+
+        // ===== Three.js 로딩 및 초기화 =====
+        // Three.js CDN 동적 로딩
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+        script.onload = function() {
+            initThreeGalaxy();
+        };
+        document.head.appendChild(script);
+
+        function initThreeGalaxy() {
+            const container = document.getElementById('three-container');
+            container.innerHTML = ''; // placeholder 제거
+
+            // Scene 설정
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x000000);
+
+            // Camera 설정
+            const camera = new THREE.PerspectiveCamera(
+                75,
+                container.offsetWidth / container.offsetHeight,
+                0.1,
+                2000
+            );
+            camera.position.set(0, 150, 300);
+            camera.lookAt(0, 0, 0);
+
+            // Renderer 설정
+            const renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.offsetWidth, container.offsetHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 2);
+            scene.add(ambientLight);
+
+            // 은하 별 생성
+            const galaxyGeometry = new THREE.BufferGeometry();
+            const positions = [];
+            const colors_three = [];
+            const sizes = [];
+
+            const colorPalette = [
+                new THREE.Color(0x88beff),
+                new THREE.Color(0xffffff),
+                new THREE.Color(0xf9d397),
+                new THREE.Color(0xfd6b6b),
+                new THREE.Color(0xffffac)
+            ];
+
+            const ARMS_3D = 2;
+            const NUM_STARS_3D = 1500; // 3000 → 1500 (성능 개선)
+
+            for (let arm = 0; arm < ARMS_3D; arm++) {
+                for (let i = 0; i < NUM_STARS_3D / ARMS_3D; i++) {
+                    const pos = spiral(
+                        gaussianRandom(ARM_X_MEAN, ARM_X_DIST),
+                        gaussianRandom(0, GALAXY_THICKNESS),
+                        gaussianRandom(ARM_Z_MEAN, ARM_Z_DIST),
+                        (arm * 2 * Math.PI) / ARMS_3D
+                    );
+
+                    positions.push(pos.x, pos.y, pos.z);
+
+                    const color = colorPalette[getRandomInt(0, colorPalette.length)];
+                    colors_three.push(color.r, color.g, color.b);
+
+                    sizes.push(Math.random() * 4 + 2);
+                }
+            }
+
+            galaxyGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            galaxyGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors_three, 3));
+            galaxyGeometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
+
+            // Shader Material for stars
+            const galaxyMaterial = new THREE.PointsMaterial({
+                size: 3,
+                sizeAttenuation: true,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            const galaxy = new THREE.Points(galaxyGeometry, galaxyMaterial);
+            scene.add(galaxy);
+
+            // 중심 빛
+            const coreGeometry = new THREE.SphereGeometry(10, 32, 32);
+            const coreMaterial = new THREE.MeshBasicMaterial({
+                color: 0x88beff,
+                transparent: true,
+                opacity: 0.6
+            });
+            const core = new THREE.Mesh(coreGeometry, coreMaterial);
+            scene.add(core);
+
+            // 마우스 인터랙션
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+            let rotation = { x: 0, y: 0 };
+
+            container.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            });
+
+            container.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const deltaX = e.clientX - previousMousePosition.x;
+                    const deltaY = e.clientY - previousMousePosition.y;
+
+                    rotation.y += deltaX * 0.01;
+                    rotation.x += deltaY * 0.01;
+
+                    previousMousePosition = { x: e.clientX, y: e.clientY };
+                }
+            });
+
+            container.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                isDragging = false;
+            });
+
+            // 애니메이션 루프
+            function animate() {
+                requestAnimationFrame(animate);
+
+                // 자동 회전 (드래그 안 할 때)
+                if (!isDragging) {
+                    rotation.y += 0.002; // 약간 빠르게
+                }
+
+                // 회전 적용 (위치 업데이트 대신 회전으로 성능 최적화)
+                galaxy.rotation.x = rotation.x;
+                galaxy.rotation.y = rotation.y;
+                core.rotation.x = rotation.x;
+                core.rotation.y = rotation.y;
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // 반응형 처리
+            window.addEventListener('resize', () => {
+                const width = container.offsetWidth;
+                const height = container.offsetHeight;
+
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+
+                renderer.setSize(width, height);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -6,12 +6,12 @@
 }
 
 :root {
-    /* Light Theme Colors */
-    --primary-color: #1a365d;
-    --secondary-color: #2563eb;
-    --accent-color: #dc2626;
-    --success-color: #059669;
-    --warning-color: #d97706;
+    /* Light Theme Colors - Cosmic Space Default */
+    --primary-color: #1e1b4b;
+    --secondary-color: #4f46e5;
+    --accent-color: #c026d3;
+    --success-color: #06b6d4;
+    --warning-color: #f59e0b;
     --text-color: #1f2937;
     --text-light: #6b7280;
     --bg-color: #fafafa;
@@ -20,6 +20,10 @@
     --border-color: #e0e0e0;
     --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+    /* Hero Gradient - Cosmic Space */
+    --hero-gradient-start: #6366f1;
+    --hero-gradient-end: #8b5cf6;
 
     /* Award Colors - Light Mode */
     --award-spotlight: #dc2626;
@@ -33,9 +37,9 @@
     --award-default: #2563eb;
     --award-default-bg: #dbeafe;
 
-    /* Selected Publication */
-    --selected-border: #2563eb;
-    --selected-bg: #f0f9ff;
+    /* Selected Publication - Cosmic Space */
+    --selected-border: #4f46e5;
+    --selected-bg: #f5f3ff;
 
     /* Typography */
     --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
@@ -55,12 +59,12 @@
     --transition-speed: 0.3s;
 }
 
-/* Dark Mode Colors */
+/* Dark Mode Colors - Cosmic Space Default */
 [data-theme="dark"] {
-    --primary-color: #60a5fa;
-    --secondary-color: #3b82f6;
-    --accent-color: #f87171;
-    --success-color: #34d399;
+    --primary-color: #c7d2fe;
+    --secondary-color: #818cf8;
+    --accent-color: #e879f9;
+    --success-color: #22d3ee;
     --warning-color: #fbbf24;
     --text-color: #f9fafb;
     --text-light: #d1d5db;
@@ -70,6 +74,10 @@
     --border-color: #374151;
     --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
+
+    /* Hero Gradient - Cosmic Space Dark */
+    --hero-gradient-start: #0f0a1f;
+    --hero-gradient-end: #1e1b4b;
 
     /* Award Colors - Dark Mode */
     --award-spotlight: #fca5a5;
@@ -83,9 +91,9 @@
     --award-default: #93c5fd;
     --award-default-bg: #1e3a8a;
 
-    /* Selected Publication */
-    --selected-border: #60a5fa;
-    --selected-bg: #1e3a8a;
+    /* Selected Publication - Cosmic Space Dark */
+    --selected-border: #818cf8;
+    --selected-bg: #1e1b4b;
 }
 
 html {
@@ -98,6 +106,274 @@ body {
     line-height: 1.6;
     background-color: var(--bg-color);
     transition: background-color var(--transition-speed), color var(--transition-speed);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ===== Starfield Background ===== */
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Layer 1: Small distant stars - 더 많은 별들! */
+/* Layer 1: Small distant stars - 120개의 별! */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1px; /* 작은 점으로 변경 */
+    height: 1px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 1;
+    background: white;
+    border-radius: 50%;
+    transition: opacity 1s ease-out; /* fadeout/fadein 효과 */
+    box-shadow:
+        1279px 574px 1px 0px rgba(200, 210, 255, 0.8),
+        937px 535px 3px 0px rgba(255, 255, 255, 0.5),
+        1033px 170px 2px 1px rgba(210, 220, 255, 0.7),
+        276px 743px 2px 0px rgba(210, 220, 255, 0.9),
+        245px 167px 1px 0px rgba(210, 220, 255, 0.9),
+        1359px 170px 1px 0px rgba(220, 230, 255, 0.7),
+        320px 140px 2px 0px rgba(220, 230, 255, 0.8),
+        188px 52px 1px 0px rgba(255, 255, 255, 0.9),
+        935px 116px 1px 1px rgba(210, 220, 255, 0.6),
+        482px 620px 1px 1px rgba(230, 240, 255, 0.9),
+        1467px 330px 3px 0px rgba(230, 240, 255, 1.0),
+        863px 675px 1px 0px rgba(200, 210, 255, 0.9),
+        821px 277px 1px 0px rgba(230, 240, 255, 0.8),
+        1127px 223px 2px 1px rgba(230, 240, 255, 0.5),
+        979px 746px 1px 0px rgba(210, 220, 255, 0.8),
+        1196px 224px 1px 0px rgba(255, 255, 255, 0.5),
+        1044px 468px 1px 1px rgba(230, 240, 255, 0.8),
+        1439px 645px 3px 0px rgba(210, 220, 255, 0.6),
+        863px 593px 2px 0px rgba(200, 210, 255, 0.7),
+        348px 503px 1px 0px rgba(210, 220, 255, 0.9),
+        740px 378px 3px 1px rgba(230, 240, 255, 0.5),
+        758px 339px 2px 0px rgba(200, 210, 255, 0.8),
+        776px 121px 3px 1px rgba(220, 230, 255, 0.5),
+        359px 785px 2px 0px rgba(200, 210, 255, 1.0),
+        737px 435px 3px 0px rgba(200, 210, 255, 0.7),
+        1446px 267px 1px 1px rgba(210, 220, 255, 0.7),
+        498px 507px 2px 0px rgba(255, 255, 255, 0.7),
+        163px 335px 3px 0px rgba(230, 240, 255, 0.9),
+        1285px 104px 3px 1px rgba(220, 230, 255, 0.8),
+        793px 133px 2px 0px rgba(255, 255, 255, 0.6),
+        578px 493px 1px 1px rgba(230, 240, 255, 0.8),
+        1368px 746px 1px 0px rgba(200, 210, 255, 0.7),
+        609px 669px 3px 0px rgba(220, 230, 255, 1.0),
+        951px 82px 2px 0px rgba(200, 210, 255, 0.9),
+        1109px 367px 3px 1px rgba(230, 240, 255, 0.7),
+        116px 613px 2px 0px rgba(220, 230, 255, 0.5),
+        127px 122px 1px 1px rgba(200, 210, 255, 0.8),
+        1028px 305px 1px 1px rgba(255, 255, 255, 0.7),
+        353px 341px 1px 1px rgba(210, 220, 255, 0.7),
+        419px 282px 1px 1px rgba(200, 210, 255, 0.8),
+        168px 521px 1px 1px rgba(200, 210, 255, 0.8),
+        1430px 398px 2px 1px rgba(255, 255, 255, 0.7),
+        188px 309px 2px 0px rgba(210, 220, 255, 0.6),
+        460px 710px 3px 0px rgba(200, 210, 255, 0.6),
+        276px 243px 1px 1px rgba(200, 210, 255, 0.9),
+        309px 72px 1px 0px rgba(220, 230, 255, 0.8),
+        59px 672px 3px 1px rgba(220, 230, 255, 1.0),
+        204px 304px 1px 0px rgba(210, 220, 255, 0.8),
+        727px 468px 1px 0px rgba(200, 210, 255, 0.9),
+        914px 323px 2px 0px rgba(255, 255, 255, 0.6),
+        1070px 371px 2px 0px rgba(220, 230, 255, 0.9),
+        727px 171px 3px 0px rgba(255, 255, 255, 0.6),
+        471px 139px 1px 0px rgba(230, 240, 255, 0.6),
+        754px 764px 1px 1px rgba(230, 240, 255, 0.6),
+        1108px 711px 1px 0px rgba(220, 230, 255, 0.9),
+        1362px 275px 2px 0px rgba(230, 240, 255, 0.6),
+        513px 459px 2px 0px rgba(230, 240, 255, 0.5),
+        128px 325px 2px 1px rgba(230, 240, 255, 0.8),
+        632px 585px 1px 0px rgba(200, 210, 255, 0.6),
+        304px 518px 1px 0px rgba(255, 255, 255, 0.7),
+        1093px 350px 1px 1px rgba(210, 220, 255, 0.8),
+        896px 662px 3px 0px rgba(230, 240, 255, 0.8),
+        1467px 380px 1px 1px rgba(200, 210, 255, 1.0),
+        238px 578px 2px 0px rgba(220, 230, 255, 0.7),
+        1257px 279px 2px 0px rgba(220, 230, 255, 0.6),
+        687px 434px 1px 0px rgba(210, 220, 255, 1.0),
+        1349px 439px 1px 0px rgba(255, 255, 255, 0.8),
+        1076px 669px 2px 0px rgba(210, 220, 255, 0.8),
+        172px 533px 1px 0px rgba(200, 210, 255, 0.6),
+        1374px 735px 3px 0px rgba(255, 255, 255, 0.8),
+        1257px 383px 1px 0px rgba(200, 210, 255, 0.6),
+        583px 113px 3px 0px rgba(255, 255, 255, 0.7),
+        1157px 762px 1px 0px rgba(220, 230, 255, 0.6),
+        892px 67px 1px 0px rgba(230, 240, 255, 0.6),
+        1486px 645px 1px 1px rgba(210, 220, 255, 1.0),
+        445px 526px 2px 0px rgba(230, 240, 255, 0.9),
+        1357px 553px 2px 0px rgba(210, 220, 255, 0.6),
+        714px 730px 1px 0px rgba(210, 220, 255, 0.8),
+        213px 66px 1px 0px rgba(220, 230, 255, 0.5),
+        1323px 767px 2px 0px rgba(230, 240, 255, 1.0),
+        349px 705px 1px 0px rgba(255, 255, 255, 0.9),
+        458px 161px 1px 0px rgba(230, 240, 255, 0.9),
+        698px 180px 1px 1px rgba(230, 240, 255, 0.8),
+        836px 458px 2px 0px rgba(255, 255, 255, 0.9),
+        156px 538px 2px 0px rgba(220, 230, 255, 0.8),
+        966px 85px 1px 1px rgba(230, 240, 255, 0.8),
+        242px 545px 2px 0px rgba(230, 240, 255, 0.6),
+        210px 113px 3px 0px rgba(230, 240, 255, 0.6),
+        810px 247px 2px 0px rgba(230, 240, 255, 0.6),
+        224px 298px 1px 0px rgba(200, 210, 255, 0.8),
+        942px 669px 1px 1px rgba(230, 240, 255, 0.7),
+        1337px 237px 1px 1px rgba(255, 255, 255, 0.7),
+        1133px 476px 2px 0px rgba(200, 210, 255, 0.9),
+        741px 180px 1px 0px rgba(255, 255, 255, 0.6),
+        338px 193px 1px 0px rgba(255, 255, 255, 0.5),
+        1449px 717px 1px 1px rgba(200, 210, 255, 0.7),
+        567px 169px 2px 0px rgba(220, 230, 255, 0.7),
+        437px 549px 1px 0px rgba(255, 255, 255, 1.0),
+        1211px 249px 2px 1px rgba(210, 220, 255, 0.5),
+        308px 545px 1px 0px rgba(255, 255, 255, 1.0),
+        702px 305px 1px 0px rgba(220, 230, 255, 0.7),
+        191px 461px 2px 0px rgba(210, 220, 255, 0.5),
+        675px 691px 2px 0px rgba(210, 220, 255, 0.9),
+        311px 595px 3px 1px rgba(210, 220, 255, 1.0),
+        124px 183px 3px 0px rgba(210, 220, 255, 0.7),
+        687px 648px 2px 0px rgba(210, 220, 255, 0.6),
+        1380px 757px 1px 0px rgba(200, 210, 255, 0.7),
+        965px 310px 2px 0px rgba(220, 230, 255, 0.9),
+        577px 687px 2px 0px rgba(220, 230, 255, 0.9),
+        1311px 179px 2px 0px rgba(230, 240, 255, 0.8),
+        1202px 426px 1px 0px rgba(230, 240, 255, 0.7),
+        420px 335px 1px 0px rgba(200, 210, 255, 0.5),
+        130px 156px 1px 0px rgba(255, 255, 255, 0.7),
+        1017px 304px 1px 0px rgba(220, 230, 255, 0.7),
+        734px 203px 2px 0px rgba(200, 210, 255, 0.9),
+        975px 305px 2px 1px rgba(200, 210, 255, 0.9),
+        1469px 128px 3px 1px rgba(210, 220, 255, 0.7),
+        258px 74px 2px 0px rgba(255, 255, 255, 0.6),
+        638px 440px 3px 1px rgba(255, 255, 255, 0.7),
+        924px 541px 3px 0px rgba(220, 230, 255, 0.8);
+    animation: twinkle 4s ease-in-out infinite;
+}
+
+/* Layer 2: Larger closer stars - 40개의 큰 별! */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 2px; /* 큰 별은 조금 더 큰 중심점 */
+    height: 2px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 1;
+    background: white;
+    border-radius: 50%;
+    transition: opacity 1s ease-out; /* fadeout/fadein 효과 */
+    box-shadow:
+        638px 618px 2px 1px rgba(139, 92, 246, 0.7),
+        1017px 714px 4px 1px rgba(139, 92, 246, 0.6),
+        1237px 233px 3px 2px rgba(255, 255, 255, 0.9),
+        686px 272px 3px 2px rgba(255, 255, 255, 0.7),
+        1244px 674px 4px 1px rgba(99, 102, 241, 0.8),
+        163px 679px 3px 2px rgba(99, 102, 241, 0.7),
+        1086px 663px 4px 2px rgba(139, 92, 246, 0.9),
+        910px 197px 2px 2px rgba(255, 255, 255, 0.6),
+        97px 147px 3px 2px rgba(99, 102, 241, 0.7),
+        278px 265px 2px 2px rgba(99, 102, 241, 0.9),
+        364px 716px 4px 2px rgba(255, 255, 255, 0.7),
+        622px 612px 3px 1px rgba(139, 92, 246, 0.7),
+        339px 278px 3px 1px rgba(139, 92, 246, 0.7),
+        1433px 660px 4px 2px rgba(99, 102, 241, 0.9),
+        1351px 304px 3px 2px rgba(99, 102, 241, 0.7),
+        1473px 493px 3px 1px rgba(139, 92, 246, 0.9),
+        1269px 754px 3px 2px rgba(99, 102, 241, 0.7),
+        705px 615px 3px 1px rgba(99, 102, 241, 0.6),
+        909px 547px 3px 1px rgba(99, 102, 241, 0.9),
+        189px 464px 3px 2px rgba(255, 255, 255, 0.7),
+        1428px 335px 4px 1px rgba(255, 255, 255, 0.7),
+        1082px 702px 3px 2px rgba(255, 255, 255, 0.7),
+        482px 213px 3px 2px rgba(99, 102, 241, 0.8),
+        1241px 149px 4px 1px rgba(139, 92, 246, 0.7),
+        313px 313px 2px 1px rgba(99, 102, 241, 0.8),
+        884px 668px 3px 1px rgba(139, 92, 246, 0.9),
+        572px 666px 3px 1px rgba(99, 102, 241, 0.8),
+        824px 325px 3px 2px rgba(139, 92, 246, 0.8),
+        741px 612px 3px 2px rgba(99, 102, 241, 0.8),
+        1065px 446px 3px 1px rgba(255, 255, 255, 0.9),
+        440px 144px 2px 1px rgba(99, 102, 241, 0.9),
+        1032px 131px 2px 2px rgba(139, 92, 246, 0.8),
+        265px 384px 2px 2px rgba(139, 92, 246, 0.7),
+        1343px 445px 3px 2px rgba(255, 255, 255, 0.9),
+        489px 132px 2px 2px rgba(139, 92, 246, 0.9),
+        1488px 182px 2px 2px rgba(99, 102, 241, 0.8),
+        181px 737px 4px 2px rgba(139, 92, 246, 0.9),
+        421px 107px 4px 2px rgba(99, 102, 241, 0.8),
+        552px 787px 3px 2px rgba(255, 255, 255, 0.8),
+        1292px 728px 4px 2px rgba(255, 255, 255, 0.8);
+    animation: twinkle 6s ease-in-out infinite alternate;
+}
+
+/* Shooting Stars - 유성 효과 (Velog 블로그 방식 적용) */
+.shooting-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1; /* 별(z-index:0) 위에 유성이 보이도록 */
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 1s ease-out; /* fadeout/fadein 효과 */
+}
+
+.shooting-star {
+    position: absolute;
+    border-radius: 50%;
+    background-color: white;
+    /* box-shadow: x y blur spread color - spread-radius로 밝기 향상 */
+    box-shadow: 0px 0px 10px 3px rgba(255, 255, 255, 0.9);
+    animation: meteor 3s ease-in infinite;
+    opacity: 0;
+    transition: opacity 1s ease-out; /* fadeout/fadein 효과 */
+}
+
+/* 유성의 긴 꼬리 - 2000% width로 긴 꼬리 구현 */
+.shooting-star::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 1px);
+    left: -950%;  /* 꼬리가 별 왼쪽으로 길게 뻗도록 */
+    width: 2000%; /* 별 크기 대비 매우 긴 꼬리 */
+    height: 2px;
+    background: linear-gradient(to left, #fff0, #ffffff); /* 점점 흐려지는 효과 */
+    transform: rotateZ(-45deg) translateX(50%); /* 45도 각도로 대각선 */
+    transition: opacity 1s ease-out; /* fadeout/fadein 효과 */
+}
+
+/* 유성 떨어지는 애니메이션 - tan(45°) = 1 이므로 top:left = 120vh:120vh */
+@keyframes meteor {
+    0% {
+        top: -10vh;
+        transform: translateX(0px);
+        opacity: 1;
+    }
+    100% {
+        top: 110vh;
+        transform: translateX(-120vh); /* 45도 각도 유지 */
+        opacity: 1;
+    }
+}
+
+/* Ensure content is above stars */
+.container, nav, section {
+    position: relative;
+    z-index: 1;
 }
 
 a {
@@ -132,6 +408,21 @@ a:hover {
     border-bottom: 3px solid var(--secondary-color);
     padding-bottom: var(--spacing-xs);
     display: inline-block;
+}
+
+/* Reduced bottom spacing for About section */
+#about.section {
+    padding-bottom: var(--spacing-lg);
+}
+
+/* Compact Research Section */
+#research.section {
+    padding: var(--spacing-lg) 0;
+}
+
+#research .section-title {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-md);
 }
 
 /* ===== Navigation ===== */
@@ -182,9 +473,10 @@ a:hover {
     color: var(--secondary-color);
 }
 
-/* Theme Picker & Toggle */
+/* Theme Picker, Toggle & Stars Toggle */
 .theme-picker,
-.theme-toggle {
+.theme-toggle,
+.stars-toggle {
     background: none;
     border: 2px solid var(--border-color);
     border-radius: 50%;
@@ -200,126 +492,163 @@ a:hover {
 }
 
 .theme-picker:hover,
-.theme-toggle:hover {
+.theme-toggle:hover,
+.stars-toggle:hover {
     background-color: var(--bg-gray);
     transform: rotate(20deg);
 }
 
-/* ===== Hero Section ===== */
-:root {
-    --hero-gradient-start: #667eea;
-    --hero-gradient-end: #764ba2;
+/* Stars hidden state - fadeout 효과 */
+body.stars-hidden::before,
+body.stars-hidden::after {
+    opacity: 0 !important;
+    pointer-events: none;
+    animation: none !important; /* 반짝이는 애니메이션도 멈춤 */
 }
+
+body.stars-hidden .shooting-stars {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+/* 유성 별들도 fadeout - 애니메이션도 멈춤 */
+body.stars-hidden .shooting-star {
+    opacity: 0 !important;
+    animation: none !important;
+}
+
+/* 유성의 꼬리도 함께 fadeout */
+body.stars-hidden .shooting-star::after {
+    opacity: 0 !important;
+}
+
+/* ===== Hero Section ===== */
+/* Note: Hero gradient colors are defined in the main :root block above */
 
 [data-theme="dark"] {
-    --hero-gradient-start: #1e3a8a;
-    --hero-gradient-end: #581c87;
+    --hero-gradient-start: #0f0a1f;
+    --hero-gradient-end: #1e1b4b;
 }
 
-#hero {
-    background: linear-gradient(135deg, var(--hero-gradient-start) 0%, var(--hero-gradient-end) 100%);
-    color: white;
-    padding: var(--spacing-xl) 0;
-    min-height: 50vh;
+/* ===== Profile Section (Top) ===== */
+.profile-header {
     display: flex;
-    align-items: center;
-    transition: background 0.5s ease;
-}
-
-.hero-container {
-    display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     gap: var(--spacing-lg);
-    text-align: center;
-}
-
-.hero-profile {
-    display: flex;
-    justify-content: center;
+    padding: var(--spacing-lg);
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 .profile-image {
-    width: 200px;
-    height: 200px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
     object-fit: cover;
-    border: 5px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border: 3px solid var(--secondary-color);
+    box-shadow: var(--shadow);
+    flex-shrink: 0;
     transition: transform 0.3s ease;
 }
 
 .profile-image:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
-.hero-title {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: var(--spacing-sm);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.hero-subtitle {
-    font-size: 1.5rem;
-    margin-bottom: var(--spacing-xs);
-    opacity: 0.95;
-}
-
-.hero-affiliation {
-    font-size: 1.2rem;
-    margin-bottom: var(--spacing-md);
-    opacity: 0.9;
-}
-
-.hero-contact-wrapper {
+.profile-info {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-sm);
+    align-items: flex-start;
+    gap: 0.3rem;
 }
 
-.hero-contact {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--spacing-sm);
-    flex-wrap: wrap;
-}
-
-.hero-email {
-    display: flex;
-    justify-content: center;
-}
-
-.contact-link {
-    color: rgba(255, 255, 255, 0.95);
+.profile-name {
+    font-size: 1.5rem;
     font-weight: 600;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-bottom: 2px solid transparent;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    margin: 0;
+    color: var(--primary-color);
+}
+
+.profile-email {
+    font-size: 0.85rem;
+    margin: 0;
+    color: var(--secondary-color);
+}
+
+.profile-title {
     font-size: 0.95rem;
+    margin: 0;
+    color: var(--text-light);
+    font-weight: 400;
 }
 
-.contact-link:hover {
+.profile-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg,
+        color-mix(in srgb, var(--hero-gradient-start), transparent 85%) 0%,
+        color-mix(in srgb, var(--hero-gradient-end), transparent 85%) 100%);
+    padding: 0.35rem 0.75rem;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid color-mix(in srgb, var(--hero-gradient-start), transparent 70%);
+    color: var(--text-light);
+    transition: all 0.2s ease;
+}
+
+.badge:hover {
+    background: linear-gradient(135deg,
+        color-mix(in srgb, var(--hero-gradient-start), transparent 75%) 0%,
+        color-mix(in srgb, var(--hero-gradient-end), transparent 75%) 100%);
+    transform: translateY(-1px);
+}
+
+.profile-links {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.profile-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    background-color: var(--bg-gray);
+    color: var(--secondary-color);
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.profile-link:hover {
+    background-color: var(--secondary-color);
     color: white;
-    border-bottom-color: rgba(255, 255, 255, 0.9);
 }
 
-.contact-link.email-link {
+.profile-link.email-link {
     text-transform: none;
     letter-spacing: 0;
 }
 
-.separator {
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: 300;
-    padding: 0 var(--spacing-xs);
-}
+/* Profile Main Content - No longer needed, removed */
 
-/* ===== About Section ===== */
+/* ===== About Section Content ===== */
 .about-content {
     font-size: 1.1rem;
     line-height: 1.8;
@@ -331,9 +660,7 @@ a:hover {
     margin-bottom: var(--spacing-md);
 }
 
-.research-interests {
-    margin-top: var(--spacing-lg);
-}
+/* Research Interests styles moved to separate section */
 
 .research-interests h3 {
     font-size: 1.5rem;
@@ -341,23 +668,75 @@ a:hover {
     margin-bottom: var(--spacing-md);
 }
 
+/* Option 4: Icon List Style */
 .interests-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
-.interest-tag {
-    background-color: var(--bg-gray);
-    padding: var(--spacing-sm);
+/* Interest Category with Icon */
+.interest-category {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.category-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--hero-gradient-start) 0%, var(--hero-gradient-end) 100%);
     border-radius: 8px;
-    border-left: 4px solid var(--secondary-color);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: var(--shadow);
 }
 
-.interest-tag:hover {
-    transform: translateX(4px);
-    box-shadow: var(--shadow);
+.category-content {
+    flex: 1;
+}
+
+.interest-category-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.interest-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.interest-list li {
+    color: var(--text-light);
+    font-size: 0.875rem;
+    display: inline;
+}
+
+.interest-list li::after {
+    content: " •";
+    margin-left: 0.5rem;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.interest-list li:last-child::after {
+    content: "";
+}
+
+/* Hover effect */
+.interest-category:hover .category-icon {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
 }
 
 /* ===== News Section ===== */
@@ -952,12 +1331,29 @@ a:hover {
 
 /* ===== Responsive Design ===== */
 @media (max-width: 768px) {
-    .hero-title {
-        font-size: 2rem;
+    /* Profile Header - Switch to vertical on mobile */
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--spacing-md);
+        gap: var(--spacing-md);
     }
 
-    .hero-subtitle {
-        font-size: 1.2rem;
+    .profile-info {
+        align-items: center;
+    }
+
+    .profile-badges {
+        justify-content: center;
+    }
+
+    .profile-links {
+        justify-content: center;
+    }
+
+    .profile-image {
+        width: 110px;
+        height: 110px;
     }
 
     .nav-links {
@@ -987,12 +1383,36 @@ a:hover {
 }
 
 @media (max-width: 480px) {
-    .hero-title {
-        font-size: 1.5rem;
+    .profile-header {
+        padding: var(--spacing-sm);
+        gap: var(--spacing-sm);
     }
 
-    .hero-subtitle {
-        font-size: 1rem;
+    .profile-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-name {
+        font-size: 1.3rem;
+    }
+
+    .profile-email {
+        font-size: 0.8rem;
+    }
+
+    .profile-title {
+        font-size: 0.85rem;
+    }
+
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    .profile-link {
+        font-size: 0.8rem;
+        padding: 0.35rem 0.65rem;
     }
 
     .nav-right {
@@ -1002,14 +1422,6 @@ a:hover {
     .nav-links {
         flex-wrap: wrap;
         justify-content: center;
-    }
-
-    .hero-contact {
-        flex-direction: column;
-    }
-
-    .separator {
-        display: none;
     }
 
     .pub-header {
@@ -1107,6 +1519,51 @@ a:hover {
     background-color: var(--bg-gray);
     color: var(--accent-color);
     transform: rotate(90deg);
+}
+
+.theme-mode-selector {
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background-color: var(--bg-gray);
+    border-radius: 8px;
+}
+
+.theme-mode-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.95rem;
+}
+
+.theme-mode-options {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.theme-mode-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.theme-mode-option:hover {
+    background-color: var(--bg-card);
+}
+
+.theme-mode-option input[type="radio"] {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.theme-mode-option span {
+    font-size: 0.95rem;
+    color: var(--text-color);
 }
 
 .theme-options {

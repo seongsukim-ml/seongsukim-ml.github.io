@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Shooting Stars Background -->
+    <div class="shooting-stars" id="shooting-stars">
+        <!-- Meteors will be generated dynamically by JavaScript -->
+    </div>
+
     <!-- Navigation -->
     <nav id="navbar">
         <div class="container">
@@ -19,7 +24,6 @@
             <div class="nav-right">
                 <div class="nav-links">
                     <a href="#about" class="nav-link">About</a>
-                    <a href="#news" class="nav-link">News</a>
                     <a href="#publications" class="nav-link">Publications</a>
                     <a href="#projects" class="nav-link">Projects</a>
                     <a href="#posts" class="nav-link">Posts</a>
@@ -28,6 +32,9 @@
                 <button id="theme-picker" class="theme-picker" aria-label="Choose color theme">
                     🎨
                 </button>
+                <button id="stars-toggle" class="stars-toggle" aria-label="Toggle stars and meteors">
+                    ⭐
+                </button>
                 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
                     🌙
                 </button>
@@ -35,45 +42,51 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="hero" class="section">
-        <div class="container hero-container">
-            <div class="hero-profile">
+    <!-- Profile Section (Top) -->
+    <section id="profile" class="section">
+        <div class="container">
+            <div class="profile-header">
                 <img id="profile-image" src="" alt="Profile" class="profile-image" style="display: none;">
-            </div>
-            <div class="hero-content">
-                <h1 class="hero-title" id="profile-name">Loading...</h1>
-                <p class="hero-subtitle" id="profile-title">Loading...</p>
-                <p class="hero-affiliation" id="profile-affiliation">Loading...</p>
-                <div class="hero-contact-wrapper">
-                    <div class="hero-contact">
-                        <a href="#" id="profile-scholar" class="contact-link" target="_blank">Scholar</a>
-                        <span class="separator">·</span>
-                        <a href="#" id="profile-github" class="contact-link" target="_blank">GitHub</a>
-                        <span class="separator" id="linkedin-separator" style="display: none;">·</span>
-                        <a href="#" id="profile-linkedin" class="contact-link" target="_blank" style="display: none;">LinkedIn</a>
+                <div class="profile-info">
+                    <h1 class="profile-name" id="profile-name">Loading...</h1>
+                    <p class="profile-email" id="profile-email-display">Loading...</p>
+                    <p class="profile-title" id="profile-title">Loading...</p>
+                    <div class="profile-badges">
+                        <span class="badge" id="profile-affiliation">Loading...</span>
+                        <span class="badge" id="profile-lab">Loading...</span>
                     </div>
-                    <div class="hero-email">
-                        <a href="#" id="profile-email" class="contact-link email-link">Email</a>
+                    <div class="profile-links">
+                        <a href="#" id="profile-scholar" class="profile-link" target="_blank">
+                            <span class="link-label">Scholar</span>
+                        </a>
+                        <a href="#" id="profile-github" class="profile-link" target="_blank">
+                            <span class="link-label">GitHub</span>
+                        </a>
+                        <a href="#" id="profile-linkedin" class="profile-link" target="_blank" style="display: none;">
+                            <span class="link-label">LinkedIn</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="section">
+    <!-- About Section (Bio) -->
+    <section id="about" class="section section-gray">
         <div class="container">
             <h2 class="section-title">About</h2>
             <div class="about-content" id="about-content">
                 <!-- Bio will be loaded dynamically -->
             </div>
+        </div>
+    </section>
 
-            <div class="research-interests">
-                <h3>Research Interests</h3>
-                <div id="research-interests-list" class="interests-grid">
-                    <!-- Research interests will be loaded dynamically -->
-                </div>
+    <!-- Research Interests Section -->
+    <section id="research" class="section">
+        <div class="container">
+            <h2 class="section-title">Research Interests</h2>
+            <div id="research-interests-list" class="interests-grid">
+                <!-- Research interests will be loaded dynamically -->
             </div>
         </div>
     </section>
@@ -142,7 +155,7 @@
     <footer class="footer">
         <div class="container">
             <p>&copy; 2026 Seongsu Kim. All rights reserved.</p>
-            <p class="footer-note">Powered by HTML, CSS, and JavaScript. Data managed in JSON format.</p>
+            <p class="footer-note">Built with <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a>. Powered by HTML, CSS, and JavaScript.</p>
         </div>
     </footer>
 
@@ -152,6 +165,23 @@
             <div class="theme-modal-header">
                 <h3>Choose Color Theme</h3>
                 <button id="theme-modal-close" class="theme-modal-close">&times;</button>
+            </div>
+            <div class="theme-mode-selector">
+                <label class="theme-mode-label">Theme Mode:</label>
+                <div class="theme-mode-options">
+                    <label class="theme-mode-option">
+                        <input type="radio" name="theme-mode" value="light">
+                        <span>☀️ Light</span>
+                    </label>
+                    <label class="theme-mode-option">
+                        <input type="radio" name="theme-mode" value="dark">
+                        <span>🌙 Dark</span>
+                    </label>
+                    <label class="theme-mode-option">
+                        <input type="radio" name="theme-mode" value="system" checked>
+                        <span>💻 System</span>
+                    </label>
+                </div>
             </div>
             <div id="theme-options" class="theme-options">
                 <!-- Theme options will be loaded dynamically -->

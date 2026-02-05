@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우주 배경 효과 Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0e27;
+            color: #e8eaf0;
+            overflow-x: hidden;
+        }
+
+        .header {
+            text-align: center;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #a0a8c0;
+            font-size: 1.1rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .option-card {
+            background: rgba(10, 14, 39, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .option-preview {
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            background: #0a0e27;
+        }
+
+        .option-content {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+            background: rgba(10, 14, 39, 0.95);
+        }
+
+        .option-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+        }
+
+        .option-description {
+            color: #a0a8c0;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .apply-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .apply-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .demo-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            z-index: 5;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Option 1: 더 많은 별들 */
+        .option1 .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .option1 .stars::before,
+        .option1 .stars::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow:
+                50px 30px 0 0px white, 120px 80px 0 0px white, 200px 50px 0 0px white,
+                90px 150px 0 0px white, 300px 100px 0 0px white, 170px 180px 0 0px white,
+                250px 140px 0 0px white, 80px 250px 0 0px white, 350px 200px 0 0px white,
+                140px 90px 0 0px white, 280px 60px 0 0px white, 60px 180px 0 0px white,
+                320px 150px 0 0px white, 190px 120px 0 0px white, 100px 200px 0 0px white,
+                260px 90px 0 0px white, 150px 260px 0 0px white, 330px 50px 0 0px white,
+                40px 100px 0 0px white, 220px 180px 0 0px white, 380px 130px 0 0px white,
+                110px 70px 0 0px white, 290px 220px 0 0px white, 160px 40px 0 0px white,
+                340px 280px 0 0px white, 70px 220px 0 0px white, 240px 110px 0 0px white,
+                130px 190px 0 0px white, 310px 80px 0 0px white, 180px 240px 0 0px white;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .option1 .stars::after {
+            box-shadow:
+                30px 50px 0 0px rgba(200, 210, 255, 0.8), 140px 100px 0 0px rgba(200, 210, 255, 0.8),
+                210px 70px 0 0px rgba(200, 210, 255, 0.8), 100px 170px 0 0px rgba(200, 210, 255, 0.8),
+                320px 120px 0 0px rgba(200, 210, 255, 0.8), 180px 200px 0 0px rgba(200, 210, 255, 0.8),
+                260px 160px 0 0px rgba(200, 210, 255, 0.8), 90px 270px 0 0px rgba(200, 210, 255, 0.8),
+                360px 220px 0 0px rgba(200, 210, 255, 0.8), 150px 110px 0 0px rgba(200, 210, 255, 0.8),
+                290px 80px 0 0px rgba(200, 210, 255, 0.8), 70px 200px 0 0px rgba(200, 210, 255, 0.8),
+                330px 170px 0 0px rgba(200, 210, 255, 0.8), 200px 140px 0 0px rgba(200, 210, 255, 0.8),
+                110px 220px 0 0px rgba(200, 210, 255, 0.8), 270px 110px 0 0px rgba(200, 210, 255, 0.8),
+                160px 280px 0 0px rgba(200, 210, 255, 0.8), 340px 70px 0 0px rgba(200, 210, 255, 0.8),
+                50px 120px 0 0px rgba(200, 210, 255, 0.8), 230px 200px 0 0px rgba(200, 210, 255, 0.8);
+            animation: twinkle 4s ease-in-out infinite 1s;
+        }
+
+        /* Option 2: 유성 효과 */
+        .option2 .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px white;
+            animation: shoot 3s linear infinite;
+        }
+
+        .option2 .shooting-star:nth-child(1) { top: 20%; left: 0; animation-delay: 0s; }
+        .option2 .shooting-star:nth-child(2) { top: 40%; left: 0; animation-delay: 1s; }
+        .option2 .shooting-star:nth-child(3) { top: 60%; left: 0; animation-delay: 2s; }
+        .option2 .shooting-star:nth-child(4) { top: 80%; left: 0; animation-delay: 0.5s; }
+        .option2 .shooting-star:nth-child(5) { top: 30%; left: 0; animation-delay: 1.5s; }
+
+        @keyframes shoot {
+            0% {
+                transform: translate(0, 0) rotate(-45deg);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(300px, 300px) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Option 3: 성운 효과 */
+        .option3 .nebula {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(118, 75, 162, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(200, 100, 200, 0.15) 0%, transparent 60%);
+            animation: nebulaPulse 10s ease-in-out infinite;
+        }
+
+        @keyframes nebulaPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Option 4: 은하수 효과 */
+        .option4 .milky-way {
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            top: -25%;
+            left: -25%;
+            background:
+                linear-gradient(45deg,
+                    transparent 0%,
+                    rgba(150, 160, 255, 0.1) 30%,
+                    rgba(180, 190, 255, 0.2) 50%,
+                    rgba(150, 160, 255, 0.1) 70%,
+                    transparent 100%);
+            transform: rotate(-30deg);
+            animation: milkyWayShift 20s ease-in-out infinite;
+        }
+
+        @keyframes milkyWayShift {
+            0%, 100% { transform: rotate(-30deg) translateX(0); }
+            50% { transform: rotate(-30deg) translateX(-50px); }
+        }
+
+        /* Option 5: 펄스 별 */
+        .option5 .pulse-star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .option5 .pulse-star:nth-child(1) { top: 20%; left: 30%; animation-delay: 0s; }
+        .option5 .pulse-star:nth-child(2) { top: 60%; left: 70%; animation-delay: 0.4s; }
+        .option5 .pulse-star:nth-child(3) { top: 40%; left: 50%; animation-delay: 0.8s; }
+        .option5 .pulse-star:nth-child(4) { top: 80%; left: 20%; animation-delay: 1.2s; }
+        .option5 .pulse-star:nth-child(5) { top: 30%; left: 80%; animation-delay: 1.6s; }
+        .option5 .pulse-star:nth-child(6) { top: 70%; left: 40%; animation-delay: 0.2s; }
+        .option5 .pulse-star:nth-child(7) { top: 50%; left: 60%; animation-delay: 0.6s; }
+        .option5 .pulse-star:nth-child(8) { top: 90%; left: 90%; animation-delay: 1s; }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.3);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 20px 8px rgba(255, 255, 255, 0.8);
+                transform: scale(1.5);
+            }
+        }
+
+        /* Option 6: 3D 별 필드 */
+        .option6 .star-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .option6 .star-layer.layer1 {
+            animation: moveStars 60s linear infinite;
+        }
+
+        .option6 .star-layer.layer2 {
+            animation: moveStars 40s linear infinite;
+        }
+
+        .option6 .star-layer.layer3 {
+            animation: moveStars 20s linear infinite;
+        }
+
+        .option6 .star-layer::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(2px 2px at 20% 30%, white, transparent),
+                radial-gradient(2px 2px at 60% 70%, white, transparent),
+                radial-gradient(1px 1px at 50% 50%, white, transparent),
+                radial-gradient(1px 1px at 80% 10%, white, transparent),
+                radial-gradient(2px 2px at 90% 60%, white, transparent);
+            background-size: 200px 200px;
+            background-position: 0 0, 40px 60px, 130px 270px, 70px 100px, 150px 50px;
+        }
+
+        @keyframes moveStars {
+            from { transform: translateY(0); }
+            to { transform: translateY(-200px); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>✨ 우주 배경 효과 Preview</h1>
+        <p>원하는 별 효과를 선택해주세요</p>
+    </div>
+
+    <div class="options-grid">
+        <!-- Option 1: 더 많은 별들 -->
+        <div class="option-card option1">
+            <div class="option-preview">
+                <div class="stars"></div>
+                <div class="demo-text">많은 별들 ⭐</div>
+            </div>
+            <div class="option-content">
+                <h3 class="option-title">Option 1: 더 많은 별들</h3>
+                <p class="option-description">
+                    현재보다 2-3배 많은 별들이 하늘을 가득 채웁니다. 깜빡이는 애니메이션으로 살아있는 느낌을 줍니다.
+                </p>
+                <button class="apply-button" onclick="alert('Option 1 선택!\n\nbody::before와 body::after의 box-shadow에 더 많은 별 좌표를 추가하면 됩니다.')">Apply Option 1</button>
+            </div>
+        </div>
+
+        <!-- Option 2: 유성 효과 -->
+        <div class="option-card option2">
+            <div class="option-preview">
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+                <div class="demo-text">유성 🌠</div>
+            </div>
+            <div class="option-content">
+                <h3 class="option-title">Option 2: 유성 효과</h3>
+                <p class="option-description">
+                    주기적으로 흐르는 유성이 하늘을 가로지릅니다. 동적이고 생동감 있는 우주 느낌을 줍니다.
+                </p>
+                <button class="apply-button" onclick="alert('Option 2 선택!\n\n추가 요소와 shooting star 애니메이션이 필요합니다.')">Apply Option 2</button>
+            </div>
+        </div>
+
+        <!-- Option 3: 성운 효과 -->
+        <div class="option-card option3">
+            <div class="option-preview">
+                <div class="nebula"></div>
+                <div class="demo-text">성운 🌌</div>
+            </div>
+            <div class="option-content">
+                <h3 class="option-title">Option 3: 성운 효과</h3>
+                <p class="option-description">
+                    은은하게 빛나는 성운 구름이 배경에 깔립니다. 신비롭고 몽환적인 우주 분위기를 만듭니다.
+                </p>
+                <button class="apply-button" onclick="alert('Option 3 선택!\n\nradial-gradient로 성운 효과를 추가합니다.')">Apply Option 3</button>
+            </div>
+        </div>
+
+        <!-- Option 4: 은하수 효과 -->
+        <div class="option-card option4">
+            <div class="option-preview">
+                <div class="milky-way"></div>
+                <div class="demo-text">은하수 🌌</div>
+            </div>
+            <div class="option-content">
+                <h3 class="option-title">Option 4: 은하수 효과</h3>
+                <p class="option-description">
+                    대각선으로 흐르는 은하수가 하늘을 가로지릅니다. 웅장하고 스케일이 큰 우주를 표현합니다.
+                </p>
+                <button class="apply-button" onclick="alert('Option 4 선택!\n\nlinear-gradient로 은하수 띠를 추가합니다.')">Apply Option 4</button>
+            </div>
+        </div>
+
+        <!-- Option 5: 펄스 별 -->
+        <div class="option-card option5">
+            <div class="option-preview">
+                <div class="pulse-star"></div>
+                <div class="pulse-star"></div>
+                <div class="pulse-star"></div>
+                <div class="pulse-star"></div>
+                <div class="pulse-star"></div>
+                <div class="pulse-star"></div>
+                <div class="pulse-star"></div>
+                <div class="pulse-star"></div>
+                <div class="demo-text">펄스 별 💫</div>
+            </div>
+            <div class="option-content">
+                <h3 class="option-title">Option 5: 펄스 별</h3>
+                <p class="option-description">
+                    밝게 빛나며 커졌다 작아지는 별들이 리듬감 있게 움직입니다. 생동감 넘치는 우주를 연출합니다.
+                </p>
+                <button class="apply-button" onclick="alert('Option 5 선택!\n\n큰 별들에 pulse 애니메이션을 추가합니다.')">Apply Option 5</button>
+            </div>
+        </div>
+
+        <!-- Option 6: 3D 별 필드 -->
+        <div class="option-card option6">
+            <div class="option-preview">
+                <div class="star-layer layer1"></div>
+                <div class="star-layer layer2"></div>
+                <div class="star-layer layer3"></div>
+                <div class="demo-text">3D 별 필드 🚀</div>
+            </div>
+            <div class="option-content">
+                <h3 class="option-title">Option 6: 3D 별 필드</h3>
+                <p class="option-description">
+                    여러 층의 별들이 다른 속도로 움직여 깊이감을 만듭니다. 우주선을 타고 날아가는 느낌을 줍니다.
+                </p>
+                <button class="apply-button" onclick="alert('Option 6 선택!\n\n여러 레이어의 별들이 parallax 효과로 움직입니다.')">Apply Option 6</button>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 3rem; color: #a0a8c0;">
+        <p>💡 <strong>Tip:</strong> 원하는 옵션을 선택하면 실제 블로그에 적용해드립니다!</p>
+        <p style="margin-top: 0.5rem;">여러 효과를 조합할 수도 있습니다.</p>
+    </div>
+</body>
+</html>

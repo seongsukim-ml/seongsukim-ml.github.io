@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Sidebar Design Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #e8eaf0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #a0a8c0;
+            font-size: 1.1rem;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .preview-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .preview-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+        }
+
+        .preview-description {
+            color: #a0a8c0;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .preview-content {
+            background: rgba(10, 14, 39, 0.5);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .apply-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .apply-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Common profile elements */
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-email {
+            color: #a0a8c0;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-title {
+            font-size: 1rem;
+            color: #c0c8d8;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-affiliation, .profile-lab {
+            font-size: 0.95rem;
+            color: #b0b8c8;
+            margin-bottom: 0.3rem;
+        }
+
+        .profile-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .profile-link {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .profile-link:hover {
+            color: #764ba2;
+        }
+
+        /* Option 1: Current Style (Baseline) */
+        .option-1 .profile-sidebar {
+            text-align: center;
+        }
+
+        /* Option 2: Compact Card */
+        .option-2 .profile-sidebar {
+            text-align: center;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .option-2 .profile-image {
+            width: 100px;
+            height: 100px;
+        }
+
+        /* Option 3: Badge Style */
+        .option-3 .profile-sidebar {
+            text-align: center;
+        }
+
+        .option-3 .profile-affiliation,
+        .option-3 .profile-lab {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.15);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0.2rem;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        /* Option 4: Icon Enhanced */
+        .option-4 .profile-sidebar {
+            text-align: center;
+        }
+
+        .option-4 .info-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .option-4 .info-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Option 5: Minimal Clean */
+        .option-5 .profile-sidebar {
+            text-align: center;
+        }
+
+        .option-5 .profile-name {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .option-5 .profile-email,
+        .option-5 .profile-title,
+        .option-5 .profile-affiliation,
+        .option-5 .profile-lab {
+            color: #909090;
+            font-weight: 300;
+            margin-bottom: 0.7rem;
+        }
+
+        .option-5 .profile-links {
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        /* Option 6: Card with Border */
+        .option-6 .profile-sidebar {
+            text-align: center;
+            border: 2px solid;
+            border-image: linear-gradient(135deg, #667eea, #764ba2) 1;
+            padding: 2rem;
+            border-radius: 16px;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .option-6 .profile-sidebar:hover {
+            transform: scale(1.02);
+        }
+
+        .option-6 .profile-image {
+            border: 3px solid;
+            border-image: linear-gradient(135deg, #667eea, #764ba2) 1;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Profile Sidebar Design Options</h1>
+        <p>Choose your preferred profile sidebar design</p>
+    </div>
+
+    <div class="preview-grid">
+        <!-- Option 1: Current Style -->
+        <div class="preview-card option-1">
+            <h3 class="preview-title">Option 1: Current Style</h3>
+            <p class="preview-description">
+                Simple vertical layout with clear hierarchy. Affiliation and lab are now on separate lines.
+            </p>
+            <div class="preview-content">
+                <div class="profile-sidebar">
+                    <img src="assets/profile.jpg" alt="Profile" class="profile-image">
+                    <h1 class="profile-name">Seongsu Kim</h1>
+                    <p class="profile-email">seongsu.kim@kaist.ac.kr</p>
+                    <p class="profile-title">Ph.D. Student</p>
+                    <p class="profile-affiliation">KAIST AI Department</p>
+                    <p class="profile-lab">SPML Lab</p>
+                    <div class="profile-links">
+                        <a href="#" class="profile-link">Scholar</a>
+                        <a href="#" class="profile-link">GitHub</a>
+                        <a href="#" class="profile-link">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <button class="apply-button" onclick="alert('This is the current style - already applied!')">Current Style</button>
+        </div>
+
+        <!-- Option 2: Compact Card -->
+        <div class="preview-card option-2">
+            <h3 class="preview-title">Option 2: Compact Card</h3>
+            <p class="preview-description">
+                Card-style background with subtle gradient. More compact and cohesive appearance.
+            </p>
+            <div class="preview-content">
+                <div class="profile-sidebar">
+                    <img src="assets/profile.jpg" alt="Profile" class="profile-image">
+                    <h1 class="profile-name">Seongsu Kim</h1>
+                    <p class="profile-email">seongsu.kim@kaist.ac.kr</p>
+                    <p class="profile-title">Ph.D. Student</p>
+                    <p class="profile-affiliation">KAIST AI Department</p>
+                    <p class="profile-lab">SPML Lab</p>
+                    <div class="profile-links">
+                        <a href="#" class="profile-link">Scholar</a>
+                        <a href="#" class="profile-link">GitHub</a>
+                        <a href="#" class="profile-link">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <button class="apply-button" onclick="alert('Option 2: Compact Card\n\nAdd to CSS:\n.profile-sidebar {\n  background: rgba(102, 126, 234, 0.1);\n  border-radius: 12px;\n  padding: 1.5rem;\n  border: 1px solid rgba(102, 126, 234, 0.2);\n}\n\n.profile-image {\n  width: 100px;\n  height: 100px;\n}')">Apply Option 2</button>
+        </div>
+
+        <!-- Option 3: Badge Style -->
+        <div class="preview-card option-3">
+            <h3 class="preview-title">Option 3: Badge Style</h3>
+            <p class="preview-description">
+                Affiliation and lab displayed as badges for a modern, tag-like appearance.
+            </p>
+            <div class="preview-content">
+                <div class="profile-sidebar">
+                    <img src="assets/profile.jpg" alt="Profile" class="profile-image">
+                    <h1 class="profile-name">Seongsu Kim</h1>
+                    <p class="profile-email">seongsu.kim@kaist.ac.kr</p>
+                    <p class="profile-title">Ph.D. Student</p>
+                    <p class="profile-affiliation">KAIST AI Department</p>
+                    <p class="profile-lab">SPML Lab</p>
+                    <div class="profile-links">
+                        <a href="#" class="profile-link">Scholar</a>
+                        <a href="#" class="profile-link">GitHub</a>
+                        <a href="#" class="profile-link">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <button class="apply-button" onclick="alert('Option 3: Badge Style\n\nAdd to CSS:\n.profile-affiliation,\n.profile-lab {\n  display: inline-block;\n  background: rgba(102, 126, 234, 0.15);\n  padding: 0.4rem 0.8rem;\n  border-radius: 20px;\n  font-size: 0.85rem;\n  margin: 0.2rem;\n  border: 1px solid rgba(102, 126, 234, 0.3);\n}')">Apply Option 3</button>
+        </div>
+
+        <!-- Option 4: Icon Enhanced -->
+        <div class="preview-card option-4">
+            <h3 class="preview-title">Option 4: Icon Enhanced</h3>
+            <p class="preview-description">
+                Icons next to each piece of information for visual clarity and modern look.
+            </p>
+            <div class="preview-content">
+                <div class="profile-sidebar">
+                    <img src="assets/profile.jpg" alt="Profile" class="profile-image">
+                    <h1 class="profile-name">Seongsu Kim</h1>
+                    <div class="info-item">
+                        <span class="info-icon">📧</span>
+                        <p class="profile-email">seongsu.kim@kaist.ac.kr</p>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🎓</span>
+                        <p class="profile-title">Ph.D. Student</p>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🏛️</span>
+                        <p class="profile-affiliation">KAIST AI Department</p>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🔬</span>
+                        <p class="profile-lab">SPML Lab</p>
+                    </div>
+                    <div class="profile-links">
+                        <a href="#" class="profile-link">Scholar</a>
+                        <a href="#" class="profile-link">GitHub</a>
+                        <a href="#" class="profile-link">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <button class="apply-button" onclick="alert('Option 4: Icon Enhanced\n\nRequires HTML structure change:\n<div class=\'info-item\'>\n  <span class=\'info-icon\'>📧</span>\n  <p class=\'profile-email\'>...</p>\n</div>\n\nAdd to CSS:\n.info-item {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  margin-bottom: 0.5rem;\n}\n\n.info-icon {\n  font-size: 1.2rem;\n}')">Apply Option 4</button>
+        </div>
+
+        <!-- Option 5: Minimal Clean -->
+        <div class="preview-card option-5">
+            <h3 class="preview-title">Option 5: Minimal Clean</h3>
+            <p class="preview-description">
+                Lighter, more spacious design with thin fonts for an elegant, minimalist look.
+            </p>
+            <div class="preview-content">
+                <div class="profile-sidebar">
+                    <img src="assets/profile.jpg" alt="Profile" class="profile-image">
+                    <h1 class="profile-name">Seongsu Kim</h1>
+                    <p class="profile-email">seongsu.kim@kaist.ac.kr</p>
+                    <p class="profile-title">Ph.D. Student</p>
+                    <p class="profile-affiliation">KAIST AI Department</p>
+                    <p class="profile-lab">SPML Lab</p>
+                    <div class="profile-links">
+                        <a href="#" class="profile-link">Scholar</a>
+                        <a href="#" class="profile-link">GitHub</a>
+                        <a href="#" class="profile-link">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <button class="apply-button" onclick="alert('Option 5: Minimal Clean\n\nAdd to CSS:\n.profile-name {\n  font-size: 1.8rem;\n  font-weight: 300;\n  margin-bottom: 1rem;\n}\n\n.profile-email,\n.profile-title,\n.profile-affiliation,\n.profile-lab {\n  color: #909090;\n  font-weight: 300;\n  margin-bottom: 0.7rem;\n}\n\n.profile-links {\n  margin-top: 2rem;\n}')">Apply Option 5</button>
+        </div>
+
+        <!-- Option 6: Card with Border -->
+        <div class="preview-card option-6">
+            <h3 class="preview-title">Option 6: Gradient Border</h3>
+            <p class="preview-description">
+                Bold gradient border with hover effect. Eye-catching and premium feel.
+            </p>
+            <div class="preview-content">
+                <div class="profile-sidebar">
+                    <img src="assets/profile.jpg" alt="Profile" class="profile-image">
+                    <h1 class="profile-name">Seongsu Kim</h1>
+                    <p class="profile-email">seongsu.kim@kaist.ac.kr</p>
+                    <p class="profile-title">Ph.D. Student</p>
+                    <p class="profile-affiliation">KAIST AI Department</p>
+                    <p class="profile-lab">SPML Lab</p>
+                    <div class="profile-links">
+                        <a href="#" class="profile-link">Scholar</a>
+                        <a href="#" class="profile-link">GitHub</a>
+                        <a href="#" class="profile-link">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <button class="apply-button" onclick="alert('Option 6: Gradient Border\n\nAdd to CSS:\n.profile-sidebar {\n  border: 2px solid;\n  border-image: linear-gradient(135deg, #667eea, #764ba2) 1;\n  padding: 2rem;\n  border-radius: 16px;\n  transition: transform 0.3s;\n}\n\n.profile-sidebar:hover {\n  transform: scale(1.02);\n}\n\n.profile-image {\n  border: 3px solid;\n  border-image: linear-gradient(135deg, #667eea, #764ba2) 1;\n}')">Apply Option 6</button>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 3rem; padding: 2rem; color: #a0a8c0;">
+        <p>💡 <strong>Tip:</strong> The "Apply" buttons show the CSS code needed for each option.</p>
+        <p style="margin-top: 0.5rem;">Let me know which option you prefer, and I'll implement it for you!</p>
+    </div>
+</body>
+</html>

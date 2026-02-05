@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js 3D Galaxy Background - Preview</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Three.js 배경 전용 스타일 */
+        #threejs-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none; /* 배경은 클릭 불가 */
+        }
+
+        /* 마우스 인터랙션을 위한 컨트롤 영역 */
+        #galaxy-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        #galaxy-control h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        #galaxy-control label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        /* 콘텐츠가 배경 위에 보이도록 */
+        .container, nav, section {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 데모용 간단한 콘텐츠 */
+        .demo-content {
+            min-height: 200vh;
+        }
+
+        .demo-section {
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .demo-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-section p {
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .preview-badge {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(99, 102, 241, 0.9);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Preview Badge -->
+    <div class="preview-badge">
+        🌌 Three.js 3D Galaxy Background Preview
+    </div>
+
+    <!-- Three.js Background Container -->
+    <div id="threejs-background"></div>
+
+    <!-- Galaxy Control Panel -->
+    <div id="galaxy-control">
+        <h4>🎮 은하 컨트롤</h4>
+        <label>
+            <input type="checkbox" id="auto-rotate" checked>
+            <span>자동 회전</span>
+        </label>
+        <label>
+            <input type="checkbox" id="enable-drag" checked>
+            <span>드래그 회전</span>
+        </label>
+        <div style="margin-top: 0.5rem; opacity: 0.7; font-size: 0.75rem;">
+            💡 드래그로 은하를 회전시켜보세요
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1 id="site-title">Seongsu Kim</h1>
+            </div>
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#publications" class="nav-link">Publications</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                </div>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    🌙
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Demo Content -->
+    <div class="demo-content">
+        <!-- Profile Section -->
+        <section id="profile" class="section">
+            <div class="container">
+                <div class="profile-header" style="max-width: 700px; margin: 0 auto; display: flex; gap: 2rem; align-items: center;">
+                    <img src="https://via.placeholder.com/130" alt="Profile" class="profile-image" style="width: 130px; height: 130px; border-radius: 50%;">
+                    <div class="profile-info">
+                        <h1 class="profile-name">Seongsu Kim</h1>
+                        <p class="profile-title">Ph.D. Student in AI</p>
+                        <div class="profile-badges">
+                            <span class="badge">KAIST</span>
+                            <span class="badge">AI Lab</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section section-gray demo-section">
+            <div class="container">
+                <h2 class="section-title">About</h2>
+                <p>
+                    This is a preview showing how the Three.js 3D galaxy background looks with your actual blog layout.
+                    The galaxy rotates automatically and you can drag to rotate it manually.
+                </p>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="section demo-section">
+            <div class="container">
+                <h2 class="section-title">Publications</h2>
+                <p>
+                    Scroll down to see how the 3D galaxy background creates depth and movement throughout your portfolio.
+                    The stars in the background create a beautiful cosmic atmosphere.
+                </p>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section section-gray demo-section">
+            <div class="container">
+                <h2 class="section-title">Projects</h2>
+                <p>
+                    The Three.js implementation uses proper performance optimization:
+                    1500 stars with Gaussian distribution and spiral coordinates.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // ===== 유틸리티 함수들 =====
+        function gaussianRandom(mean = 0, deviation = 1) {
+            const u = 1 - Math.random();
+            const v = Math.random();
+            const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+            return mean + deviation * z;
+        }
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        const SPIRAL = 3.5;
+        const ARM_X_MEAN = 80;
+        const ARM_X_DIST = 120;
+        const ARM_Z_MEAN = 50;
+        const ARM_Z_DIST = 60;
+        const GALAXY_THICKNESS = 20;
+
+        function spiral(x, y, z, offset) {
+            const r = Math.sqrt(x ** 2 + z ** 2);
+            let theta = offset;
+            theta += x > 0 ? Math.atan(z / x) : Math.atan(z / x) + Math.PI;
+            theta += (r / ARM_X_DIST) * SPIRAL;
+            return {
+                x: r * Math.cos(theta),
+                y: y,
+                z: r * Math.sin(theta)
+            };
+        }
+
+        // ===== Three.js 3D Galaxy 초기화 =====
+        const container = document.getElementById('threejs-background');
+
+        // Scene 설정
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0a0a1a); // 어두운 우주색
+
+        // Camera 설정
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            2000
+        );
+        camera.position.set(0, 100, 250);
+        camera.lookAt(0, 0, 0);
+
+        // Renderer 설정
+        const renderer = new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: true
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+        scene.add(ambientLight);
+
+        // 은하 별 생성
+        const galaxyGeometry = new THREE.BufferGeometry();
+        const positions = [];
+        const colors = [];
+        const sizes = [];
+
+        const colorPalette = [
+            new THREE.Color(0x88beff), // 파란색
+            new THREE.Color(0xffffff), // 흰색
+            new THREE.Color(0xf9d397), // 노란색
+            new THREE.Color(0xfd6b6b), // 빨간색
+            new THREE.Color(0xffffac)  // 연노란색
+        ];
+
+        const ARMS = 2;
+        const NUM_STARS = 2000; // 더 많은 별로 풍부한 배경
+
+        for (let arm = 0; arm < ARMS; arm++) {
+            for (let i = 0; i < NUM_STARS / ARMS; i++) {
+                const pos = spiral(
+                    gaussianRandom(ARM_X_MEAN, ARM_X_DIST),
+                    gaussianRandom(0, GALAXY_THICKNESS),
+                    gaussianRandom(ARM_Z_MEAN, ARM_Z_DIST),
+                    (arm * 2 * Math.PI) / ARMS
+                );
+
+                positions.push(pos.x, pos.y, pos.z);
+
+                const color = colorPalette[getRandomInt(0, colorPalette.length)];
+                colors.push(color.r, color.g, color.b);
+
+                sizes.push(Math.random() * 5 + 1);
+            }
+        }
+
+        galaxyGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        galaxyGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+        galaxyGeometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
+
+        // Material
+        const galaxyMaterial = new THREE.PointsMaterial({
+            size: 2.5,
+            sizeAttenuation: true,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.9,
+            blending: THREE.AdditiveBlending
+        });
+
+        const galaxy = new THREE.Points(galaxyGeometry, galaxyMaterial);
+        scene.add(galaxy);
+
+        // 중심 빛
+        const coreGeometry = new THREE.SphereGeometry(8, 32, 32);
+        const coreMaterial = new THREE.MeshBasicMaterial({
+            color: 0x88beff,
+            transparent: true,
+            opacity: 0.5
+        });
+        const core = new THREE.Mesh(coreGeometry, coreMaterial);
+        scene.add(core);
+
+        // 중심 글로우
+        const glowGeometry = new THREE.SphereGeometry(15, 32, 32);
+        const glowMaterial = new THREE.MeshBasicMaterial({
+            color: 0x6366f1,
+            transparent: true,
+            opacity: 0.2
+        });
+        const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+        scene.add(glow);
+
+        // 마우스 인터랙션
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+        let rotation = { x: -0.2, y: 0 };
+        let autoRotateEnabled = true;
+        let dragEnabled = true;
+
+        // 컨트롤 이벤트
+        document.getElementById('auto-rotate').addEventListener('change', (e) => {
+            autoRotateEnabled = e.target.checked;
+        });
+
+        document.getElementById('enable-drag').addEventListener('change', (e) => {
+            dragEnabled = e.target.checked;
+        });
+
+        window.addEventListener('mousedown', (e) => {
+            if (dragEnabled) {
+                isDragging = true;
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            }
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging && dragEnabled) {
+                const deltaX = e.clientX - previousMousePosition.x;
+                const deltaY = e.clientY - previousMousePosition.y;
+
+                rotation.y += deltaX * 0.005;
+                rotation.x += deltaY * 0.005;
+
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            isDragging = false;
+        });
+
+        // 애니메이션 루프
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // 자동 회전 (드래그 안 할 때)
+            if (!isDragging && autoRotateEnabled) {
+                rotation.y += 0.001;
+            }
+
+            // 회전 적용
+            galaxy.rotation.x = rotation.x;
+            galaxy.rotation.y = rotation.y;
+            core.rotation.x = rotation.x;
+            core.rotation.y = rotation.y;
+            glow.rotation.x = rotation.x;
+            glow.rotation.y = rotation.y;
+
+            // 글로우 펄스 효과
+            glow.scale.setScalar(1 + Math.sin(Date.now() * 0.001) * 0.1);
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // 반응형 처리
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Theme toggle (간단한 데모)
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const currentBg = scene.background.getHex();
+            if (currentBg === 0x0a0a1a) {
+                scene.background = new THREE.Color(0x1a1a2e); // 조금 밝게
+                document.getElementById('theme-toggle').textContent = '☀️';
+            } else {
+                scene.background = new THREE.Color(0x0a0a1a); // 원래대로
+                document.getElementById('theme-toggle').textContent = '🌙';
+            }
+        });
+    </script>
+</body>
+</html>

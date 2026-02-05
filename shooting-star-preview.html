@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유성 효과 Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0e27;
+            color: #e8eaf0;
+            overflow-x: hidden;
+        }
+
+        .header {
+            text-align: center;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #a0a8c0;
+            font-size: 1.1rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .option-card {
+            background: rgba(10, 14, 39, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .option-preview {
+            height: 350px;
+            position: relative;
+            overflow: hidden;
+            background: #0a0e27;
+        }
+
+        /* 배경 별들 (모든 옵션에 공통) */
+        .stars-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .stars-bg::before,
+        .stars-bg::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow:
+                50px 30px 0 0px rgba(255, 255, 255, 0.9),
+                120px 80px 0 0px rgba(255, 255, 255, 0.8),
+                200px 50px 0 0px rgba(255, 255, 255, 0.7),
+                90px 150px 0 0px rgba(255, 255, 255, 0.9),
+                300px 100px 0 0px rgba(255, 255, 255, 0.8),
+                170px 180px 0 0px rgba(255, 255, 255, 0.7),
+                250px 140px 0 0px rgba(255, 255, 255, 0.9),
+                80px 250px 0 0px rgba(255, 255, 255, 0.6),
+                350px 200px 0 0px rgba(255, 255, 255, 0.8),
+                140px 90px 0 0px rgba(255, 255, 255, 0.7),
+                280px 60px 0 0px rgba(255, 255, 255, 0.9),
+                400px 150px 0 0px rgba(255, 255, 255, 0.8);
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        .option-content {
+            padding: 1.5rem;
+            background: rgba(10, 14, 39, 0.95);
+        }
+
+        .option-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+        }
+
+        .option-description {
+            color: #a0a8c0;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .apply-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .apply-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Option 1: 긴 꼬리 유성 */
+        .option1 .shooting-star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            filter: blur(1px);
+            box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.9);
+            animation: shoot1 4s ease-out infinite;
+        }
+
+        .option1 .shooting-star::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.9), transparent);
+            transform-origin: right;
+        }
+
+        .option1 .shooting-star:nth-child(2) { top: 15%; left: 10%; animation-delay: 0s; }
+        .option1 .shooting-star:nth-child(3) { top: 40%; left: 20%; animation-delay: 2.5s; }
+        .option1 .shooting-star:nth-child(4) { top: 70%; left: 15%; animation-delay: 1.2s; }
+
+        @keyframes shoot1 {
+            0% {
+                transform: translate(0, 0) rotate(-45deg);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(400px, 400px) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Option 2: 느리고 부드러운 */
+        .option2 .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 3px rgba(255, 255, 255, 0.7);
+            animation: shoot2 6s ease-in-out infinite;
+        }
+
+        .option2 .shooting-star::before {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 1px;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.7), transparent);
+            filter: blur(1px);
+        }
+
+        .option2 .shooting-star:nth-child(2) { top: 20%; left: 5%; animation-delay: 0s; }
+        .option2 .shooting-star:nth-child(3) { top: 50%; left: 10%; animation-delay: 3s; }
+        .option2 .shooting-star:nth-child(4) { top: 75%; left: 8%; animation-delay: 4.5s; }
+
+        @keyframes shoot2 {
+            0% {
+                transform: translate(0, 0) rotate(-40deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(350px, 300px) rotate(-40deg);
+                opacity: 0;
+            }
+        }
+
+        /* Option 3: 다양한 각도 */
+        .option3 .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .option3 .shooting-star::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 1px;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.8), transparent);
+        }
+
+        .option3 .shooting-star:nth-child(2) {
+            top: 10%;
+            left: 5%;
+            animation: shoot3a 3.5s linear infinite;
+        }
+
+        .option3 .shooting-star:nth-child(3) {
+            top: 30%;
+            left: 80%;
+            animation: shoot3b 4s linear infinite 1s;
+        }
+
+        .option3 .shooting-star:nth-child(4) {
+            top: 60%;
+            left: 10%;
+            animation: shoot3c 3.8s linear infinite 2s;
+        }
+
+        @keyframes shoot3a {
+            0% { transform: translate(0, 0) rotate(-45deg); opacity: 0; }
+            5% { opacity: 1; }
+            100% { transform: translate(350px, 350px) rotate(-45deg); opacity: 0; }
+        }
+
+        @keyframes shoot3b {
+            0% { transform: translate(0, 0) rotate(-135deg); opacity: 0; }
+            5% { opacity: 1; }
+            100% { transform: translate(-350px, 350px) rotate(-135deg); opacity: 0; }
+        }
+
+        @keyframes shoot3c {
+            0% { transform: translate(0, 0) rotate(-30deg); opacity: 0; }
+            5% { opacity: 1; }
+            100% { transform: translate(400px, 250px) rotate(-30deg); opacity: 0; }
+        }
+
+        /* Option 4: 밝은 섬광 효과 */
+        .option4 .shooting-star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: shoot4 3s ease-out infinite;
+        }
+
+        .option4 .shooting-star::before {
+            content: '';
+            position: absolute;
+            width: 180px;
+            height: 3px;
+            background: linear-gradient(to left,
+                rgba(255, 255, 255, 1),
+                rgba(200, 220, 255, 0.8),
+                transparent);
+            box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.5);
+            filter: blur(1px);
+        }
+
+        .option4 .shooting-star:nth-child(2) { top: 15%; left: 15%; animation-delay: 0s; }
+        .option4 .shooting-star:nth-child(3) { top: 45%; left: 10%; animation-delay: 1.8s; }
+        .option4 .shooting-star:nth-child(4) { top: 75%; left: 20%; animation-delay: 0.9s; }
+
+        @keyframes shoot4 {
+            0% {
+                transform: translate(0, 0) rotate(-45deg) scale(1);
+                opacity: 0;
+                filter: blur(2px);
+            }
+            3% {
+                opacity: 1;
+                filter: blur(1px);
+            }
+            5% {
+                transform: translate(30px, 30px) rotate(-45deg) scale(1.5);
+                filter: blur(0px);
+            }
+            100% {
+                transform: translate(380px, 380px) rotate(-45deg) scale(0.8);
+                opacity: 0;
+                filter: blur(3px);
+            }
+        }
+
+        /* Option 5: 은은하고 우아한 */
+        .option5 .shooting-star {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.5);
+            animation: shoot5 5s ease-in-out infinite;
+        }
+
+        .option5 .shooting-star::before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(to left,
+                rgba(255, 255, 255, 0.6),
+                rgba(200, 210, 255, 0.3),
+                transparent);
+        }
+
+        .option5 .shooting-star:nth-child(2) { top: 18%; left: 12%; animation-delay: 0s; }
+        .option5 .shooting-star:nth-child(3) { top: 42%; left: 8%; animation-delay: 2.5s; }
+        .option5 .shooting-star:nth-child(4) { top: 68%; left: 15%; animation-delay: 4s; }
+        .option5 .shooting-star:nth-child(5) { top: 85%; left: 10%; animation-delay: 1.2s; }
+
+        @keyframes shoot5 {
+            0% {
+                transform: translate(0, 0) rotate(-42deg);
+                opacity: 0;
+            }
+            8% {
+                opacity: 0.8;
+            }
+            92% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(320px, 280px) rotate(-42deg);
+                opacity: 0;
+            }
+        }
+
+        /* Option 6: 랜덤 패턴 */
+        .option6 .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.7);
+        }
+
+        .option6 .shooting-star::before {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 1px;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.8), transparent);
+        }
+
+        .option6 .shooting-star:nth-child(2) {
+            top: 12%;
+            left: 8%;
+            animation: shoot6a 3.2s ease-out infinite;
+        }
+
+        .option6 .shooting-star:nth-child(3) {
+            top: 35%;
+            left: 70%;
+            animation: shoot6b 4.5s ease-out infinite 1.5s;
+        }
+
+        .option6 .shooting-star:nth-child(4) {
+            top: 58%;
+            left: 15%;
+            animation: shoot6c 3.8s ease-out infinite 0.8s;
+        }
+
+        .option6 .shooting-star:nth-child(5) {
+            top: 78%;
+            left: 60%;
+            animation: shoot6d 4.2s ease-out infinite 2.3s;
+        }
+
+        @keyframes shoot6a {
+            0% { transform: translate(0, 0) rotate(-48deg); opacity: 0; }
+            5% { opacity: 1; }
+            100% { transform: translate(340px, 320px) rotate(-48deg); opacity: 0; }
+        }
+
+        @keyframes shoot6b {
+            0% { transform: translate(0, 0) rotate(-125deg); opacity: 0; }
+            5% { opacity: 1; }
+            100% { transform: translate(-300px, 280px) rotate(-125deg); opacity: 0; }
+        }
+
+        @keyframes shoot6c {
+            0% { transform: translate(0, 0) rotate(-35deg); opacity: 0; }
+            5% { opacity: 1; }
+            100% { transform: translate(380px, 260px) rotate(-35deg); opacity: 0; }
+        }
+
+        @keyframes shoot6d {
+            0% { transform: translate(0, 0) rotate(-140deg); opacity: 0; }
+            5% { opacity: 1; }
+            100% { transform: translate(-320px, 300px) rotate(-140deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌠 자연스러운 유성 효과 Preview</h1>
+        <p>더 realistic하고 아름다운 유성 효과들</p>
+    </div>
+
+    <div class="options-grid">
+        <!-- Option 1 -->
+        <div class="option-card option1">
+            <div class="option-preview">
+                <div class="stars-bg"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+            </div>
+            <div class="option-content">
+                <h3 class="option-title">Option 1: 긴 꼬리 유성 🌠</h3>
+                <p class="option-description">
+                    <strong>특징:</strong> 200px의 긴 꼬리, 느린 페이드 아웃<br>
+                    <strong>속도:</strong> 중간 (4초)<br>
+                    <strong>느낌:</strong> 드라마틱하고 인상적인
+                </p>
+                <button class="apply-button" onclick="alert('Option 1 선택!')">Apply Option 1</button>
+            </div>
+        </div>
+
+        <!-- Option 2 -->
+        <div class="option-card option2">
+            <div class="option-preview">
+                <div class="stars-bg"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+            </div>
+            <div class="option-content">
+                <h3 class="option-title">Option 2: 느리고 부드러운 💫</h3>
+                <p class="option-description">
+                    <strong>특징:</strong> 천천히 흐르는 유성, 부드러운 blur<br>
+                    <strong>속도:</strong> 느림 (6초)<br>
+                    <strong>느낌:</strong> 평화롭고 명상적인
+                </p>
+                <button class="apply-button" onclick="alert('Option 2 선택!')">Apply Option 2</button>
+            </div>
+        </div>
+
+        <!-- Option 3 -->
+        <div class="option-card option3">
+            <div class="option-preview">
+                <div class="stars-bg"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+            </div>
+            <div class="option-content">
+                <h3 class="option-title">Option 3: 다양한 각도 ✨</h3>
+                <p class="option-description">
+                    <strong>특징:</strong> 여러 방향에서 날아오는 유성<br>
+                    <strong>속도:</strong> 중간-빠름 (3.5-4초)<br>
+                    <strong>느낌:</strong> 다이나믹하고 활동적인
+                </p>
+                <button class="apply-button" onclick="alert('Option 3 선택!')">Apply Option 3</button>
+            </div>
+        </div>
+
+        <!-- Option 4 -->
+        <div class="option-card option4">
+            <div class="option-preview">
+                <div class="stars-bg"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+            </div>
+            <div class="option-content">
+                <h3 class="option-title">Option 4: 밝은 섬광 💥</h3>
+                <p class="option-description">
+                    <strong>특징:</strong> 밝게 빛나며 시작, 두꺼운 꼬리, glow 효과<br>
+                    <strong>속도:</strong> 빠름 (3초)<br>
+                    <strong>느낌:</strong> 강렬하고 눈에 띄는
+                </p>
+                <button class="apply-button" onclick="alert('Option 4 선택!')">Apply Option 4</button>
+            </div>
+        </div>
+
+        <!-- Option 5 -->
+        <div class="option-card option5">
+            <div class="option-preview">
+                <div class="stars-bg"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+            </div>
+            <div class="option-content">
+                <h3 class="option-title">Option 5: 은은하고 우아한 🌟</h3>
+                <p class="option-description">
+                    <strong>특징:</strong> 작고 섬세한 유성, 부드러운 light trail<br>
+                    <strong>속도:</strong> 느림 (5초)<br>
+                    <strong>느낌:</strong> 세련되고 미묘한 (추천!)
+                </p>
+                <button class="apply-button" onclick="alert('Option 5 선택!')">Apply Option 5</button>
+            </div>
+        </div>
+
+        <!-- Option 6 -->
+        <div class="option-card option6">
+            <div class="option-preview">
+                <div class="stars-bg"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+                <div class="shooting-star"></div>
+            </div>
+            <div class="option-content">
+                <h3 class="option-title">Option 6: 랜덤 패턴 🎆</h3>
+                <p class="option-description">
+                    <strong>특징:</strong> 다양한 방향, 타이밍, 속도<br>
+                    <strong>속도:</strong> 혼합 (3-4.5초)<br>
+                    <strong>느낌:</strong> 자연스럽고 unpredictable
+                </p>
+                <button class="apply-button" onclick="alert('Option 6 선택!')">Apply Option 6</button>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 3rem; color: #a0a8c0;">
+        <p>💡 <strong>추천:</strong> Option 5 (은은하고 우아한)가 가장 자연스럽고 세련됩니다!</p>
+        <p style="margin-top: 0.5rem;">원하는 옵션을 선택해주세요. 별도 더 잘 보이도록 개선도 함께 진행하겠습니다.</p>
+    </div>
+</body>
+</html>

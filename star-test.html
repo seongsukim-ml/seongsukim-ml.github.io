@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>별 표시 테스트</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a1a;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            font-family: sans-serif;
+        }
+
+        /* 작은 별들 테스트 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 1;
+            background: transparent;
+            box-shadow:
+                100px 100px 3px 1px rgba(255, 255, 255, 1),
+                300px 200px 3px 1px rgba(255, 255, 255, 1),
+                500px 150px 3px 1px rgba(255, 255, 255, 1),
+                700px 300px 3px 1px rgba(255, 255, 255, 1),
+                900px 250px 3px 1px rgba(255, 255, 255, 1),
+                200px 400px 3px 1px rgba(255, 255, 255, 1),
+                400px 500px 3px 1px rgba(255, 255, 255, 1),
+                600px 450px 3px 1px rgba(255, 255, 255, 1),
+                800px 550px 3px 1px rgba(255, 255, 255, 1),
+                1000px 600px 3px 1px rgba(255, 255, 255, 1);
+        }
+
+        /* 큰 별들 테스트 */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 1;
+            background: transparent;
+            box-shadow:
+                150px 150px 5px 2px rgba(99, 102, 241, 1),
+                350px 250px 5px 2px rgba(139, 92, 246, 1),
+                550px 200px 5px 2px rgba(255, 255, 255, 1),
+                750px 350px 5px 2px rgba(99, 102, 241, 1),
+                950px 300px 5px 2px rgba(139, 92, 246, 1);
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            color: white;
+        }
+
+        .test-box {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #6366f1;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+            color: #6366f1;
+        }
+
+        .star-info {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        .instructions {
+            line-height: 1.8;
+            margin-top: 1rem;
+        }
+
+        .instructions li {
+            margin: 0.5rem 0;
+        }
+
+        .big-text {
+            font-size: 3rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="test-box">
+            <h1>⭐ 별 표시 테스트</h1>
+
+            <div class="big-text">
+                별이 보이시나요?
+            </div>
+
+            <div class="star-info">
+                <h3>테스트 중인 별들:</h3>
+                <ul class="instructions">
+                    <li><strong>작은 흰색 별:</strong> 10개 (body::before)</li>
+                    <li><strong>큰 보라/파란 별:</strong> 5개 (body::after)</li>
+                    <li><strong>크기:</strong> 3-5px (매우 크게 설정)</li>
+                    <li><strong>불투명도:</strong> 1 (완전 불투명)</li>
+                    <li><strong>z-index:</strong> 0 (배경 레이어)</li>
+                </ul>
+            </div>
+
+            <div class="instructions">
+                <h3>확인 방법:</h3>
+                <ol>
+                    <li>이 검은 배경에 흰색/보라색 점들이 보여야 합니다</li>
+                    <li>브라우저 개발자 도구 (F12) → Elements 탭 열기</li>
+                    <li>body 태그 선택 → Styles 패널에서 ::before와 ::after 확인</li>
+                    <li>box-shadow 속성이 적용되어 있는지 확인</li>
+                </ol>
+            </div>
+
+            <div class="star-info" style="margin-top: 2rem;">
+                <h3>❓ 별이 안 보인다면:</h3>
+                <ul class="instructions">
+                    <li>브라우저 캐시 문제일 수 있습니다 (Ctrl+Shift+R로 새로고침)</li>
+                    <li>CSS 파일이 제대로 로드되지 않았을 수 있습니다</li>
+                    <li>z-index 문제로 다른 요소에 가려졌을 수 있습니다</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem; opacity: 0.7;">
+                스크롤해서 페이지 전체를 확인해보세요 →
+            </div>
+        </div>
+
+        <div style="height: 150vh;"></div>
+    </div>
+</body>
+</html>

@@ -7,34 +7,177 @@ let postsData = null;
 let authorsData = null;
 let themesData = null;
 
+// ===== Markdown Parser =====
+function parseMarkdown(text) {
+    // Escape HTML to prevent XSS
+    let html = text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+    // Parse markdown syntax
+    // Links: [text](url)
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+    // Bold: **text** or __text__
+    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+
+    // Italic: *text* or _text_ (but not in middle of words)
+    html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    html = html.replace(/\b_([^_]+)_\b/g, '<em>$1</em>');
+
+    // Inline code: `code`
+    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+    return html;
+}
+
+// ===== Shooting Stars / Meteor Effect (Velog 블로그 방식) =====
+function initializeMeteors() {
+    // 색상 팔레트 (보라, 노랑, 주황, 흰색)
+    const colors = ["#c77eff", "#f6ff7e", "#ff8d7e", "#ffffff"];
+    const meteorCount = 12; // 유성 개수
+    const maxDelay = 15; // 최대 딜레이 (초)
+    const minSpeed = 2; // 최소 속도 (초)
+    const maxSpeed = 6; // 최대 속도 (초)
+
+    const container = document.getElementById('shooting-stars');
+    if (!container) return;
+
+    // Clear existing meteors
+    container.innerHTML = '';
+
+    // Calculate interval based on window width
+    const windowWidth = window.innerWidth;
+    const starInterval = Math.floor((windowWidth * 1.5) / (meteorCount * 5));
+
+    // Create meteors
+    for (let i = 0; i < meteorCount; i++) {
+        const meteor = document.createElement('div');
+        meteor.className = 'shooting-star';
+
+        // Random position (left)
+        const left = `${Math.random() * meteorCount * 5 * starInterval}px`;
+
+        // Random timing
+        const animationDelay = `${Math.random() * maxDelay}s`;
+        const animationDuration = `${minSpeed + Math.random() * (maxSpeed - minSpeed)}s`;
+
+        // Random color
+        const colorIndex = Math.floor(Math.random() * colors.length);
+        const color = colors[colorIndex];
+        const boxShadow = `0px 0px 10px 3px ${color}`;
+
+        // Random size (2px ~ 6px)
+        const size = `${2 + Math.floor(Math.random() * 5)}px`;
+
+        // Apply inline styles
+        meteor.style.left = left;
+        meteor.style.animationDelay = animationDelay;
+        meteor.style.animationDuration = animationDuration;
+        meteor.style.boxShadow = boxShadow;
+        meteor.style.width = size;
+        meteor.style.height = size;
+
+        container.appendChild(meteor);
+    }
+}
+
+// Reinitialize meteors on window resize
+window.addEventListener('resize', initializeMeteors);
+
 // ===== Initialize App =====
 document.addEventListener('DOMContentLoaded', async () => {
     try {
+        console.log('Starting app initialization...');
+
+        // Initialize meteor effect
+        initializeMeteors();
+        console.log('Meteor effect initialized');
+
         // Load theme preference
         loadThemePreference();
+        console.log('Theme preference loaded');
+
+        // Load stars visibility preference
+        loadStarsPreference();
+        console.log('Stars preference loaded');
+
+        // Setup event listeners early - before data loading
+        // This ensures buttons work even if data loading is slow or fails
+        setupEventListeners();
+        console.log('Event listeners setup');
 
         await loadAllData();
+        console.log('All data loaded successfully');
+
         initializeApp();
+        console.log('App initialized successfully');
     } catch (error) {
         console.error('Error initializing app:', error);
-        displayErrorMessage();
+        displayErrorMessage(error);
     }
 });
 
 // ===== Theme Management =====
 function loadThemePreference() {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    updateThemeToggleIcon(savedTheme);
+    const themeMode = localStorage.getItem('themeMode') || 'system';
+
+    let theme;
+    if (themeMode === 'system') {
+        // Follow system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        theme = prefersDark ? 'dark' : 'light';
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (localStorage.getItem('themeMode') === 'system') {
+                const newTheme = e.matches ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                updateThemeToggleIcon(newTheme);
+
+                // Re-apply color theme
+                const currentColorTheme = localStorage.getItem('colorTheme') || 'default';
+                applyColorTheme(currentColorTheme, newTheme);
+            }
+        });
+    } else if (themeMode === 'light' || themeMode === 'dark') {
+        // Explicit light or dark mode
+        theme = themeMode;
+    } else {
+        // Fallback
+        theme = 'light';
+    }
+
+    document.documentElement.setAttribute('data-theme', theme);
+    updateThemeToggleIcon(theme);
     // Color theme will be loaded after data is loaded
 }
 
 function toggleTheme() {
+    const themeMode = localStorage.getItem('themeMode') || 'system';
     const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
 
+    let newMode, newTheme;
+
+    if (themeMode === 'system') {
+        // System → Light
+        newMode = 'light';
+        newTheme = 'light';
+    } else if (themeMode === 'light') {
+        // Light → Dark
+        newMode = 'dark';
+        newTheme = 'dark';
+    } else {
+        // Dark → System
+        newMode = 'system';
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        newTheme = prefersDark ? 'dark' : 'light';
+    }
+
+    localStorage.setItem('themeMode', newMode);
     document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
     updateThemeToggleIcon(newTheme);
 
     // Re-apply color theme for new mode
@@ -44,13 +187,87 @@ function toggleTheme() {
     // Update theme picker preview if modal is open
     if (!document.getElementById('theme-modal').classList.contains('hidden')) {
         renderThemePicker();
+        updateThemeModeSelector();
     }
+}
+
+function setThemeMode(mode) {
+    localStorage.setItem('themeMode', mode);
+    loadThemePreference();
+
+    // Re-apply color theme
+    const currentColorTheme = localStorage.getItem('colorTheme') || 'default';
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    applyColorTheme(currentColorTheme, currentTheme);
 }
 
 function updateThemeToggleIcon(theme) {
     const toggleButton = document.getElementById('theme-toggle');
     if (toggleButton) {
         toggleButton.textContent = theme === 'light' ? '🌙' : '☀️';
+    }
+
+    // Light 모드일 때 별 자동 숨김 체크
+    checkStarsForTheme(theme);
+}
+
+// ===== Stars & Meteors Toggle =====
+function toggleStars() {
+    const body = document.body;
+    const isHidden = body.classList.contains('stars-hidden');
+
+    if (isHidden) {
+        body.classList.remove('stars-hidden');
+        localStorage.setItem('starsVisible', 'true');
+    } else {
+        body.classList.add('stars-hidden');
+        localStorage.setItem('starsVisible', 'false');
+    }
+
+    updateStarsIcon(!isHidden);
+}
+
+function updateStarsIcon(isVisible) {
+    const starsToggle = document.getElementById('stars-toggle');
+    if (starsToggle) {
+        // 클릭 시 동작을 표시: 별이 보이면 🌑(숨기기), 안 보이면 ⭐(보이기)
+        starsToggle.textContent = isVisible ? '🌑' : '⭐';
+    }
+}
+
+function loadStarsPreference() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const savedStarsVisible = localStorage.getItem('starsVisible');
+
+    let starsVisible;
+
+    if (savedStarsVisible !== null) {
+        // 사용자가 명시적으로 설정한 경우
+        starsVisible = savedStarsVisible === 'true';
+    } else {
+        // 기본값: light 모드에서는 숨김, dark 모드에서는 표시
+        starsVisible = currentTheme === 'dark';
+    }
+
+    if (starsVisible) {
+        document.body.classList.remove('stars-hidden');
+    } else {
+        document.body.classList.add('stars-hidden');
+    }
+
+    updateStarsIcon(starsVisible);
+}
+
+function checkStarsForTheme(theme) {
+    // 사용자가 명시적으로 설정하지 않은 경우에만 자동 조정
+    if (localStorage.getItem('starsVisible') === null) {
+        if (theme === 'light') {
+            document.body.classList.add('stars-hidden');
+            updateStarsIcon(false);
+        } else {
+            document.body.classList.remove('stars-hidden');
+            updateStarsIcon(true);
+        }
     }
 }
 
@@ -182,7 +399,7 @@ function initializeApp() {
     renderPosts();
     renderProjects();
     renderThemePicker();
-    setupEventListeners();
+    // Note: setupEventListeners() is called earlier in DOMContentLoaded
 }
 
 // ===== Profile Rendering =====
@@ -190,9 +407,16 @@ function renderProfile() {
     if (!profileData) return;
 
     document.getElementById('profile-name').textContent = profileData.name;
+
+    // Email Display (under name)
+    const emailDisplay = document.getElementById('profile-email-display');
+    if (emailDisplay && profileData.email) {
+        emailDisplay.textContent = profileData.email;
+    }
+
     document.getElementById('profile-title').textContent = profileData.title;
-    document.getElementById('profile-affiliation').textContent =
-        `${profileData.affiliation} · ${profileData.lab.name}`;
+    document.getElementById('profile-affiliation').textContent = profileData.affiliation;
+    document.getElementById('profile-lab').textContent = profileData.lab.name;
 
     // Profile Image
     if (profileData.profile_image) {
@@ -200,11 +424,6 @@ function renderProfile() {
         profileImage.src = profileData.profile_image;
         profileImage.style.display = 'block';
     }
-
-    // Email
-    const emailLink = document.getElementById('profile-email');
-    emailLink.href = `mailto:${profileData.email}`;
-    emailLink.textContent = profileData.email;
 
     // Google Scholar
     const scholarLink = document.getElementById('profile-scholar');
@@ -243,31 +462,98 @@ function renderAbout() {
     const aboutContainer = document.getElementById('about-content');
     aboutContainer.innerHTML = '';
 
-    // Render bio paragraphs
+    // Render bio paragraphs with markdown support
     profileData.bio.forEach(paragraph => {
         const p = document.createElement('p');
-        p.textContent = paragraph;
+        p.innerHTML = parseMarkdown(paragraph);
         aboutContainer.appendChild(p);
     });
 
-    // Render research interests
+    // Render research interests (Option 4: Icon List)
     const interestsContainer = document.getElementById('research-interests-list');
     interestsContainer.innerHTML = '';
 
-    profileData.research_interests.forEach(interest => {
-        const tag = document.createElement('div');
-        tag.className = 'interest-tag';
-        tag.textContent = interest;
-        interestsContainer.appendChild(tag);
-    });
+    // Icon mapping for categories
+    const categoryIcons = {
+        'Core Areas': '🎯',
+        'Methods & Techniques': '🔬',
+        'Application Domains': '⚛️',
+        'default': '📌'
+    };
+
+    // Check if interests are categorized or simple array
+    if (typeof profileData.research_interests === 'object' && !Array.isArray(profileData.research_interests)) {
+        // Categorized interests with icons
+        Object.entries(profileData.research_interests).forEach(([category, interests]) => {
+            const categorySection = document.createElement('div');
+            categorySection.className = 'interest-category';
+
+            // Icon
+            const icon = document.createElement('div');
+            icon.className = 'category-icon';
+            icon.textContent = categoryIcons[category] || categoryIcons['default'];
+            categorySection.appendChild(icon);
+
+            // Content
+            const content = document.createElement('div');
+            content.className = 'category-content';
+
+            const categoryTitle = document.createElement('h3');
+            categoryTitle.className = 'interest-category-title';
+            categoryTitle.textContent = category;
+            content.appendChild(categoryTitle);
+
+            const list = document.createElement('ul');
+            list.className = 'interest-list';
+
+            interests.forEach(interest => {
+                const li = document.createElement('li');
+                li.textContent = interest;
+                list.appendChild(li);
+            });
+
+            content.appendChild(list);
+            categorySection.appendChild(content);
+            interestsContainer.appendChild(categorySection);
+        });
+    } else {
+        // Simple array (backward compatibility)
+        const categorySection = document.createElement('div');
+        categorySection.className = 'interest-category';
+
+        const icon = document.createElement('div');
+        icon.className = 'category-icon';
+        icon.textContent = '📌';
+        categorySection.appendChild(icon);
+
+        const content = document.createElement('div');
+        content.className = 'category-content';
+
+        const list = document.createElement('ul');
+        list.className = 'interest-list';
+
+        profileData.research_interests.forEach(interest => {
+            const li = document.createElement('li');
+            li.textContent = interest;
+            list.appendChild(li);
+        });
+
+        content.appendChild(list);
+        categorySection.appendChild(content);
+        interestsContainer.appendChild(categorySection);
+    }
 }
 
 // ===== News Rendering =====
-const NEWS_INITIAL_COUNT = 5;
 let showAllNews = false;
 
 function renderNews() {
     if (!newsData) return;
+
+    // Get initial count from profile settings or use default (3)
+    const NEWS_INITIAL_COUNT = (profileData && profileData.settings && profileData.settings.news_initial_count)
+        ? profileData.settings.news_initial_count
+        : 3;
 
     const newsContainer = document.getElementById('news-container');
     const toggleContainer = document.getElementById('news-toggle-container');
@@ -738,6 +1024,7 @@ function setupEventListeners() {
     if (themePicker) {
         themePicker.addEventListener('click', () => {
             document.getElementById('theme-modal').classList.remove('hidden');
+            updateThemeModeSelector();
         });
     }
 
@@ -764,6 +1051,20 @@ function setupEventListeners() {
     if (themeToggle) {
         themeToggle.addEventListener('click', toggleTheme);
     }
+
+    // Stars toggle
+    const starsToggle = document.getElementById('stars-toggle');
+    if (starsToggle) {
+        starsToggle.addEventListener('click', toggleStars);
+    }
+
+    // Theme mode radio buttons
+    const themeModeInputs = document.querySelectorAll('input[name="theme-mode"]');
+    themeModeInputs.forEach(input => {
+        input.addEventListener('change', (e) => {
+            setThemeMode(e.target.value);
+        });
+    });
 
     // News toggle button
     const newsToggle = document.getElementById('news-toggle');
@@ -818,6 +1119,15 @@ function setupEventListeners() {
     });
 }
 
+// Update theme mode selector to reflect current setting
+function updateThemeModeSelector() {
+    const themeMode = localStorage.getItem('themeMode') || 'system';
+    const radioButtons = document.querySelectorAll('input[name="theme-mode"]');
+    radioButtons.forEach(radio => {
+        radio.checked = radio.value === themeMode;
+    });
+}
+
 // ===== Utility Functions =====
 function formatDate(dateString) {
     const date = new Date(dateString);
@@ -843,11 +1153,47 @@ function parseMarkdownLinks(text) {
     return text;
 }
 
-function displayErrorMessage() {
+function displayErrorMessage(error) {
+    const errorDetails = error ? `
+        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem; max-width: 600px; text-align: left;">
+            <strong>Error Details:</strong>
+            <pre style="margin-top: 0.5rem; color: #e74c3c; font-size: 0.9rem; white-space: pre-wrap;">${error.message || error}</pre>
+            ${error.stack ? `<details style="margin-top: 0.5rem;"><summary style="cursor: pointer;">Stack Trace</summary><pre style="font-size: 0.8rem; margin-top: 0.5rem;">${error.stack}</pre></details>` : ''}
+        </div>
+    ` : '';
+
+    const isCorsError = error && (error.message.includes('fetch') || error.message.includes('Failed to fetch'));
+
     document.body.innerHTML = `
-        <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column;">
-            <h1 style="color: #e74c3c;">⚠️ Error Loading Data</h1>
-            <p>Please make sure all JSON files are present in the data folder.</p>
+        <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; flex-direction: column; padding: 2rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+            <h1 style="color: #e74c3c; margin-bottom: 1rem;">⚠️ Error Loading Data</h1>
+
+            ${isCorsError ? `
+                <div style="background: #fff3cd; border: 2px solid #ffc107; padding: 1.5rem; border-radius: 8px; max-width: 600px; margin-bottom: 1rem;">
+                    <h2 style="color: #856404; margin-top: 0;">🚫 CORS Error Detected</h2>
+                    <p style="color: #856404; line-height: 1.6;">
+                        You are trying to open this page using <code>file://</code> protocol.
+                        This blog requires a web server to work properly.
+                    </p>
+                    <h3 style="color: #856404; margin-top: 1rem;">✅ Solution:</h3>
+                    <ol style="color: #856404; line-height: 1.8; text-align: left;">
+                        <li>Open Terminal (Mac) or Command Prompt (Windows)</li>
+                        <li>Navigate to the project folder:<br><code style="background: white; padding: 0.2rem 0.5rem; border-radius: 4px;">cd /path/to/new_blog</code></li>
+                        <li>Run:<br><code style="background: white; padding: 0.2rem 0.5rem; border-radius: 4px;">python3 -m http.server 8000</code></li>
+                        <li>Open browser and go to:<br><code style="background: white; padding: 0.2rem 0.5rem; border-radius: 4px;">http://localhost:8000</code></li>
+                    </ol>
+                </div>
+            ` : `
+                <p style="color: #666; margin-bottom: 1rem;">Please make sure all JSON files are present in the data folder.</p>
+            `}
+
+            ${errorDetails}
+
+            <div style="margin-top: 2rem; padding: 1rem; background: #e8f4f8; border-radius: 8px; max-width: 600px;">
+                <p style="margin: 0; color: #0c5460;">
+                    📖 For more help, see <strong>TROUBLESHOOTING.md</strong> or <strong>해결_방법.md</strong> in the project folder.
+                </p>
+            </div>
         </div>
     `;
 }
