@@ -9,15 +9,53 @@ Usage:
     python convert_posts.py
 
 Requirements:
-    pip install pyyaml markdown
+    Python 3.x (no external dependencies)
 """
 
-import os
 import json
-import yaml
 import re
-from datetime import datetime
+from datetime import datetime, date
 from pathlib import Path
+
+
+def parse_front_matter(front_matter_text):
+    """
+    Minimal YAML-like parser for this project's front matter schema.
+    Supports:
+      - key: "value"
+      - key: value
+      - key:
+          - item1
+          - item2
+    """
+    metadata = {}
+    current_list_key = None
+
+    for raw_line in front_matter_text.splitlines():
+        line = raw_line.rstrip()
+        if not line.strip():
+            continue
+
+        list_match = re.match(r'^\s*-\s+(.*)$', line)
+        if list_match and current_list_key:
+            item = list_match.group(1).strip()
+            item = item.strip('"').strip("'")
+            metadata[current_list_key].append(item)
+            continue
+
+        key_match = re.match(r'^([A-Za-z0-9_]+):\s*(.*)$', line)
+        if key_match:
+            key = key_match.group(1).strip()
+            value = key_match.group(2).strip()
+
+            if value == '':
+                metadata[key] = []
+                current_list_key = key
+            else:
+                metadata[key] = value.strip('"').strip("'")
+                current_list_key = None
+
+    return metadata
 
 
 def parse_markdown_file(filepath):
@@ -40,11 +78,7 @@ def parse_markdown_file(filepath):
     front_matter_text = front_matter_match.group(1)
     post_content = front_matter_match.group(2)
 
-    try:
-        metadata = yaml.safe_load(front_matter_text)
-    except yaml.YAMLError as e:
-        print(f"❌ Error parsing YAML in {filepath}: {e}")
-        return None
+    metadata = parse_front_matter(front_matter_text)
 
     # Validate required fields
     required_fields = ['title', 'date', 'category', 'excerpt']
@@ -53,10 +87,20 @@ def parse_markdown_file(filepath):
             print(f"❌ Error: Missing required field '{field}' in {filepath}")
             return None
 
+    slug = metadata.get('id') or Path(filepath).stem
+
+    raw_date = metadata['date']
+    if isinstance(raw_date, (datetime, date)):
+        date_str = raw_date.strftime('%Y-%m-%d')
+    else:
+        date_str = str(raw_date)
+
     # Build post object
     post = {
+        'id': slug,
+        'slug': slug,
         'title': metadata['title'],
-        'date': metadata['date'],
+        'date': date_str,
         'category': metadata['category'],
         'excerpt': metadata['excerpt'],
     }
@@ -67,17 +111,16 @@ def parse_markdown_file(filepath):
     else:
         post['tags'] = []
 
-    if 'link' in metadata:
-        post['link'] = metadata['link']
-    else:
-        # Generate link from filename
-        filename = Path(filepath).stem
-        post['link'] = f'posts/{filename}.html'
+    # Standardize all post links to one dynamic template route.
+    post['link'] = f'posts/post-template.html?slug={slug}'
+
+    # Keep markdown body for post page rendering.
+    post['content'] = post_content.strip()
 
     return post
 
 
-def convert_posts_to_json(posts_dir='posts', output_file='data/posts.json'):
+def convert_posts_to_json(posts_dir='posts', output_file='data/posts.json', content_dir='data/post-content'):
     """
     Convert all Markdown files in posts_dir to JSON.
 
@@ -124,13 +167,35 @@ def convert_posts_to_json(posts_dir='posts', output_file='data/posts.json'):
     output_path = Path(output_file)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Write to JSON
-    output_data = {'posts': posts}
+    # Write list JSON (summary only)
+    list_posts = []
+    for post in posts:
+        list_posts.append({
+            'id': post['id'],
+            'title': post['title'],
+            'date': post['date'],
+            'category': post['category'],
+            'excerpt': post['excerpt'],
+            'tags': post['tags'],
+            'link': post['link']
+        })
+
+    output_data = {'posts': list_posts}
 
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(output_data, f, indent=2, ensure_ascii=False)
 
+    # Write per-post content JSON
+    content_path = Path(content_dir)
+    content_path.mkdir(parents=True, exist_ok=True)
+
+    for post in posts:
+        content_file = content_path / f"{post['slug']}.json"
+        with open(content_file, 'w', encoding='utf-8') as f:
+            json.dump(post, f, indent=2, ensure_ascii=False)
+
     print(f"\n✅ Successfully converted {len(posts)} post(s) to {output_file}")
+    print(f"✅ Generated post content files in {content_dir}")
 
 
 def create_example_post():

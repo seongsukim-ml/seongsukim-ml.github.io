@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Blog Post - Seongsu Kim">
     <meta name="author" content="Seongsu Kim">
-    <title>Post Title - Seongsu Kim</title>
+    <title>Post - Seongsu Kim</title>
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        /* Additional styles for post page */
         .post-page {
             padding: var(--spacing-xl) 0;
         }
@@ -28,36 +27,147 @@
             border-radius: 6px;
             font-size: 0.9rem;
             font-weight: 600;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             margin-bottom: var(--spacing-md);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .post-back-link:hover {
             background-color: rgba(255, 255, 255, 0.2);
             border-color: rgba(255, 255, 255, 0.6);
-            transform: translateX(-4px);
         }
 
         .post-page-title {
-            font-size: 2.5rem;
+            font-size: 2.4rem;
             font-weight: 700;
             margin-bottom: var(--spacing-sm);
-            line-height: 1.2;
+            line-height: 1.25;
         }
 
         .post-meta-info {
             display: flex;
             justify-content: center;
-            gap: var(--spacing-md);
+            align-items: center;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
             font-size: 0.95rem;
-            opacity: 0.9;
+            opacity: 0.95;
         }
 
         .post-content-section {
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 860px;
+            margin: 0;
             padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .post-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: clamp(0.9rem, 2vw, 1.4rem);
+            display: grid;
+            grid-template-columns: 260px minmax(0, 860px);
+            grid-template-areas: "toc content";
+            gap: var(--spacing-lg);
+            align-items: start;
+        }
+
+        .post-content-section {
+            grid-area: content;
+        }
+
+        .post-toc {
+            grid-area: toc;
+            position: sticky;
+            top: 112px;
+            max-height: calc(100vh - 132px);
+            overflow-y: auto;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.75rem 0.7rem 0.7rem;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(6px);
+            transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+        }
+
+        .post-toc:hover {
+            transform: translateY(-2px);
+            border-color: color-mix(in srgb, var(--secondary-color), var(--border-color) 70%);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .post-toc-title {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.15rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .post-toc-meta {
+            font-size: 0.72rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .post-toc-progress {
+            width: 100%;
+            height: 3px;
+            border-radius: 999px;
+            background: color-mix(in srgb, var(--secondary-color), transparent 85%);
+            overflow: hidden;
+            margin-bottom: 0.55rem;
+        }
+
+        .post-toc-progress-bar {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            transition: width 0.2s ease;
+        }
+
+        .post-toc-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .post-toc-link {
+            color: var(--text-color);
+            font-size: 0.82rem;
+            line-height: 1.35;
+            display: block;
+            border-radius: 7px;
+            padding: 0.3rem 0.45rem;
+            border-left: 2px solid transparent;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .post-toc-link.level-3 {
+            padding-left: 0.85rem;
+            font-size: 0.78rem;
+            color: var(--text-light);
+        }
+
+        .post-toc-link:hover {
+            color: var(--secondary-color);
+            background-color: color-mix(in srgb, var(--secondary-color), transparent 90%);
+        }
+
+        .post-toc-link.active {
+            color: var(--secondary-color);
+            font-weight: 600;
+            border-left-color: var(--secondary-color);
+            background-color: color-mix(in srgb, var(--secondary-color), transparent 88%);
+        }
+
+        .post-content-section p {
+            margin-bottom: var(--spacing-md);
+            line-height: 1.8;
+            font-size: 1.05rem;
         }
 
         .post-content-section h1 {
@@ -79,12 +189,6 @@
             color: var(--text-color);
             margin-top: var(--spacing-md);
             margin-bottom: var(--spacing-sm);
-        }
-
-        .post-content-section p {
-            margin-bottom: var(--spacing-md);
-            line-height: 1.8;
-            font-size: 1.05rem;
         }
 
         .post-content-section ul,
@@ -130,6 +234,12 @@
             font-style: italic;
         }
 
+        .post-content-section hr {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: var(--spacing-xl) 0;
+        }
+
         .post-tags {
             display: flex;
             flex-wrap: wrap;
@@ -158,17 +268,49 @@
             margin-bottom: var(--spacing-md);
             color: var(--secondary-color);
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: color 0.2s ease;
         }
 
         .back-link:hover {
             color: var(--accent-color);
-            transform: translateX(-4px);
+        }
+
+        .post-error {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: var(--spacing-xl) var(--spacing-md);
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .post-page-title {
+                font-size: 1.8rem;
+            }
+
+            .post-content-section p {
+                font-size: 1rem;
+            }
+
+            .post-layout {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "toc"
+                    "content";
+                gap: 0.9rem;
+                margin-top: 1rem;
+            }
+
+            .post-toc {
+                position: static;
+                max-height: none;
+                margin: 0 var(--spacing-md);
+                transform: none;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav id="navbar">
         <div class="container">
             <div class="nav-brand">
@@ -177,80 +319,73 @@
             <div class="nav-right">
                 <div class="nav-links">
                     <a href="../index.html" class="nav-link">Home</a>
-                    <a href="../index.html#posts" class="nav-link">← Back to Posts</a>
+                    <a href="../index.html#posts" class="nav-link">Posts</a>
                 </div>
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-                    🌙
-                </button>
+                <button id="theme-picker" class="theme-picker" aria-label="Choose color theme">🎨</button>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
             </div>
         </div>
     </nav>
 
-    <!-- Post Header -->
     <section class="post-header-section">
         <div class="container">
             <a href="../index.html#posts" class="post-back-link">← Back to Posts</a>
-            <h1 class="post-page-title">Your Post Title Here</h1>
+            <h1 class="post-page-title" id="post-title">Loading post...</h1>
             <div class="post-meta-info">
-                <span>📅 February 3, 2026</span>
+                <span id="post-date">-</span>
                 <span>·</span>
-                <span>⏱️ 5 min read</span>
+                <span id="post-category">-</span>
+                <span>·</span>
+                <span id="post-read-time">- min read</span>
             </div>
         </div>
     </section>
 
-    <!-- Post Content -->
-    <article class="post-content-section">
-        <a href="../index.html#posts" class="back-link">← Back to all posts</a>
+    <div class="post-layout">
+        <article class="post-content-section" id="post-container">
+            <a href="../index.html#posts" class="back-link">← Back to all posts</a>
+            <div id="post-content"></div>
+            <div class="post-tags" id="post-tags" style="display: none;">
+                <span class="post-tag-label">Tags:</span>
+            </div>
+        </article>
+        <aside class="post-toc" id="post-toc-wrap" style="display: none;">
+            <div class="post-toc-title">On This Page</div>
+            <div class="post-toc-meta" id="post-toc-meta">0 sections</div>
+            <div class="post-toc-progress">
+                <div class="post-toc-progress-bar" id="post-toc-progress-bar"></div>
+            </div>
+            <ul class="post-toc-list" id="post-toc-list"></ul>
+        </aside>
+    </div>
 
-        <h1>Introduction</h1>
-        <p>
-            Start your post content here. This template maintains the same style as your main page,
-            with a gradient header that matches your selected theme.
-        </p>
-
-        <h2>Main Section</h2>
-        <p>
-            Write your content with proper headings and paragraphs. The styling will be consistent
-            with your main site.
-        </p>
-
-        <h3>Subsection</h3>
-        <p>
-            You can use all standard HTML elements:
-        </p>
-
-        <ul>
-            <li>Bullet points for lists</li>
-            <li>Inline <code>code</code> formatting</li>
-            <li>Links to <a href="#">other pages</a></li>
-        </ul>
-
-        <h3>Code Example</h3>
-        <pre><code>function example() {
-    console.log("Code blocks look great!");
-    return true;
-}</code></pre>
-
-        <blockquote>
-            Use blockquotes for important callouts or quotations.
-        </blockquote>
-
-        <h2>Conclusion</h2>
-        <p>
-            Wrap up your post here. The footer and navigation will remain consistent with your main site.
-        </p>
-
-        <!-- Tags -->
-        <div class="post-tags">
-            <span class="post-tag-label">Tags:</span>
-            <span class="post-tag">Machine Learning</span>
-            <span class="post-tag">Research</span>
-            <span class="post-tag">AI</span>
+    <div id="theme-modal" class="theme-modal hidden">
+        <div class="theme-modal-content">
+            <div class="theme-modal-header">
+                <h3>Choose Color Theme</h3>
+                <button id="theme-modal-close" class="theme-modal-close">&times;</button>
+            </div>
+            <div class="theme-mode-selector">
+                <label class="theme-mode-label">Theme Mode:</label>
+                <div class="theme-mode-options">
+                    <label class="theme-mode-option">
+                        <input type="radio" name="theme-mode" value="light">
+                        <span>☀️ Light</span>
+                    </label>
+                    <label class="theme-mode-option">
+                        <input type="radio" name="theme-mode" value="dark">
+                        <span>🌙 Dark</span>
+                    </label>
+                    <label class="theme-mode-option">
+                        <input type="radio" name="theme-mode" value="system" checked>
+                        <span>💻 System</span>
+                    </label>
+                </div>
+            </div>
+            <div id="theme-options" class="theme-options"></div>
         </div>
-    </article>
+    </div>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p>&copy; 2026 Seongsu Kim. All rights reserved.</p>
@@ -258,26 +393,263 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script>
-        // Theme management for post page
-        function loadThemePreference() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            updateThemeToggleIcon(savedTheme);
-            loadColorTheme();
+        let themesData = null;
+
+        function slugify(text) {
+            return text
+                .toLowerCase()
+                .trim()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/--+/g, '-');
         }
 
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        function applyInlineMarkdown(text) {
+            const escaped = text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
 
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeToggleIcon(newTheme);
+            return escaped
+                .replace(/`([^`]+)`/g, '<code>$1</code>')
+                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+                .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+        }
 
-            const currentColorTheme = localStorage.getItem('colorTheme') || 'default';
-            applyColorTheme(currentColorTheme, newTheme);
+        function renderMarkdown(markdown) {
+            const lines = markdown.replace(/\r\n/g, '\n').split('\n');
+            let html = '';
+            let inCodeBlock = false;
+            let inUl = false;
+            let inOl = false;
+            let inBlockquote = false;
+            const codeBuffer = [];
+            const toc = [];
+            const headingIdCounter = {};
+
+            const closeListsAndQuote = () => {
+                if (inUl) {
+                    html += '</ul>';
+                    inUl = false;
+                }
+                if (inOl) {
+                    html += '</ol>';
+                    inOl = false;
+                }
+                if (inBlockquote) {
+                    html += '</blockquote>';
+                    inBlockquote = false;
+                }
+            };
+
+            for (const line of lines) {
+                if (line.startsWith('```')) {
+                    if (!inCodeBlock) {
+                        closeListsAndQuote();
+                        inCodeBlock = true;
+                    } else {
+                        const code = codeBuffer.join('\n')
+                            .replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;');
+                        html += `<pre><code>${code}</code></pre>`;
+                        codeBuffer.length = 0;
+                        inCodeBlock = false;
+                    }
+                    continue;
+                }
+
+                if (inCodeBlock) {
+                    codeBuffer.push(line);
+                    continue;
+                }
+
+                if (!line.trim()) {
+                    closeListsAndQuote();
+                    continue;
+                }
+
+                const h3 = line.match(/^###\s+(.*)$/);
+                const h2 = line.match(/^##\s+(.*)$/);
+                const h1 = line.match(/^#\s+(.*)$/);
+                const ul = line.match(/^\s*-\s+(.*)$/);
+                const ol = line.match(/^\s*\d+\.\s+(.*)$/);
+                const quote = line.match(/^>\s?(.*)$/);
+
+                if (h1 || h2 || h3) {
+                    closeListsAndQuote();
+                    const headingText = (h1 ? h1[1] : h2 ? h2[1] : h3[1]).trim();
+                    const level = h1 ? 1 : h2 ? 2 : 3;
+                    let headingId = slugify(headingText);
+                    headingIdCounter[headingId] = (headingIdCounter[headingId] || 0) + 1;
+                    if (headingIdCounter[headingId] > 1) {
+                        headingId = `${headingId}-${headingIdCounter[headingId]}`;
+                    }
+
+                    html += `<h${level} id="${headingId}">${applyInlineMarkdown(headingText)}</h${level}>`;
+                    if (level === 2 || level === 3) {
+                        toc.push({ id: headingId, text: headingText, level });
+                    }
+                    continue;
+                }
+
+                if (/^---+$/.test(line.trim())) {
+                    closeListsAndQuote();
+                    html += '<hr>';
+                    continue;
+                }
+
+                if (ul) {
+                    if (inOl) {
+                        html += '</ol>';
+                        inOl = false;
+                    }
+                    if (!inUl) {
+                        closeListsAndQuote();
+                        html += '<ul>';
+                        inUl = true;
+                    }
+                    html += `<li>${applyInlineMarkdown(ul[1])}</li>`;
+                    continue;
+                }
+
+                if (ol) {
+                    if (inUl) {
+                        html += '</ul>';
+                        inUl = false;
+                    }
+                    if (!inOl) {
+                        closeListsAndQuote();
+                        html += '<ol>';
+                        inOl = true;
+                    }
+                    html += `<li>${applyInlineMarkdown(ol[1])}</li>`;
+                    continue;
+                }
+
+                if (quote) {
+                    if (!inBlockquote) {
+                        closeListsAndQuote();
+                        html += '<blockquote>';
+                        inBlockquote = true;
+                    }
+                    html += `<p>${applyInlineMarkdown(quote[1])}</p>`;
+                    continue;
+                }
+
+                closeListsAndQuote();
+                html += `<p>${applyInlineMarkdown(line)}</p>`;
+            }
+
+            closeListsAndQuote();
+            return { html, toc };
+        }
+
+        function renderToc(toc) {
+            const tocWrap = document.getElementById('post-toc-wrap');
+            const tocList = document.getElementById('post-toc-list');
+            const tocMeta = document.getElementById('post-toc-meta');
+            if (!tocWrap || !tocList) return;
+
+            tocList.innerHTML = '';
+            if (!toc || toc.length === 0) {
+                tocWrap.style.display = 'none';
+                return;
+            }
+
+            if (tocMeta) {
+                tocMeta.textContent = `${toc.length} sections`;
+            }
+
+            toc.forEach((item) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#${item.id}`;
+                a.className = `post-toc-link level-${item.level}`;
+                a.textContent = item.text;
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.getElementById(item.id);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+                li.appendChild(a);
+                tocList.appendChild(li);
+            });
+            tocWrap.style.display = 'block';
+            setupTocSpy();
+        }
+
+        function setupTocSpy() {
+            const links = Array.from(document.querySelectorAll('.post-toc-link'));
+            const progressBar = document.getElementById('post-toc-progress-bar');
+            if (links.length === 0) return;
+
+            const sections = links
+                .map((link) => document.getElementById(link.getAttribute('href').slice(1)))
+                .filter(Boolean);
+
+            const activate = () => {
+                let activeId = sections[0]?.id;
+                const threshold = window.scrollY + 130;
+
+                sections.forEach((section) => {
+                    if (section.offsetTop <= threshold) {
+                        activeId = section.id;
+                    }
+                });
+
+                links.forEach((link) => {
+                    const isActive = link.getAttribute('href') === `#${activeId}`;
+                    link.classList.toggle('active', isActive);
+                });
+
+                if (progressBar) {
+                    const activeIndex = Math.max(0, links.findIndex((link) => link.getAttribute('href') === `#${activeId}`));
+                    const ratio = links.length > 1 ? (activeIndex / (links.length - 1)) : 1;
+                    progressBar.style.width = `${Math.round(ratio * 100)}%`;
+                }
+            };
+
+            activate();
+            window.addEventListener('scroll', activate, { passive: true });
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            if (Number.isNaN(date.getTime())) return dateString;
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        function estimateReadTime(content) {
+            const words = content.trim().split(/\s+/).filter(Boolean).length;
+            const minutes = Math.max(1, Math.ceil(words / 220));
+            return `${minutes} min read`;
+        }
+
+        async function loadThemesData() {
+            if (themesData) return themesData;
+            themesData = await fetch('../data/themes.json').then((res) => res.json());
+            return themesData;
+        }
+
+        function applyColorTheme(themeId, mode) {
+            if (!themesData) return;
+            const theme = themesData.themes.find((t) => t.id === themeId);
+            if (!theme) return;
+            const colors = mode === 'light' ? theme.light : theme.dark;
+            Object.entries(colors).forEach(([key, value]) => {
+                document.documentElement.style.setProperty(`--${key}`, value);
+            });
+            localStorage.setItem('colorTheme', themeId);
+        }
+
+        function getResolvedTheme(themeMode) {
+            if (themeMode === 'dark' || themeMode === 'light') return themeMode;
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
 
         function updateThemeToggleIcon(theme) {
@@ -287,40 +659,180 @@
             }
         }
 
-        function loadColorTheme() {
-            const savedColorTheme = localStorage.getItem('colorTheme') || 'default';
-            const currentMode = document.documentElement.getAttribute('data-theme') || 'light';
-
-            // Load themes data and apply
-            fetch('../data/themes.json')
-                .then(res => res.json())
-                .then(data => {
-                    const theme = data.themes.find(t => t.id === savedColorTheme);
-                    if (theme) {
-                        applyColorTheme(savedColorTheme, currentMode, theme);
-                    }
-                });
+        function syncStarsWithTheme(theme) {
+            if (theme === 'light') {
+                document.body.classList.add('stars-hidden');
+            } else {
+                document.body.classList.remove('stars-hidden');
+            }
         }
 
-        function applyColorTheme(themeId, mode, themeData = null) {
-            if (!themeData) return;
+        function loadThemePreference() {
+            const themeMode = localStorage.getItem('themeMode') || 'system';
+            const theme = getResolvedTheme(themeMode);
+            document.documentElement.setAttribute('data-theme', theme);
+            updateThemeToggleIcon(theme);
+            syncStarsWithTheme(theme);
+            const currentColorTheme = localStorage.getItem('colorTheme') || 'default';
+            applyColorTheme(currentColorTheme, theme);
+        }
 
-            const colors = mode === 'light' ? themeData.light : themeData.dark;
-            const root = document.documentElement;
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            const next = current === 'light' ? 'dark' : 'light';
+            localStorage.setItem('themeMode', next);
+            document.documentElement.setAttribute('data-theme', next);
+            updateThemeToggleIcon(next);
+            syncStarsWithTheme(next);
+            const currentColorTheme = localStorage.getItem('colorTheme') || 'default';
+            applyColorTheme(currentColorTheme, next);
+            renderThemePicker();
+            updateThemeModeSelector();
+        }
 
-            Object.entries(colors).forEach(([key, value]) => {
-                root.style.setProperty(`--${key}`, value);
+        function setThemeMode(mode) {
+            localStorage.setItem('themeMode', mode);
+            loadThemePreference();
+            renderThemePicker();
+            updateThemeModeSelector();
+        }
+
+        function renderThemePicker() {
+            if (!themesData) return;
+            const container = document.getElementById('theme-options');
+            if (!container) return;
+
+            const currentTheme = localStorage.getItem('colorTheme') || 'default';
+            const currentMode = document.documentElement.getAttribute('data-theme') || 'light';
+            container.innerHTML = '';
+
+            themesData.themes.forEach((theme) => {
+                const option = document.createElement('div');
+                option.className = 'theme-option';
+                if (theme.id === currentTheme) option.classList.add('active');
+
+                const header = document.createElement('div');
+                header.className = 'theme-option-header';
+
+                const icon = document.createElement('span');
+                icon.className = 'theme-option-icon';
+                icon.textContent = theme.icon;
+
+                const name = document.createElement('div');
+                name.className = 'theme-option-name';
+                name.textContent = theme.name;
+
+                header.appendChild(icon);
+                header.appendChild(name);
+
+                const description = document.createElement('div');
+                description.className = 'theme-option-description';
+                description.textContent = theme.description;
+
+                const preview = document.createElement('div');
+                preview.className = 'theme-option-preview';
+                const colors = currentMode === 'light' ? theme.light : theme.dark;
+                const paletteBand = document.createElement('div');
+                paletteBand.className = 'theme-palette-band';
+                paletteBand.style.background = `linear-gradient(90deg, ${colors['primary-color']} 0%, ${colors['secondary-color']} 50%, ${colors['accent-color']} 100%)`;
+                preview.appendChild(paletteBand);
+
+                option.appendChild(header);
+                option.appendChild(description);
+                option.appendChild(preview);
+                option.addEventListener('click', () => {
+                    const activeMode = document.documentElement.getAttribute('data-theme') || 'light';
+                    applyColorTheme(theme.id, activeMode);
+                    document.querySelectorAll('.theme-option').forEach((opt) => opt.classList.remove('active'));
+                    option.classList.add('active');
+                    setTimeout(() => document.getElementById('theme-modal').classList.add('hidden'), 200);
+                });
+
+                container.appendChild(option);
             });
         }
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            loadThemePreference();
+        function updateThemeModeSelector() {
+            const themeMode = localStorage.getItem('themeMode') || 'system';
+            document.querySelectorAll('input[name="theme-mode"]').forEach((radio) => {
+                radio.checked = radio.value === themeMode;
+            });
+        }
 
+        function setupThemeControls() {
+            const themePicker = document.getElementById('theme-picker');
+            const themeModal = document.getElementById('theme-modal');
+            const modalClose = document.getElementById('theme-modal-close');
             const themeToggle = document.getElementById('theme-toggle');
-            if (themeToggle) {
-                themeToggle.addEventListener('click', toggleTheme);
+
+            if (themePicker && themeModal) {
+                themePicker.addEventListener('click', () => {
+                    themeModal.classList.remove('hidden');
+                    renderThemePicker();
+                    updateThemeModeSelector();
+                });
             }
+
+            if (modalClose && themeModal) {
+                modalClose.addEventListener('click', () => themeModal.classList.add('hidden'));
+                themeModal.addEventListener('click', (e) => {
+                    if (e.target === themeModal) themeModal.classList.add('hidden');
+                });
+            }
+
+            if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+
+            document.querySelectorAll('input[name="theme-mode"]').forEach((input) => {
+                input.addEventListener('change', (e) => setThemeMode(e.target.value));
+            });
+        }
+
+        async function loadPost() {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
+            const container = document.getElementById('post-container');
+
+            if (!slug) {
+                container.innerHTML = '<div class="post-error">Missing post slug. Go back to the posts list.</div>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`../data/post-content/${slug}.json`);
+                if (!response.ok) throw new Error('post-not-found');
+                const post = await response.json();
+
+                document.title = `${post.title} - Seongsu Kim`;
+                document.querySelector('meta[name="description"]').setAttribute('content', post.excerpt || post.title);
+                document.getElementById('post-title').textContent = post.title;
+                document.getElementById('post-date').textContent = formatDate(post.date);
+                document.getElementById('post-category').textContent = post.category;
+                document.getElementById('post-read-time').textContent = estimateReadTime(post.content || '');
+
+                const rendered = renderMarkdown(post.content || '');
+                document.getElementById('post-content').innerHTML = rendered.html;
+                renderToc(rendered.toc);
+
+                const tagsWrap = document.getElementById('post-tags');
+                if (post.tags && post.tags.length > 0) {
+                    tagsWrap.style.display = 'flex';
+                    post.tags.forEach((tag) => {
+                        const span = document.createElement('span');
+                        span.className = 'post-tag';
+                        span.textContent = tag;
+                        tagsWrap.appendChild(span);
+                    });
+                }
+            } catch (err) {
+                container.innerHTML = '<div class="post-error">Failed to load this post. Go back and try again.</div>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadThemesData();
+            loadThemePreference();
+            setupThemeControls();
+            await loadPost();
         });
     </script>
 </body>

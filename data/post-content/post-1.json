@@ -1,0 +1,16 @@
+{
+  "id": "post-1",
+  "slug": "post-1",
+  "title": "Understanding Density Functional Theory in Machine Learning",
+  "date": "2025-12-15",
+  "category": "Research",
+  "excerpt": "An introduction to how machine learning can accelerate density functional theory calculations for materials science applications.",
+  "tags": [
+    "DFT",
+    "Machine Learning",
+    "Materials Science",
+    "Quantum Chemistry"
+  ],
+  "link": "posts/post-template.html?slug=post-1",
+  "content": "# Understanding Density Functional Theory in Machine Learning\n\n> AI-generated content notice: This article was drafted with AI assistance and reviewed by the author.\n\nDensity Functional Theory (DFT) has revolutionized computational materials science and quantum chemistry. However, traditional DFT calculations are computationally expensive, limiting their application to larger systems and longer timescales.\n\n## What is Density Functional Theory?\n\nDensity Functional Theory is a quantum mechanical method used to investigate the electronic structure of many-body systems. Instead of directly handling the many-body wave function, DFT reformulates the problem in terms of electron density.\n\nThe key insight of DFT is that many ground-state properties can be derived from electron density, enabling total energy and force estimation with lower computational cost than many alternative first-principles methods.\n\n## Why Machine Learning?\n\nWhile DFT is efficient compared with traditional wave-function methods, it still requires iterative self-consistent solving, which remains expensive at scale.\n\nMachine learning models can learn structure-property relationships from DFT outputs and provide much faster approximations for new systems.\n\n## Our Approach: GPWNO\n\nIn our work on **Gaussian Plane-Wave Neural Operators (GPWNO)**, we designed an architecture for electron density prediction with three key ideas:\n\n- **Plane-wave representation** aligned with reciprocal-space DFT workflows\n- **Gaussian orbital priors** to encode chemical structure\n- **Neural operator formulation** for better transfer across size/composition regimes\n\n## Applications and Impact\n\nML-accelerated DFT can support:\n\n- Drug and molecule design\n- Battery and catalyst materials optimization\n- Large-scale screening for novel compounds\n\nBy combining DFT-level supervision and ML inference speed, we can explore much larger chemical spaces in practical time.\n\n## Future Directions\n\nPromising directions include:\n\n- Better symmetry/physics constraints\n- Active learning for efficient data generation\n- Multi-fidelity pipelines\n- Uncertainty-aware predictions\n\n## Conclusion\n\nMachine learning is changing how quantum chemistry and materials modeling are performed. DFT-informed ML models can significantly reduce computational cost while preserving useful predictive accuracy for discovery pipelines."
+}

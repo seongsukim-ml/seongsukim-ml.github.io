@@ -1,13 +1,32 @@
 {
   "posts": [
     {
+      "id": "ai-for-science",
+      "title": "AI for Scientific Discovery: The Future of Research",
+      "date": "2026-02-01",
+      "category": "Research",
+      "excerpt": "Exploring how artificial intelligence is revolutionizing scientific research, from drug discovery to materials science and quantum physics.",
+      "tags": [
+        "Artificial Intelligence",
+        "Scientific Discovery",
+        "Machine Learning",
+        "Research"
+      ],
+      "link": "posts/post-template.html?slug=ai-for-science"
+    },
+    {
       "id": "post-1",
       "title": "Understanding Density Functional Theory in Machine Learning",
       "date": "2025-12-15",
       "category": "Research",
       "excerpt": "An introduction to how machine learning can accelerate density functional theory calculations for materials science applications.",
-      "tags": ["DFT", "Machine Learning", "Materials Science", "Quantum Chemistry"],
-      "link": "posts/post-1.html"
+      "tags": [
+        "DFT",
+        "Machine Learning",
+        "Materials Science",
+        "Quantum Chemistry"
+      ],
+      "link": "posts/post-template.html?slug=post-1"
     }
   ]
 }

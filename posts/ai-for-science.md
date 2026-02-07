@@ -13,6 +13,8 @@ link: "posts/ai-for-science.html"
 
 # AI for Scientific Discovery: The Future of Research
 
+> AI-generated content notice: This article was drafted with AI assistance and reviewed by the author.
+
 Artificial Intelligence (AI) is transforming the landscape of scientific research, enabling breakthroughs that were once thought impossible. From accelerating drug discovery to predicting material properties, AI is becoming an indispensable tool for researchers across disciplines.
 
 ## The Promise of AI in Science
