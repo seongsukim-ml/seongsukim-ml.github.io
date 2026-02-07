@@ -209,6 +209,9 @@ function setThemeMode(mode) {
     const currentColorTheme = localStorage.getItem('colorTheme') || 'default';
     const currentTheme = document.documentElement.getAttribute('data-theme');
     applyColorTheme(currentColorTheme, currentTheme);
+
+    // Keep theme previews and click behavior in sync with the new mode.
+    renderThemePicker();
 }
 
 function updateThemeToggleIcon(theme) {
@@ -217,8 +220,8 @@ function updateThemeToggleIcon(theme) {
         toggleButton.textContent = theme === 'light' ? '🌙' : '☀️';
     }
 
-    // Light 모드일 때 별 자동 숨김 체크
-    checkStarsForTheme(theme);
+    // Keep stars/meteors synced with theme defaults.
+    syncStarsWithTheme(theme);
 }
 
 // ===== Stars & Meteors Toggle =====
@@ -234,14 +237,19 @@ function toggleStars() {
         localStorage.setItem('starsVisible', 'false');
     }
 
-    updateStarsIcon(!isHidden);
+    // After toggling, visibility is the inverse of previous hidden state.
+    updateStarsIcon(isHidden);
 }
 
 function updateStarsIcon(isVisible) {
     const starsToggle = document.getElementById('stars-toggle');
     if (starsToggle) {
-        // 클릭 시 동작을 표시: 별이 보이면 🌑(숨기기), 안 보이면 ⭐(보이기)
-        starsToggle.textContent = isVisible ? '🌑' : '⭐';
+        // Star-themed icon: visible=filled star, hidden=outline star
+        starsToggle.textContent = isVisible ? '⭐' : '☆';
+        starsToggle.setAttribute(
+            'aria-label',
+            isVisible ? 'Hide stars and meteors' : 'Show stars and meteors'
+        );
     }
 }
 
@@ -268,16 +276,15 @@ function loadStarsPreference() {
     updateStarsIcon(starsVisible);
 }
 
-function checkStarsForTheme(theme) {
-    // 사용자가 명시적으로 설정하지 않은 경우에만 자동 조정
-    if (localStorage.getItem('starsVisible') === null) {
-        if (theme === 'light') {
-            document.body.classList.add('stars-hidden');
-            updateStarsIcon(false);
-        } else {
-            document.body.classList.remove('stars-hidden');
-            updateStarsIcon(true);
-        }
+function syncStarsWithTheme(theme) {
+    if (theme === 'light') {
+        document.body.classList.add('stars-hidden');
+        localStorage.setItem('starsVisible', 'false');
+        updateStarsIcon(false);
+    } else {
+        document.body.classList.remove('stars-hidden');
+        localStorage.setItem('starsVisible', 'true');
+        updateStarsIcon(true);
     }
 }
 
@@ -346,19 +353,18 @@ function renderThemePicker() {
         preview.className = 'theme-option-preview';
 
         const colors = currentMode === 'light' ? theme.light : theme.dark;
-        ['primary-color', 'secondary-color', 'accent-color'].forEach(colorKey => {
-            const swatch = document.createElement('div');
-            swatch.className = 'theme-color-swatch';
-            swatch.style.backgroundColor = colors[colorKey];
-            preview.appendChild(swatch);
-        });
+        const paletteBand = document.createElement('div');
+        paletteBand.className = 'theme-palette-band';
+        paletteBand.style.background = `linear-gradient(90deg, ${colors['primary-color']} 0%, ${colors['secondary-color']} 50%, ${colors['accent-color']} 100%)`;
+        preview.appendChild(paletteBand);
 
         option.appendChild(header);
         option.appendChild(description);
         option.appendChild(preview);
 
         option.addEventListener('click', () => {
-            applyColorTheme(theme.id, currentMode);
+            const activeMode = document.documentElement.getAttribute('data-theme') || 'light';
+            applyColorTheme(theme.id, activeMode);
             // Update active state
             document.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('active'));
             option.classList.add('active');
@@ -1063,6 +1069,15 @@ function setupEventListeners() {
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
         themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    // Inline dark mode shortcut in profile hint
+    const darkModeLink = document.getElementById('dark-mode-link');
+    if (darkModeLink) {
+        darkModeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            setThemeMode('dark');
+        });
     }
 
     // Stars toggle
