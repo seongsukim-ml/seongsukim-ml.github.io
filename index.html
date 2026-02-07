@@ -22,7 +22,10 @@
                 <h1 id="site-title">Seongsu Kim</h1>
             </div>
             <div class="nav-right">
-                <div class="nav-links">
+                <button id="nav-menu-toggle" class="nav-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+                    ☰
+                </button>
+                <div class="nav-links" id="nav-links">
                     <a href="#about" class="nav-link">About</a>
                     <a href="#publications" class="nav-link">Publications</a>
                     <a href="#projects" class="nav-link">Projects</a>
@@ -70,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <p class="page-hint">Tip: Switch to <a href="#" id="dark-mode-link" class="page-hint-link">Dark Mode</a> to watch a meteor shower streak across the sky.</p>
+            <p class="page-hint">Tip: <a href="#" id="dark-mode-link" class="page-hint-link">Dark Mode</a> unlocks meteor shower.</p>
         </div>
     </section>
 
@@ -114,14 +117,14 @@
         <div class="container">
             <h2 class="section-title">Publications</h2>
             <div class="publications-filter">
-                <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <div class="filter-group">
                     <span style="font-weight: 600; color: var(--text-color);">Year:</span>
                     <button class="filter-btn active" data-year="all">All</button>
                     <button class="filter-btn" data-year="2026">2026</button>
                     <button class="filter-btn" data-year="2025">2025</button>
                     <button class="filter-btn" data-year="2024">2024</button>
                 </div>
-                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <div class="filter-group">
                     <span style="font-weight: 600; color: var(--text-color);">Show:</span>
                     <button id="selected-toggle" class="filter-btn" data-selected="false">
                         ⭐ Selected Only

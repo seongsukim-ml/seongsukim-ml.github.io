@@ -472,6 +472,7 @@ function renderProfile() {
 
     // Update site title
     document.getElementById('site-title').textContent = profileData.name;
+    updateNavCompactMode();
 }
 
 // ===== About Section Rendering =====
@@ -1036,8 +1037,59 @@ function createProjectElement(project) {
     return card;
 }
 
+function updateNavCompactMode() {
+    const navbar = document.getElementById('navbar');
+    const siteTitle = document.getElementById('site-title');
+    if (!navbar || !siteTitle) return;
+
+    const computed = window.getComputedStyle(siteTitle);
+    const lineHeight = parseFloat(computed.lineHeight) || 24;
+    const wrapped = siteTitle.getBoundingClientRect().height > lineHeight * 1.4;
+
+    navbar.classList.toggle('nav-compact', wrapped || window.innerWidth <= 768);
+}
+
 // ===== Event Listeners =====
 function setupEventListeners() {
+    const navbar = document.getElementById('navbar');
+    const navMenuToggle = document.getElementById('nav-menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    updateNavCompactMode();
+
+    if (navMenuToggle && navLinks) {
+        navMenuToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('open');
+            navMenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        // Close mobile nav when selecting any category link.
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                navMenuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Close dropdown when clicking outside.
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !navMenuToggle.contains(e.target)) {
+                navLinks.classList.remove('open');
+                navMenuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Reset dropdown state when returning to desktop viewport.
+        window.addEventListener('resize', () => {
+            updateNavCompactMode();
+
+            if (navbar && !navbar.classList.contains('nav-compact')) {
+                navLinks.classList.remove('open');
+                navMenuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
     // Theme picker button
     const themePicker = document.getElementById('theme-picker');
     if (themePicker) {
@@ -1132,8 +1184,8 @@ function setupEventListeners() {
         });
     }
 
-    // Smooth scroll for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    // Smooth scroll only for top navigation in-page links
+    document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));

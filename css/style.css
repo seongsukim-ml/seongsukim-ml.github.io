@@ -460,6 +460,20 @@ a:hover {
     gap: var(--spacing-lg);
 }
 
+.nav-menu-toggle {
+    display: none;
+    background: none;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
 .nav-actions {
     display: flex;
     align-items: center;
@@ -477,6 +491,47 @@ a:hover {
 .nav-link:hover {
     background-color: var(--bg-gray);
     color: var(--secondary-color);
+}
+
+/* Compact nav mode: enabled dynamically when brand title wraps to 2 lines */
+#navbar.nav-compact .container {
+    gap: 0.5rem;
+}
+
+#navbar.nav-compact .nav-right {
+    width: auto;
+    flex-direction: row;
+    gap: var(--spacing-sm);
+    position: relative;
+}
+
+#navbar.nav-compact .nav-links {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    min-width: 200px;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-hover);
+    z-index: 1100;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+#navbar.nav-compact .nav-links.open {
+    display: flex;
+}
+
+#navbar.nav-compact .nav-menu-toggle {
+    display: inline-flex;
+}
+
+#navbar.nav-compact .nav-link {
+    width: 100%;
+    padding: 0.45rem 0.6rem;
 }
 
 /* Theme Picker, Toggle & Stars Toggle */
@@ -897,6 +952,13 @@ body.stars-hidden .shooting-star::after {
     justify-content: space-between;
 }
 
+.filter-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .filter-btn {
     padding: var(--spacing-xs) var(--spacing-md);
     background-color: var(--bg-gray);
@@ -1198,6 +1260,8 @@ body.stars-hidden .shooting-star::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
     margin-bottom: var(--spacing-sm);
 }
 
@@ -1360,8 +1424,7 @@ body.stars-hidden .shooting-star::after {
 /* ===== Responsive Design ===== */
 @media (max-width: 768px) {
     #navbar .container {
-        flex-direction: column;
-        gap: var(--spacing-sm);
+        gap: 0.5rem;
     }
 
     .nav-brand h1 {
@@ -1369,15 +1432,34 @@ body.stars-hidden .shooting-star::after {
     }
 
     .nav-right {
-        width: 100%;
-        flex-direction: column;
+        width: auto;
+        flex-direction: row;
         gap: var(--spacing-sm);
+        position: relative;
     }
 
     .nav-links {
-        gap: var(--spacing-sm);
-        justify-content: center;
-        flex-wrap: wrap;
+        display: none;
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 0;
+        min-width: 200px;
+        padding: 0.5rem;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        background: var(--bg-card);
+        box-shadow: var(--shadow-hover);
+        z-index: 1100;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-menu-toggle {
+        display: inline-flex;
     }
 
     .nav-actions {
@@ -1411,7 +1493,8 @@ body.stars-hidden .shooting-star::after {
     }
 
     .nav-link {
-        padding: var(--spacing-xs);
+        width: 100%;
+        padding: 0.45rem 0.6rem;
         font-size: 0.9rem;
     }
 
@@ -1466,16 +1549,33 @@ body.stars-hidden .shooting-star::after {
     }
 
     .nav-links {
-        gap: 0.4rem;
+        min-width: 180px;
     }
 
-    .nav-link {
-        font-size: 0.85rem;
+    .page-hint {
+        font-size: 0.78rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .page-hint-link {
+        font-weight: 500;
+    }
+
+    .news-container {
+        padding-left: 0;
+    }
+
+    .news-container::before,
+    .news-item::before {
+        display: none;
     }
 
     .theme-picker,
     .theme-toggle,
-    .stars-toggle {
+    .stars-toggle,
+    .nav-menu-toggle {
         width: 36px;
         height: 36px;
         font-size: 1rem;
