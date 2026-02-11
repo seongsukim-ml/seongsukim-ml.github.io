@@ -8,6 +8,7 @@
       "venue": "Preprint",
       "year": 2026,
       "type": "preprint",
+      "link": "https://seongsukim-ml.github.io/assets/pdf/Machine_Learning_Hamiltonians_are_Accurate_Energy_Force_Predictors_draft.pdf",
       "selected": true,
       "keywords": ["Hamiltonian", "Machine Learning", "DFT", "Force Prediction"],
       "links": {}
@@ -20,6 +21,7 @@
       "venue": "Preprint",
       "year": 2026,
       "type": "preprint",
+      "link": "https://www.arxiv.org/pdf/2602.07351",
       "selected": false,
       "keywords": ["MOF", "Flow Matching", "Structure Prediction", "Adsorption"],
       "links": {}
