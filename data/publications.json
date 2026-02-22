@@ -28,7 +28,8 @@
       "links": {
         "pdf": "https://www.arxiv.org/pdf/2602.07351",
         "code": "https://github.com/nayoung10/AtomMOF"
-      }
+      },
+      "bibtex_file": "data/bibtex/kim2026AtomMof.bib"
     },
     {
       "id": "kim2025high",
