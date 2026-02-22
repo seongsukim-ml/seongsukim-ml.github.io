@@ -26,7 +26,7 @@
     },
     "yoonho-kim": {
       "name": "Yoonho Kim",
-      "url": "#"
+      "url": "https://yoonhokim0527.github.io/"
     },
     "honghui-kim": {
       "name": "Honghui Kim",
@@ -34,7 +34,7 @@
     },
     "minsu-kim": {
       "name": "Minsu Kim",
-      "url": "#"
+      "url": "https://minsuukim.github.io/"
     },
     "jinkyoo-park": {
       "name": "Jinkyoo Park",
@@ -43,6 +43,14 @@
     "sungbin-lim": {
       "name": "Sungbin Lim",
       "url": "https://sungbin-lim.github.io/"
+    },
+    "sihyun-yu":{
+      "name": "Sihyun Yu",
+      "url": "https://sihyun.me/"
+    },
+    "minkyu-kim":{
+      "name": "Minkyu kim",
+      "url": "https://minkyu1022.github.io/mkkim/"
     }
   }
 }

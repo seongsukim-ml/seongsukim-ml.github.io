@@ -19,7 +19,7 @@
       "id": "kim2025ATOMMOF",
       "title": "ATOMMOF: All-Atom Flow Matching for MOF-Adsorbate Structure Prediction",
       "authors": ["Nayoung Kim", "Honghui Kim", "Sihyun Yu", "Minkyu Kim", "Seongsu Kim", "Sungsoo Ahn"],
-      "author_ids": ["nayoung-kim", "honghui-kim", null, null, "seongsu-kim", "sungsoo-ahn"],
+      "author_ids": ["nayoung-kim", "honghui-kim", "sihyun-yu", "minkyu-kim", "seongsu-kim", "sungsoo-ahn"],
       "venue": "Preprint",
       "year": 2026,
       "type": "preprint",
