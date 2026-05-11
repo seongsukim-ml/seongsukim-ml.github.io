@@ -5,15 +5,28 @@
       "title": "Machine Learning Hamiltonians are Accurate Energy-Force Predictors",
       "authors": ["Seongsu Kim", "Chanhui Lee", "Yoonho Kim", "Seongjun Yun", "Honghui Kim", "Nayoung Kim", "Changyong Park", "Sehui Han", "Sungbin Lim", "Sungsoo Ahn"],
       "author_ids": ["seongsu-kim", "chanhui-lee", "yoonho-kim", null, "honghui-kim", "nayoung-kim", null, null, null, "sungsoo-ahn"],
-      "venue": "Preprint",
+      "venue": "International Conference on Machine Learning (ICML)",
       "year": 2026,
-      "type": "preprint",
+      "type": "conference",
+      "award": "Poster",
       "selected": true,
       "keywords": ["Hamiltonian", "Machine Learning", "DFT", "Force Prediction"],
       "links": {
         "pdf": "https://arxiv.org/pdf/2602.16897v1",
         "code": "https://github.com/seongsukim-ml/QHFlow2"
         }
+    },
+    {
+      "id": "kim2026MADField",
+      "title": "MADField: Multi-fidelity Amortized Density Field for Adsorption in Nanoporous Materials",
+      "authors": ["Yoonho Kim", "Seongsu Kim", "Sungsoo Ahn", "Honghui Kim"],
+      "author_ids": ["yoonho-kim", "seongsu-kim", "sungsoo-ahn", "honghui-kim"],
+      "venue": "Preprint",
+      "year": 2026,
+      "type": "preprint",
+      "selected": false,
+      "keywords": ["Adsorption", "Nanoporous Materials", "Density Field", "Multi-fidelity", "MOF"],
+      "links": {}
     },
     {
       "id": "kim2025ATOMMOF",
