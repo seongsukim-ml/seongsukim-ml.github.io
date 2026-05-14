@@ -1,6 +1,13 @@
 {
   "news": [
     {
+      "id": "icml2026_golden_reviewer",
+      "date": "2026-05-14",
+      "title": "ICML 2026 Golden Reviewer",
+      "content": "🏅 Nominated as a Golden Reviewer for *ICML 2026*.",
+      "inline": true
+    },
+    {
       "id": "icml2026_accept",
       "date": "2026-05-11",
       "title": "ICML 2026 Acceptance",
