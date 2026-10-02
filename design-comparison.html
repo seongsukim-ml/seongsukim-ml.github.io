@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>홈페이지 디자인 비교</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #202039; background: #eeedf4; font: 14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 16px 24px; background: #fff; border-bottom: 1px solid #dddce8; }
+    h1 { font-size: 18px; margin: 0; }
+    p { margin: 3px 0 0; color: #67667c; }
+    .controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    button, select, a { font: inherit; }
+    button, select { border: 1px solid #d9d7e5; border-radius: 8px; background: #fff; padding: 8px 12px; cursor: pointer; color: #202039; }
+    button[aria-pressed="true"] { color: #fff; background: #4f46e5; border-color: #4f46e5; }
+    main { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; padding: 20px; max-width: 2600px; margin: auto; }
+    main[data-view="original"], main[data-view="compact"] { grid-template-columns: 1fr; max-width: 1320px; }
+    main[data-view="original"] .compact, main[data-view="compact"] .original { display: none; }
+    .panel { min-width: 0; border-radius: 12px; overflow: hidden; background: #fff; border: 1px solid #dddae7; }
+    .label { padding: 12px 16px; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+    .label strong { font-size: 16px; }
+    a { color: #4f46e5; text-decoration: none; }
+    .frame { height: 76vh; min-height: 560px; overflow: hidden; position: relative; border-top: 1px solid #e4e1ec; }
+    iframe { border: 0; width: 1280px; transform-origin: top left; }
+    @media(max-width: 700px) { main { grid-template-columns: 1fr; padding: 12px; } header { padding: 14px; } .frame { min-height: 480px; height: 65vh; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div><h1>홈페이지 디자인 비교</h1><p>같은 콘텐츠 · 같은 화면 너비 · 여백과 배치 조정</p></div>
+    <div class="controls">
+      <button type="button" data-view="both" aria-pressed="true">나란히 비교</button>
+      <button type="button" data-view="original" aria-pressed="false">이전 디자인</button>
+      <button type="button" data-view="compact" aria-pressed="false">선택 디자인</button>
+      <select id="design" aria-label="비교 디자인"><option value="compact">기본 컴팩트</option><option value="clean">Clean Academic</option><option value="editorial">Editorial</option></select>
+      <select id="section" aria-label="비교할 영역"><option value="profile">페이지 상단</option><option value="research">연구 관심사</option><option value="news">뉴스</option><option value="publications">논문</option></select>
+      <label><input type="checkbox" id="images"> Show Images</label>
+      <select id="appearance" aria-label="테마"><option value="light">Light</option><option value="dark">Dark</option></select>
+    </div>
+  </header>
+  <main data-view="both">
+    <section class="panel original"><div class="label"><strong>이전 디자인</strong><a href="original-preview.html" target="_blank">크게 보기 ↗</a></div><div class="frame"><iframe title="현재 홈페이지" src="original-preview.html"></iframe></div></section>
+    <section class="panel compact"><div class="label"><strong id="design-label">컴팩트 디자인</strong><a id="design-link" href="compact-preview.html" target="_blank">크게 보기 ↗</a></div><div class="frame"><iframe title="컴팩트 홈페이지" src="compact-preview.html"></iframe></div></section>
+  </main>
+  <script>
+    const main = document.querySelector('main');
+    const frames = [...document.querySelectorAll('iframe')];
+    const designNames = {compact: '컴팩트 디자인', clean: 'Clean Academic', editorial: 'Editorial'};
+    function resize() {
+      frames.forEach(frame => {
+        const box = frame.parentElement;
+        if (!box.clientWidth) return;
+        const scale = box.clientWidth / 1280;
+        frame.style.transform = `scale(${scale})`;
+        frame.style.height = `${box.clientHeight / scale}px`;
+      });
+    }
+    function appearance() {
+      frames.forEach(frame => {
+        const win = frame.contentWindow;
+        const mode = document.getElementById('appearance').value;
+        if (typeof win.applyColorTheme !== 'function') return;
+        win.document.documentElement.dataset.theme = mode;
+        win.applyColorTheme('default', mode);
+        win.updateThemeToggleIcon(mode);
+      });
+    }
+    document.querySelectorAll('button[data-view]').forEach(button => button.addEventListener('click', () => {
+      main.dataset.view = button.dataset.view;
+      document.querySelectorAll('button[data-view]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      resize();
+    }));
+    function goToSection() { frames.forEach(frame => {
+      const id = document.getElementById('section').value;
+      const section = frame.contentDocument.getElementById(id);
+      if (id === 'profile') { frame.contentWindow.scrollTo({top:0,behavior:'instant'}); return; }
+      if (section) frame.contentWindow.scrollTo({top: section.offsetTop - frame.contentDocument.getElementById('navbar').offsetHeight, behavior:'instant'});
+    }); }
+    function images() {
+      frames.forEach(frame => {
+        if (typeof frame.contentWindow.setPublicationImagesVisibility === 'function')
+          frame.contentWindow.setPublicationImagesVisibility(document.getElementById('images').checked);
+      });
+    }
+    document.getElementById('design').addEventListener('change', event => {
+      const name = event.target.value;
+      document.getElementById('design-label').textContent = designNames[name];
+      document.getElementById('design-link').href = `${name}-preview.html`;
+      frames[1].src = `${name}-preview.html`;
+    });
+    document.getElementById('images').addEventListener('change', images);
+    document.getElementById('section').addEventListener('change', goToSection);
+    document.getElementById('appearance').addEventListener('change', appearance);
+    frames.forEach(frame => frame.addEventListener('load', () => { resize(); appearance(); images(); goToSection(); }));
+    new ResizeObserver(resize).observe(main);
+    resize();
+  </script>
+</body>
+</html>

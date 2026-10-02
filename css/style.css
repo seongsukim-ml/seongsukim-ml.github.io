@@ -394,6 +394,7 @@ a:hover {
 
 .section {
     padding: var(--spacing-xl) 0;
+    scroll-margin-top: 88px;
 }
 
 .section-gray {
@@ -447,7 +448,10 @@ a:hover {
     font-size: 1.5rem;
     color: var(--primary-color);
     font-weight: 700;
+    white-space: nowrap;
 }
+
+.nav-brand, .nav-right { flex-shrink: 0; }
 
 .nav-right {
     display: flex;
@@ -960,6 +964,10 @@ body.stars-hidden .shooting-star::after {
 }
 
 .filter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     padding: var(--spacing-xs) var(--spacing-md);
     background-color: var(--bg-gray);
     border: 2px solid var(--border-color);
@@ -969,6 +977,69 @@ body.stars-hidden .shooting-star::after {
     transition: all 0.3s ease;
     color: var(--text-color);
 }
+
+.control-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.selected-badge .control-icon { fill: currentColor; }
+#selected-toggle { font-weight: 650; border-color: var(--secondary-color); }
+
+/* Filter feedback: press, selected underline, and sliding toggle thumb. */
+.publications-filter .filter-btn { position: relative; transition-duration: 260ms; }
+.filter-btn[data-year]::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 30%;
+    width: 40%;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    opacity: 0;
+    transform: scaleX(0);
+    transition: transform 320ms ease, opacity 260ms ease;
+}
+.filter-btn[data-year].active::after { opacity: .75; transform: scaleX(1); }
+.toggle-indicator {
+    display: inline-block;
+    width: 25px;
+    height: 15px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: color-mix(in srgb, currentColor 18%, transparent);
+    border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+    position: relative;
+}
+.toggle-indicator::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: currentColor;
+    transition: transform 320ms cubic-bezier(.2, .8, .2, 1);
+}
+.filter-btn[aria-pressed="true"] .toggle-indicator::before { transform: translateX(10px); }
+@media (hover: hover) and (pointer: fine) {
+    .publications-filter .filter-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 3px 10px color-mix(in srgb, var(--secondary-color) 16%, transparent);
+    }
+}
+.publications-filter .filter-btn:active { transform: scale(.95); }
+@keyframes publications-enter { from { opacity: 0; } to { opacity: 1; } }
+.publication-item .pub-content { animation: publications-enter 260ms ease-out; }
+.publications-list.images-visible .pub-image { animation: publications-enter 320ms ease-out; }
 
 .filter-btn:hover {
     background-color: var(--secondary-color);
@@ -1024,6 +1095,38 @@ body.stars-hidden .shooting-star::after {
     margin-bottom: var(--spacing-xs);
 }
 
+/* Optional paper figures; entries without a figure keep their full width. */
+.pub-content { min-width: 0; }
+.pub-image { display: none; }
+.publications-list.images-visible .publication-item.has-image {
+    display: grid;
+    grid-template-columns: 176px minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+.publications-list.images-visible .pub-image:not([hidden]) {
+    display: block;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+}
+.pub-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 8 / 5;
+    object-fit: contain;
+}
+.publication-item > .bibtex-box { grid-column: 1 / -1; }
+@media (max-width: 600px) {
+    .publications-list.images-visible .publication-item.has-image {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+    }
+    .publications-list.images-visible .pub-image { max-width: 280px; }
+}
+
 .pub-title {
     font-size: 1.1rem;
     font-weight: 600;
@@ -1033,14 +1136,17 @@ body.stars-hidden .shooting-star::after {
 }
 
 .selected-badge {
-    background-color: var(--selected-border);
-    color: white;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    background-color: var(--secondary-color);
+    color: var(--bg-color);
+    padding: 4px 9px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.5;
     white-space: nowrap;
 }
 
@@ -1080,9 +1186,22 @@ body.stars-hidden .shooting-star::after {
     border-radius: 4px;
     font-size: 0.75rem;
     font-weight: 600;
-    margin-left: var(--spacing-xs);
+    margin-right: 8px;
+    vertical-align: 1px;
     text-transform: uppercase;
     letter-spacing: 0.3px;
+}
+
+.pub-award.preprint {
+    background-color: var(--bg-gray);
+    color: var(--text-light);
+    border: 1px solid var(--border-color);
+}
+
+@media (max-width: 600px) {
+    .pub-header { flex-wrap: wrap; }
+    .pub-title { flex-basis: 100%; }
+    .publications-filter .filter-btn { padding-left: 8px; padding-right: 8px; }
 }
 
 .pub-award.spotlight {
@@ -1743,6 +1862,9 @@ body.stars-hidden .shooting-star::after {
 }
 
 .theme-option {
+    font: inherit;
+    text-align: left;
+    min-width: 0;
     background-color: var(--bg-gray);
     border: 2px solid var(--border-color);
     border-radius: 12px;
@@ -1838,4 +1960,39 @@ body.stars-hidden .shooting-star::after {
     transition-property: background-color, border-color, color;
     transition-duration: var(--transition-speed);
     transition-timing-function: ease;
+}
+
+/* Button motion includes keyboard and touch feedback, not just hover. */
+:is(.nav-menu-toggle, .theme-picker, .theme-toggle, .stars-toggle,
+       .filter-btn, .news-toggle-btn, .pub-link, .profile-link, .project-link,
+       .post-link, .theme-modal-close, .theme-option) {
+    transition-property: background-color, border-color, color, transform, box-shadow;
+    transition-duration: 180ms;
+    transition-timing-function: ease;
+}
+@media (hover: hover) and (pointer: fine) {
+    .filter-btn:hover, .pub-link:hover, .project-link:hover { transform: translateY(-1px); }
+    .nav-menu-toggle:hover { background: var(--bg-gray); border-color: var(--secondary-color); }
+}
+:is(.nav-menu-toggle, .theme-picker, .theme-toggle, .stars-toggle,
+       .filter-btn, .news-toggle-btn, .pub-link, .profile-link, .project-link,
+       .post-link, .theme-modal-close, .theme-option):active { transform: scale(.97); }
+:where(button, a, .theme-option):focus-visible {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 3px;
+}
+@keyframes menu-reveal {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+#navbar.nav-compact .nav-links.open { animation: menu-reveal 180ms ease-out; }
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: 0s !important; animation: none !important; }
+    :where(.nav-menu-toggle, .theme-picker, .theme-toggle, .stars-toggle,
+           .filter-btn, .news-toggle-btn, .pub-link, .profile-link, .project-link,
+           .post-link, .theme-modal-close, .theme-option):hover,
+    :where(.nav-menu-toggle, .theme-picker, .theme-toggle, .stars-toggle,
+           .filter-btn, .news-toggle-btn, .pub-link, .profile-link, .project-link,
+           .post-link, .theme-modal-close, .theme-option):active { transform: none !important; }
 }

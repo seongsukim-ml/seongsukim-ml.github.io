@@ -1,0 +1,70 @@
+/* Alternative preview: restrained academic layout. */
+:root { --max-width: 1080px !important; --bg-color: #fff !important; --bg-gray: #fff !important; --bg-card: #fff !important; --primary-color: #202338; --secondary-color: #5b56a7; --border-color: #e7e8ed !important; --selected-bg: #fafafe !important; }
+[data-theme="dark"] { --bg-color: #151620 !important; --bg-gray: #151620 !important; --bg-card: #1d1f2b !important; --primary-color: #eeeef8; --secondary-color: #aaa4f0; --border-color: #343747 !important; --selected-bg: #1d1f2b !important; }
+#navbar { box-shadow: none; }
+#profile.section { padding: 38px 0 28px; }
+.profile-header { max-width: none; padding: 0; box-shadow: none; border-radius: 0; background: transparent; gap: 26px; }
+.profile-image { width: 106px; height: 106px; border: 0; box-shadow: none; }
+.profile-name { font-size: 1.8rem; letter-spacing: -.035em; }
+.profile-badges .badge { background: transparent; border: 0; padding: 0; border-radius: 0; color: var(--text-light); }
+.profile-badges { gap: 14px; }
+.profile-links .profile-link { background: transparent; padding: 2px 0; border-radius: 0; }
+.profile-links { gap: 20px; }
+.page-hint { text-align: left; margin: 18px 0 0; max-width: none; }
+.section { border-bottom: 1px solid var(--border-color); }
+.section-title, #research .section-title { border: 0; padding: 0; margin-bottom: 18px; letter-spacing: -.025em; font-size: 1.25rem; }
+.category-icon { background: var(--bg-gray); box-shadow: none; }
+.news-container { padding-left: 0; gap: 0; }
+.news-container::before, .news-item::before { display: none; }
+.news-item { background: transparent; border-left: 0; border-radius: 0; padding: 10px 0; border-bottom: 1px solid var(--border-color); }
+.news-item:last-child { border-bottom: 0; }
+.news-toggle-container { justify-content: flex-start; }
+.news-toggle-btn { background: var(--bg-gray); color: var(--secondary-color); border: 1px solid var(--border-color); padding: 6px 12px; font-weight: 500; }
+.publication-item { background: transparent; border: 0; border-bottom: 1px solid var(--border-color); border-radius: 0; padding: 18px 0; }
+.publication-item.selected { background: color-mix(in srgb, var(--secondary-color) 5%, var(--bg-color)); border-left: 3px solid var(--secondary-color); border-radius: 6px; padding-left: 14px; padding-right: 14px; }
+.publication-item:hover, .publication-item.selected:hover { transform: none; box-shadow: none; background: transparent; }
+.publication-item.selected:hover { background: color-mix(in srgb, var(--secondary-color) 5%, var(--bg-color)); }
+.selected-badge { background: var(--secondary-color); color: var(--bg-color); }
+.pub-title { font-size: 1.075rem; }
+.pub-keyword { border: 0; background: transparent; padding: 0; }
+.pub-links .pub-link { background: var(--bg-gray); border: 1px solid var(--border-color); color: var(--secondary-color); text-transform: none; letter-spacing: 0; padding: 3px 9px; }
+.project-card, .post-card { box-shadow: none; border: 1px solid var(--border-color); }
+.footer { background: var(--bg-gray); color: var(--text-light); }
+@media (max-width: 768px) { .profile-header { padding: 0; gap: 18px; } .profile-image { width: 80px; height: 80px; } .profile-name { font-size: 1.45rem; } }
+
+/* Subtle, consistent feedback on links and buttons. */
+.profile-links .profile-link:hover,
+.profile-links .profile-link:focus-visible { background: transparent; color: var(--primary-color); text-decoration: underline; text-underline-offset: 4px; }
+.pub-links .pub-link:hover,
+.pub-links .pub-link:focus-visible,
+.news-toggle-btn:hover,
+.news-toggle-btn:focus-visible { background: var(--secondary-color); border-color: var(--secondary-color); color: var(--bg-color); box-shadow: none; }
+.news-item:hover { background: transparent; transform: none; }
+.pub-keyword:hover { background: transparent; color: var(--text-light); }
+.profile-badges .badge:hover { background: transparent; transform: none; }
+
+/* Keep touch controls usable even when the desktop preview uses a mouse. */
+@media (max-width: 768px) {
+    #navbar .container { padding-left: 12px; padding-right: 12px; gap: 6px; }
+    #navbar.nav-compact .nav-right { gap: 4px; }
+    .nav-actions { gap: 2px; }
+    .nav-brand h1 { font-size: 1.05rem; }
+    .nav-menu-toggle, .theme-picker, .theme-toggle, .stars-toggle { width: 44px; height: 44px; flex-shrink: 0; }
+    .nav-link, .filter-btn, .news-toggle-btn, .profile-link, .pub-link, .project-link, .post-link { min-height: 44px; display: inline-flex; align-items: center; }
+    .profile-links { gap: 8px 16px; }
+    .profile-header { align-items: flex-start; }
+    .profile-image { margin-top: 4px; }
+    .filter-group { gap: 6px; }
+    .theme-modal-close { min-width: 44px; min-height: 44px; flex-shrink: 0; }
+    .theme-modal-header h3 { font-size: 1.2rem; }
+    .theme-modal-content { overflow-y: auto; }
+    .theme-options { flex-shrink: 0; max-height: none; overflow: visible; padding-right: 0; }
+}
+
+/* The default palette is restrained; other palette buttons can still change accents. */
+:root[data-color-theme="default"] { --primary-color: #202338 !important; --secondary-color: #5b56a7 !important; }
+:root[data-theme="dark"][data-color-theme="default"] { --primary-color: #eeeef8 !important; --secondary-color: #aaa4f0 !important; }
+@media (max-width: 360px) {
+    #navbar .container { padding-left: 10px; padding-right: 10px; gap: 4px; }
+    .nav-brand h1 { font-size: .95rem; }
+}

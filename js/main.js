@@ -296,6 +296,7 @@ function applyColorTheme(themeId, mode) {
 
     const colors = mode === 'light' ? theme.light : theme.dark;
     const root = document.documentElement;
+    root.dataset.colorTheme = themeId;
 
     // Apply colors
     Object.entries(colors).forEach(([key, value]) => {
@@ -325,8 +326,10 @@ function renderThemePicker() {
     container.innerHTML = '';
 
     themesData.themes.forEach(theme => {
-        const option = document.createElement('div');
+        const option = document.createElement('button');
+        option.type = 'button';
         option.className = 'theme-option';
+        option.setAttribute('aria-pressed', String(theme.id === currentTheme));
         if (theme.id === currentTheme) {
             option.classList.add('active');
         }
@@ -366,8 +369,12 @@ function renderThemePicker() {
             const activeMode = document.documentElement.getAttribute('data-theme') || 'light';
             applyColorTheme(theme.id, activeMode);
             // Update active state
-            document.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('active'));
+            document.querySelectorAll('.theme-option').forEach(opt => {
+                opt.classList.remove('active');
+                opt.setAttribute('aria-pressed', 'false');
+            });
             option.classList.add('active');
+            option.setAttribute('aria-pressed', 'true');
 
             // Close modal after a short delay
             setTimeout(() => {
@@ -384,11 +391,11 @@ async function loadAllData() {
     try {
         const [profile, publications, news, projects, posts, authors, themes] = await Promise.all([
             fetch('data/profile.json').then(res => res.json()),
-            fetch('data/publications.json').then(res => res.json()),
-            fetch('data/news.json').then(res => res.json()),
+            fetch('data/publications.json?v=20261002-3').then(res => res.json()),
+            fetch('data/news.json?v=20261002-1').then(res => res.json()),
             fetch('data/projects.json').then(res => res.json()),
             fetch('data/posts.json').then(res => res.json()),
-            fetch('data/authors.json').then(res => res.json()),
+            fetch('data/authors.json?v=20261002-1').then(res => res.json()),
             fetch('data/themes.json').then(res => res.json())
         ]);
 
@@ -715,6 +722,32 @@ async function toggleBibtex(button, pubDiv, bibtexSource, isFile) {
 // ===== Publications Rendering =====
 let currentYearFilter = 'all';
 let showSelectedOnly = false;
+// Every page visit starts with text only; toggles and filters share this page's state.
+let showPublicationImages = false;
+
+function setPublicationImagesVisibility(visible) {
+    showPublicationImages = Boolean(visible);
+    updatePublicationImagesVisibility();
+}
+
+function updatePublicationImagesVisibility() {
+    const container = document.getElementById('publications-container');
+    const toggle = document.getElementById('publication-images-toggle');
+    if (!container) return;
+    container.classList.toggle('images-visible', showPublicationImages);
+    if (toggle) {
+        const label = toggle.querySelector('.filter-label');
+        if (label) label.textContent = showPublicationImages ? 'Hide Images' : 'Show Images';
+        toggle.setAttribute('aria-pressed', String(showPublicationImages));
+        toggle.classList.toggle('active', showPublicationImages);
+    }
+    if (showPublicationImages) {
+        container.querySelectorAll('img[data-src]').forEach(image => {
+            image.src = image.dataset.src;
+            image.removeAttribute('data-src');
+        });
+    }
+}
 
 function renderPublications(filterYear = 'all', selectedOnly = false) {
     if (!publicationsData) return;
@@ -746,6 +779,8 @@ function renderPublications(filterYear = 'all', selectedOnly = false) {
         container.appendChild(pubElement);
     });
 
+    updatePublicationImagesVisibility();
+
     if (filteredPubs.length === 0) {
         const message = selectedOnly ?
             'No selected publications found for the selected year.' :
@@ -761,25 +796,61 @@ function createPublicationElement(pub) {
         pubDiv.classList.add('selected');
     }
 
-    // Header with title and selected badge
+    if (pub.image) {
+        pubDiv.classList.add('has-image');
+        const imageLink = document.createElement('a');
+        imageLink.className = 'pub-image';
+        imageLink.href = pub.links?.pdf || pub.image;
+        imageLink.target = '_blank';
+        imageLink.rel = 'noopener noreferrer';
+        const image = document.createElement('img');
+        image.dataset.src = pub.image;
+        image.alt = pub.image_alt || `Figure from ${pub.title}`;
+        image.loading = 'lazy';
+        image.decoding = 'async';
+        image.width = 320;
+        image.height = 200;
+        image.addEventListener('error', () => {
+            imageLink.hidden = true;
+            pubDiv.classList.remove('has-image');
+        });
+        imageLink.appendChild(image);
+        pubDiv.appendChild(imageLink);
+    }
+    const content = document.createElement('div');
+    content.className = 'pub-content';
+    pubDiv.appendChild(content);
+
+    // Header with presentation status immediately before the title.
     const header = document.createElement('div');
     header.className = 'pub-header';
 
     // Title
     const title = document.createElement('div');
     title.className = 'pub-title';
-    title.textContent = pub.title;
+    const status = pub.award || (pub.type === 'preprint' ? 'Preprint' : null);
+    if (status) {
+        const badge = document.createElement('span');
+        badge.className = 'pub-award';
+        const statusLower = status.toLowerCase();
+        const statusClass = ['spotlight', 'oral', 'best', 'poster', 'preprint']
+            .find(type => statusLower.includes(type)) || 'default';
+        badge.classList.add(statusClass);
+        badge.textContent = status;
+        title.appendChild(badge);
+    }
+    title.appendChild(document.createTextNode(`${status ? ' ' : ''}${pub.title}`));
     header.appendChild(title);
 
     // Selected badge
     if (pub.selected) {
         const selectedBadge = document.createElement('span');
         selectedBadge.className = 'selected-badge';
-        selectedBadge.textContent = '⭐ Selected';
+        selectedBadge.innerHTML = '<svg class="control-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9Z"/></svg><span>Selected</span>';
         header.appendChild(selectedBadge);
     }
 
-    pubDiv.appendChild(header);
+    content.appendChild(header);
 
     // Authors (highlight Seongsu Kim, with clickable links)
     const authors = document.createElement('div');
@@ -804,31 +875,8 @@ function createPublicationElement(pub) {
     venue.className = 'pub-venue';
     venue.textContent = `${pub.venue}, ${pub.year}`;
 
-    // Award badge with specific styling
-    if (pub.award) {
-        const award = document.createElement('span');
-        award.className = 'pub-award';
-
-        // Determine award class based on award type
-        const awardLower = pub.award.toLowerCase();
-        if (awardLower.includes('spotlight')) {
-            award.classList.add('spotlight');
-        } else if (awardLower.includes('oral')) {
-            award.classList.add('oral');
-        } else if (awardLower.includes('best')) {
-            award.classList.add('best');
-        } else if (awardLower.includes('poster')) {
-            award.classList.add('poster');
-        } else {
-            award.classList.add('default');
-        }
-
-        award.textContent = pub.award;
-        venue.appendChild(award);
-    }
-
-    pubDiv.appendChild(authors);
-    pubDiv.appendChild(venue);
+    content.appendChild(authors);
+    content.appendChild(venue);
 
     // Keywords/Tags
     if (pub.keywords && pub.keywords.length > 0) {
@@ -842,7 +890,7 @@ function createPublicationElement(pub) {
             keywordsDiv.appendChild(keywordSpan);
         });
 
-        pubDiv.appendChild(keywordsDiv);
+        content.appendChild(keywordsDiv);
     }
 
     // Links
@@ -879,7 +927,7 @@ function createPublicationElement(pub) {
             linksDiv.appendChild(bibtexBtn);
         }
 
-        pubDiv.appendChild(linksDiv);
+        content.appendChild(linksDiv);
     }
 
     return pubDiv;
@@ -1040,13 +1088,22 @@ function createProjectElement(project) {
 function updateNavCompactMode() {
     const navbar = document.getElementById('navbar');
     const siteTitle = document.getElementById('site-title');
-    if (!navbar || !siteTitle) return;
+    const container = navbar?.querySelector('.container');
+    const navRight = navbar?.querySelector('.nav-right');
+    if (!siteTitle || !container || !navRight) return;
 
-    const computed = window.getComputedStyle(siteTitle);
-    const lineHeight = parseFloat(computed.lineHeight) || 24;
-    const wrapped = siteTitle.getBoundingClientRect().height > lineHeight * 1.4;
-
-    navbar.classList.toggle('nav-compact', wrapped || window.innerWidth <= 768);
+    if (window.innerWidth <= 768) {
+        navbar.classList.add('nav-compact');
+        return;
+    }
+    // Always measure the expanded layout, so a previously collapsed menu
+    // cannot make the next resize incorrectly expand it again.
+    navbar.classList.remove('nav-compact');
+    const style = window.getComputedStyle(container);
+    const available = container.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+    const gap = parseFloat(style.columnGap) || 0;
+    const required = siteTitle.getBoundingClientRect().width + navRight.getBoundingClientRect().width + gap;
+    navbar.classList.toggle('nav-compact', required > available);
 }
 
 // ===== Event Listeners =====
@@ -1174,6 +1231,7 @@ function setupEventListeners() {
             const newState = !isSelected;
 
             selectedToggle.setAttribute('data-selected', newState);
+            selectedToggle.setAttribute('aria-pressed', String(newState));
             if (newState) {
                 selectedToggle.classList.add('active');
             } else {
@@ -1181,6 +1239,13 @@ function setupEventListeners() {
             }
 
             renderPublications(currentYearFilter, newState);
+        });
+    }
+
+    const imagesToggle = document.getElementById('publication-images-toggle');
+    if (imagesToggle) {
+        imagesToggle.addEventListener('click', () => {
+            setPublicationImagesVisibility(!showPublicationImages);
         });
     }
 

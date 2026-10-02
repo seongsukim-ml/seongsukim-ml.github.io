@@ -1,15 +1,48 @@
 {
   "publications": [
     {
+      "id": "kim2026SpectralDensityMatrix",
+      "title": "Spectrally Constrained Electronic Density Matrix Learning with Subspace Alignment",
+      "authors": ["Seongsu Kim", "Honghui Kim", "Sungsoo Ahn", "Manasa Kaniselvan"],
+      "author_ids": ["seongsu-kim", "honghui-kim", "sungsoo-ahn", "manasa-kaniselvan"],
+      "venue": "Preprint",
+      "year": 2026,
+      "type": "preprint",
+      "selected": true,
+      "keywords": ["Electronic Density Matrix", "Spectral Constraints", "Subspace Alignment"],
+      "links": {}
+    },
+    {
+      "id": "kim2025ATOMMOF",
+      "title": "AtomMOF: All-Atom Flow Matching for MOF-Adsorbate Structure Prediction",
+      "authors": ["Nayoung Kim", "Honghui Kim", "Sihyun Yu", "Minkyu Kim", "Seongsu Kim", "Sungsoo Ahn"],
+      "author_ids": ["nayoung-kim", "honghui-kim", "sihyun-yu", "minkyu-kim", "seongsu-kim", "sungsoo-ahn"],
+      "venue": "Neural Information Processing Systems (NeurIPS)",
+      "year": 2026,
+      "type": "conference",
+      "award": "Poster",
+      "selected": false,
+      "image": "assets/publications/atommof.webp",
+      "image_alt": "AtomMOF framework for MOF-adsorbate structure prediction",
+      "keywords": ["MOF", "Flow Matching", "Structure Prediction", "Adsorption"],
+      "links": {
+        "pdf": "https://www.arxiv.org/pdf/2602.07351",
+        "code": "https://github.com/nayoung10/AtomMOF"
+      },
+      "bibtex_file": "data/bibtex/kim2026AtomMof.bib"
+    },
+    {
       "id": "kim2025MLH",
       "title": "Machine Learning Hamiltonians are Accurate Energy-Force Predictors",
       "authors": ["Seongsu Kim", "Chanhui Lee", "Yoonho Kim", "Seongjun Yun", "Honghui Kim", "Nayoung Kim", "Changyong Park", "Sehui Han", "Sungbin Lim", "Sungsoo Ahn"],
-      "author_ids": ["seongsu-kim", "chanhui-lee", "yoonho-kim", null, "honghui-kim", "nayoung-kim", null, null, null, "sungsoo-ahn"],
+      "author_ids": ["seongsu-kim", "chanhui-lee", "yoonho-kim", null, "honghui-kim", "nayoung-kim", null, null, "sungbin-lim", "sungsoo-ahn"],
       "venue": "International Conference on Machine Learning (ICML)",
       "year": 2026,
       "type": "conference",
       "award": "Poster",
       "selected": true,
+      "image": "assets/publications/ml-hamiltonians.webp",
+      "image_alt": "Overview figure for Machine Learning Hamiltonians are Accurate Energy-Force Predictors",
       "keywords": ["Hamiltonian", "Machine Learning", "DFT", "Force Prediction"],
       "links": {
         "pdf": "https://arxiv.org/pdf/2602.16897v1",
@@ -29,22 +62,6 @@
       "links": {}
     },
     {
-      "id": "kim2025ATOMMOF",
-      "title": "ATOMMOF: All-Atom Flow Matching for MOF-Adsorbate Structure Prediction",
-      "authors": ["Nayoung Kim", "Honghui Kim", "Sihyun Yu", "Minkyu kim", "Seongsu Kim", "Sungsoo Ahn"],
-      "author_ids": ["nayoung-kim", "honghui-kim", "sihyun-yu", "minkyu-kim", "seongsu-kim", "sungsoo-ahn"],
-      "venue": "Preprint",
-      "year": 2026,
-      "type": "preprint",
-      "selected": false,
-      "keywords": ["MOF", "Flow Matching", "Structure Prediction", "Adsorption"],
-      "links": {
-        "pdf": "https://www.arxiv.org/pdf/2602.07351",
-        "code": "https://github.com/nayoung10/AtomMOF"
-      },
-      "bibtex_file": "data/bibtex/kim2026AtomMof.bib"
-    },
-    {
       "id": "kim2025high",
       "title": "High-order Equivariant Flow Matching for Density Functional Theory Hamiltonian Prediction",
       "authors": ["Seongsu Kim", "Nayoung Kim", "Dongwoo Kim", "Sungsoo Ahn"],
@@ -54,6 +71,8 @@
       "type": "conference",
       "award": "Spotlight",
       "selected": true,
+      "image": "assets/publications/qhflow.webp",
+      "image_alt": "QHFlow equivariant flow matching framework",
       "keywords": ["Equivariance", "Flow Matching", "DFT", "Hamiltonian", "Quantum Chemistry"],
       "links": {
         "pdf": "https://www.arxiv.org/abs/2505.18817",
@@ -72,6 +91,8 @@
       "type": "conference",
       "award": "Poster",
       "selected": false,
+      "image": "assets/publications/flexible-mof.webp",
+      "image_alt": "Torsion-aware flow matching for flexible MOF generation",
       "keywords": ["MOF", "Flow Matching", "Generative Model", "Materials"],
       "links": {
         "pdf": "https://www.arxiv.org/abs/2505.17914"
@@ -88,6 +109,8 @@
       "type": "conference",
       "award": "Poster",
       "selected": false,
+      "image": "assets/publications/mofflow.webp",
+      "image_alt": "MOFFlow framework for metal-organic framework structure prediction",
       "keywords": ["MOF", "Flow Matching", "ICLR", "Structure Prediction"],
       "links": {
         "pdf": "https://arxiv.org/abs/2410.17270"
@@ -104,6 +127,8 @@
       "type": "conference",
       "award": "Poster",
       "selected": true,
+      "image": "assets/publications/gpwno.png",
+      "image_alt": "GPWNO architecture combining Gaussian-type orbitals (GTO) and plane-wave (PW) representations for electron density estimation",
       "keywords": ["Neural Operator", "DFT", "Electron Density", "ICML", "Quantum Chemistry"],
       "links": {
         "pdf": "https://arxiv.org/abs/2402.04278",

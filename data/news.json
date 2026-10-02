@@ -1,6 +1,20 @@
 {
   "news": [
     {
+      "id": "spectral_density_matrix_preprint",
+      "date": "2026-10-02",
+      "title": "New Preprint on Electronic Density Matrix Learning",
+      "content": "📝 New preprint: *Spectrally Constrained Electronic Density Matrix Learning with Subspace Alignment*.",
+      "inline": true
+    },
+    {
+      "id": "neurips2026_atommof_accept",
+      "date": "2026-10-01",
+      "title": "AtomMOF Accepted to NeurIPS 2026",
+      "content": "🚀 [AtomMOF](https://arxiv.org/abs/2602.07351) has been accepted to *NeurIPS 2026* as a Poster.",
+      "inline": true
+    },
+    {
       "id": "icml2026_golden_reviewer",
       "date": "2026-05-14",
       "title": "ICML 2026 Golden Reviewer",
