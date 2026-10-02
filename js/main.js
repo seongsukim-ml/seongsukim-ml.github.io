@@ -803,10 +803,7 @@ function renderPublications(filterYear = 'all', selectedOnly = false) {
 
     const legend = document.getElementById('publication-author-legend');
     if (legend) {
-        const notes = [];
-        if (publicationsData.publications.some(pub => pub.equal_contributors?.length)) notes.push('† Equal contribution');
-        if (publicationsData.publications.some(pub => pub.corresponding_authors?.length)) notes.push('* Corresponding author');
-        legend.textContent = notes.join(' · ');
+        legend.textContent = '* Equal contribution · † Corresponding author';
     }
 
     // Update state
@@ -918,15 +915,15 @@ function createPublicationElement(pub) {
         const authorId = pub.author_ids?.[index];
         const markers = [];
         if ((pub.equal_contributors || []).includes(authorId)) {
-            markers.push('<sup class="author-mark" title="Equal contribution" aria-label="Equal contribution">†</sup>');
+            markers.push('<sup class="author-mark" title="Equal contribution" aria-label="Equal contribution">*</sup>');
         }
         if ((pub.corresponding_authors || []).includes(authorId)) {
-            markers.push('<sup class="author-mark" title="Corresponding author" aria-label="Corresponding author">*</sup>');
+            markers.push('<sup class="author-mark" title="Corresponding author" aria-label="Corresponding author">†</sup>');
         }
         const marker = markers.join('');
 
-        // If author has a valid URL, make it clickable
-        if (authorData && authorData.url && authorData.url !== '#') {
+        // Keep the portfolio owner's name bold and link other authors' homepages.
+        if (!isMainAuthor && authorData && authorData.url && authorData.url !== '#') {
             const authorName = isMainAuthor ? `<strong>${author}</strong>` : author;
             return `<a href="${authorData.url}" target="_blank" class="author-link">${authorName}</a>${marker}`;
         }
