@@ -6,12 +6,15 @@
       "authors": ["Seongsu Kim", "Honghui Kim", "Sungsoo Ahn", "Manasa Kaniselvan"],
       "author_ids": ["seongsu-kim", "honghui-kim", "sungsoo-ahn", "manasa-kaniselvan"],
       "corresponding_authors": ["sungsoo-ahn", "manasa-kaniselvan"],
-      "venue": "Preprint",
+      "venue": "Sim2Science: ML with Imperfect Scientific Models (NeurIPS Workshop)",
       "year": 2026,
-      "type": "preprint",
+      "type": "workshop",
+      "status": "Workshop",
       "selected": true,
       "keywords": ["Electronic Density Matrix", "Spectral Constraints", "Subspace Alignment"],
-      "links": {}
+      "links": {
+        "workshop": "https://www.sim2science.com/"
+      }
     },
     {
       "id": "kim2025ATOMMOF",

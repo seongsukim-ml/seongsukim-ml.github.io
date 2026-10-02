@@ -391,8 +391,8 @@ async function loadAllData() {
     try {
         const [profile, publications, news, projects, posts, authors, themes] = await Promise.all([
             fetch('data/profile.json').then(res => res.json()),
-            fetch('data/publications.json?v=20261002-6').then(res => res.json()),
-            fetch('data/news.json?v=20261002-1').then(res => res.json()),
+            fetch('data/publications.json?v=20261002-8').then(res => res.json()),
+            fetch('data/news.json?v=20261002-2').then(res => res.json()),
             fetch('data/projects.json').then(res => res.json()),
             fetch('data/posts.json').then(res => res.json()),
             fetch('data/authors.json?v=20261002-1').then(res => res.json()),
@@ -885,7 +885,7 @@ function createPublicationElement(pub) {
     // Title
     const title = document.createElement('div');
     title.className = 'pub-title';
-    const status = pub.award || (pub.type === 'preprint' ? 'Preprint' : null);
+    const status = pub.status || pub.award || (pub.type === 'preprint' ? 'Preprint' : null);
     if (status) {
         const badge = document.createElement('span');
         badge.className = 'pub-award';
