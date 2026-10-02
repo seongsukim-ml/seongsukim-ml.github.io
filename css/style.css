@@ -1037,9 +1037,6 @@ body.stars-hidden .shooting-star::after {
     }
 }
 .publications-filter .filter-btn:active { transform: scale(.95); }
-@keyframes publications-enter { from { opacity: 0; } to { opacity: 1; } }
-.publication-item .pub-content { animation: publications-enter 260ms ease-out; }
-.publications-list.images-visible .pub-image { animation: publications-enter 320ms ease-out; }
 
 .filter-btn:hover {
     background-color: var(--secondary-color);
@@ -1156,6 +1153,11 @@ body.stars-hidden .shooting-star::after {
     font-size: 0.9rem;
     line-height: 1.5;
 }
+
+.author-mark { color: var(--secondary-color); font-weight: 700; margin-left: 1px; font-size: .8em; }
+.publications-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 18px; margin-bottom: 18px; }
+.publications-heading .section-title { margin-bottom: 0; }
+.publication-author-legend { color: var(--text-light); font-size: .8rem; line-height: 1.5; }
 
 .author-link {
     color: var(--text-light);

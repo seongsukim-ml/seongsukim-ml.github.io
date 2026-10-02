@@ -11,7 +11,8 @@
 .profile-links .profile-link { background: transparent; padding: 2px 0; border-radius: 0; }
 .profile-links { gap: 20px; }
 .page-hint { text-align: left; margin: 18px 0 0; max-width: none; }
-.section { border-bottom: 1px solid var(--border-color); }
+.section { border-bottom: 0; position: relative; }
+.section::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: min(96px, calc(100% - 40px)); height: 1px; background: var(--border-color); }
 .section-title, #research .section-title { border: 0; padding: 0; margin-bottom: 18px; letter-spacing: -.025em; font-size: 1.25rem; }
 .category-icon { background: var(--bg-gray); box-shadow: none; }
 .news-container { padding-left: 0; gap: 0; }

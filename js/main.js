@@ -391,7 +391,7 @@ async function loadAllData() {
     try {
         const [profile, publications, news, projects, posts, authors, themes] = await Promise.all([
             fetch('data/profile.json').then(res => res.json()),
-            fetch('data/publications.json?v=20261002-3').then(res => res.json()),
+            fetch('data/publications.json?v=20261002-6').then(res => res.json()),
             fetch('data/news.json?v=20261002-1').then(res => res.json()),
             fetch('data/projects.json').then(res => res.json()),
             fetch('data/posts.json').then(res => res.json()),
@@ -724,23 +724,72 @@ let currentYearFilter = 'all';
 let showSelectedOnly = false;
 // Every page visit starts with text only; toggles and filters share this page's state.
 let showPublicationImages = false;
+let publicationTransitionId = 0;
+
+async function transitionPublications(update) {
+    const container = document.getElementById('publications-container');
+    if (!container) return;
+    const transitionId = ++publicationTransitionId;
+    const startHeight = container.getBoundingClientRect().height;
+    const startOpacity = getComputedStyle(container).opacity;
+    container.getAnimations?.().forEach(animation => animation.cancel());
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !container.animate) {
+        container.style.height = '';
+        container.style.overflow = '';
+        update();
+        return;
+    }
+
+    container.style.height = `${startHeight}px`;
+    container.style.overflow = 'hidden';
+    const exit = container.animate([
+        { opacity: startOpacity, transform: 'translateY(0)' },
+        { opacity: 0, transform: 'translateY(-3px)' }
+    ], { duration: 180, easing: 'ease-in', fill: 'forwards' });
+    await exit.finished.catch(() => {});
+    if (transitionId !== publicationTransitionId) return;
+
+    update();
+    container.style.height = 'auto';
+    const endHeight = container.getBoundingClientRect().height;
+    container.style.height = `${startHeight}px`;
+    const resize = container.animate([
+        { height: `${startHeight}px` }, { height: `${endHeight}px` }
+    ], { duration: 320, easing: 'cubic-bezier(.2, .8, .2, 1)', fill: 'forwards' });
+    const enter = container.animate([
+        { opacity: 0, transform: 'translateY(3px)' },
+        { opacity: 1, transform: 'translateY(0)' }
+    ], { duration: 280, easing: 'ease-out', fill: 'forwards' });
+    exit.cancel();
+    await Promise.all([resize.finished, enter.finished]).catch(() => {});
+    if (transitionId !== publicationTransitionId) return;
+    resize.cancel();
+    enter.cancel();
+    container.style.height = '';
+    container.style.overflow = '';
+}
 
 function setPublicationImagesVisibility(visible) {
     showPublicationImages = Boolean(visible);
-    updatePublicationImagesVisibility();
+    updatePublicationImagesControl();
+    return transitionPublications(() => renderPublications(currentYearFilter, showSelectedOnly));
 }
 
-function updatePublicationImagesVisibility() {
-    const container = document.getElementById('publications-container');
+function updatePublicationImagesControl() {
     const toggle = document.getElementById('publication-images-toggle');
-    if (!container) return;
-    container.classList.toggle('images-visible', showPublicationImages);
     if (toggle) {
         const label = toggle.querySelector('.filter-label');
         if (label) label.textContent = showPublicationImages ? 'Hide Images' : 'Show Images';
         toggle.setAttribute('aria-pressed', String(showPublicationImages));
         toggle.classList.toggle('active', showPublicationImages);
     }
+}
+
+function updatePublicationImagesVisibility() {
+    const container = document.getElementById('publications-container');
+    if (!container) return;
+    container.classList.toggle('images-visible', showPublicationImages);
+    updatePublicationImagesControl();
     if (showPublicationImages) {
         container.querySelectorAll('img[data-src]').forEach(image => {
             image.src = image.dataset.src;
@@ -751,6 +800,14 @@ function updatePublicationImagesVisibility() {
 
 function renderPublications(filterYear = 'all', selectedOnly = false) {
     if (!publicationsData) return;
+
+    const legend = document.getElementById('publication-author-legend');
+    if (legend) {
+        const notes = [];
+        if (publicationsData.publications.some(pub => pub.equal_contributors?.length)) notes.push('† Equal contribution');
+        if (publicationsData.publications.some(pub => pub.corresponding_authors?.length)) notes.push('* Corresponding author');
+        legend.textContent = notes.join(' · ');
+    }
 
     // Update state
     currentYearFilter = filterYear;
@@ -855,18 +912,27 @@ function createPublicationElement(pub) {
     // Authors (highlight Seongsu Kim, with clickable links)
     const authors = document.createElement('div');
     authors.className = 'pub-authors';
-    const authorsText = pub.authors.map(author => {
+    const authorsText = pub.authors.map((author, index) => {
         const authorData = findAuthorByName(author);
         const isMainAuthor = author === 'Seongsu Kim';
+        const authorId = pub.author_ids?.[index];
+        const markers = [];
+        if ((pub.equal_contributors || []).includes(authorId)) {
+            markers.push('<sup class="author-mark" title="Equal contribution" aria-label="Equal contribution">†</sup>');
+        }
+        if ((pub.corresponding_authors || []).includes(authorId)) {
+            markers.push('<sup class="author-mark" title="Corresponding author" aria-label="Corresponding author">*</sup>');
+        }
+        const marker = markers.join('');
 
         // If author has a valid URL, make it clickable
         if (authorData && authorData.url && authorData.url !== '#') {
             const authorName = isMainAuthor ? `<strong>${author}</strong>` : author;
-            return `<a href="${authorData.url}" target="_blank" class="author-link">${authorName}</a>`;
+            return `<a href="${authorData.url}" target="_blank" class="author-link">${authorName}</a>${marker}`;
         }
 
         // Otherwise, just display the name
-        return isMainAuthor ? `<strong>${author}</strong>` : author;
+        return (isMainAuthor ? `<strong>${author}</strong>` : author) + marker;
     }).join(', ');
     authors.innerHTML = authorsText;
 
@@ -1219,7 +1285,8 @@ function setupEventListeners() {
             button.classList.add('active');
             // Filter publications
             const year = button.getAttribute('data-year');
-            renderPublications(year, showSelectedOnly);
+            currentYearFilter = year;
+            transitionPublications(() => renderPublications(currentYearFilter, showSelectedOnly));
         });
     });
 
@@ -1238,7 +1305,8 @@ function setupEventListeners() {
                 selectedToggle.classList.remove('active');
             }
 
-            renderPublications(currentYearFilter, newState);
+            showSelectedOnly = newState;
+            transitionPublications(() => renderPublications(currentYearFilter, showSelectedOnly));
         });
     }
 
