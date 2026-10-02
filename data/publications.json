@@ -66,7 +66,9 @@
       "type": "preprint",
       "selected": false,
       "keywords": ["Adsorption", "Nanoporous Materials", "Density Field", "Multi-fidelity", "MOF"],
-      "links": {}
+      "links": {
+        "pdf": "https://arxiv.org/pdf/2606.21284"
+      }
     },
     {
       "id": "kim2025high",
