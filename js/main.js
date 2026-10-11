@@ -392,7 +392,7 @@ async function loadAllData() {
         const [profile, publications, news, projects, posts, authors, themes] = await Promise.all([
             fetch('data/profile.json').then(res => res.json()),
             fetch('data/publications.json?v=20261002-9').then(res => res.json()),
-            fetch('data/news.json?v=20261002-2').then(res => res.json()),
+            fetch('data/news.json?v=20261011-1').then(res => res.json()),
             fetch('data/projects.json').then(res => res.json()),
             fetch('data/posts.json').then(res => res.json()),
             fetch('data/authors.json?v=20261002-1').then(res => res.json()),

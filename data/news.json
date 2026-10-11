@@ -1,6 +1,13 @@
 {
   "news": [
     {
+      "id": "neurips2026_db_top_reviewer",
+      "date": "2026-10-11",
+      "title": "NeurIPS 2026 D&B Top Reviewer",
+      "content": "🏅 Recognized as a **Top Reviewer** for the *NeurIPS 2026 Datasets & Benchmarks (D&B) Track*.",
+      "inline": true
+    },
+    {
       "id": "sim2science2026_spectral_density_matrix_accept",
       "date": "2026-10-02",
       "title": "Accepted to Sim2Science at NeurIPS 2026",
