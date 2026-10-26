@@ -8,6 +8,13 @@
       "inline": true
     },
     {
+      "id": "eth2026_visiting_researcher",
+      "date": "2026-10-05",
+      "title": "Visiting Researcher at ETH Zürich",
+      "content": "🇨🇭 I am a **Visiting Researcher** at *ETH Zürich* (October–December 2026), working on machine learning for electronic structure.",
+      "inline": true
+    },
+    {
       "id": "sim2science2026_spectral_density_matrix_accept",
       "date": "2026-10-02",
       "title": "Accepted to Sim2Science at NeurIPS 2026",
